@@ -3,19 +3,20 @@ ruby '2.1.1'
 
 gem 'bootstrap-sass'
 gem 'coffee-rails'
-gem 'rails', '4.1.1'
 gem 'haml-rails'
+gem 'jquery-rails'
+gem 'rails', '4.1.1'
 gem 'sass-rails'
 gem 'uglifier'
-gem 'jquery-rails'
 
 group :development do
-  gem 'sqlite3'
-  gem 'pry'
-  gem 'pry-nav'
-  gem 'thin'
+  gem 'awesome_print'
   gem "better_errors"
   gem "binding_of_caller"
+  gem 'pry'
+  gem 'pry-nav'
+  gem 'sqlite3'
+  gem 'thin'
 end
 
 group :development, :test do
