@@ -2,8 +2,10 @@ require "spec_helper"
 
 describe VideosController do
   subject { get :index }
-  let(:iron_man){ Video.create title: "Iron Man", description: "Someone Saves the world" }
-  let(:thor)    { Video.create title: "Thor",     description: "Someone Saves the world" }
+  let(:comedy)  { Category.create(name: "Comedy") }
+  let(:scifi)  { Category.create(name: "Sci-Fi") }
+  let(:iron_man){ Video.create title: "Iron Man", description: "Someone Saves the world",  categroy_id: 1}
+  let(:thor)    { Video.create title: "Thor",     description: "Someone Saves the world",  categroy_id: 2}
 
   before { subject }
 
@@ -16,8 +18,8 @@ describe VideosController do
       expect(response).to be_success
     end
 
-    it "returns an array of videos" do
-      expect(assigns(:videos)).to match_array [iron_man, thor]
+    it "returns an array of categories" do
+      expect(assigns(:categories)).to match_array [comedy, scifi ]
     end
   end
 

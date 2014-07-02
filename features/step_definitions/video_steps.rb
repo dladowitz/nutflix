@@ -19,13 +19,13 @@ Then /^they can see all the videos in the database$/ do
 end
 
 Then /^they can see each category section$/ do
-  page.should have_content("Comedies")
-  page.should have_content("Dramas")
+  page.should have_content("Comedy")
+  page.should have_content("Drama")
   page.should have_content("Reality")
 end
 
 And /^they can see videos in each category$/ do
-  page.should have_css(".comedies .video img")
-  page.should have_css(".dramas .video img")
-  page.should have_css(".realities .video img")
+  page.should have_css(".comedy .video img")
+  page.should have_css(".drama .video img")
+  page.should have_css(".reality .video img")
 end
