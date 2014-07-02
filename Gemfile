@@ -28,7 +28,12 @@ group :development, :test do
 end
 
 group :test do
+  gem "capybara", require: false
+  gem "cucumber-rails", require: false
   gem "database_cleaner", "1.2.0"
+  gem "launchy"
+  gem "selenium-webdriver", require: false
+  gem "shoulda-matchers"
 end
 
 group :production do
