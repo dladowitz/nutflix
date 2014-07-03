@@ -39,11 +39,10 @@ describe Video do
         @iron_man   = Video.create(title: "Iron Man", description: "The Beginning")
         @iron_man_2 = Video.create(title: "Iron Man 2", description: "The Middle")
         @thor = Video.create(title: "Thor", description: "The Beginning")
-
       end
 
-      it "returns an array with multiple vidoes" do
-        expect(subject).to match_array [@iron_man, @iron_man_2]
+      it "returns an array with multiple vidoes ordered by created_at" do
+        expect(subject).to eq [@iron_man_2, @iron_man]
       end
 
       it "does not return unmatched videos" do
