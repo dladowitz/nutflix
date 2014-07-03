@@ -11,6 +11,6 @@
 class Category < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
 
-  has_many :videos
+  has_many :videos, # order: :title  (not working for some reason)
 
 end

@@ -3,9 +3,9 @@ Given /^a video is created$/ do
   Category.create(name: "Drama")
   Category.create(name: "Reality")
 
-  Video.create(title: "Superbad",   category_id: 1)
-  Video.create(title: "Flight",     category_id: 2)
-  Video.create(title: "Real World", category_id: 3)
+  Video.create(title: "Superbad",   description: "Kids and things",     category_id: 1)
+  Video.create(title: "Flight",     description: "Drinking and things", category_id: 2)
+  Video.create(title: "Real World", description: "Things and things",   category_id: 3)
 
 
 end
