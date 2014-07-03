@@ -18,11 +18,15 @@ class Video < ActiveRecord::Base
 
   belongs_to :category
 
-  # TODO create scope
   scope :comedies,   -> { where(category_id: 1) }
   scope :dramas,     -> { where(category_id: 2) }
   scope :realities,  -> { where(category_id: 3) }
   scope :action,     -> { where(category_id: 4) }
   scope :scifi,      -> { where(category_id: 5) }
+
+
+  def self.search_by_title(search_term)
+    Video.where "title LIKE '%#{search_term}%'"
+  end
 
 end
