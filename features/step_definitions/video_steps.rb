@@ -36,9 +36,9 @@ end
 
 Then /^they see videos matching their search term$/ do
   uri = URI.parse(current_url)
-  uri.path.should == search_path
+  uri.path.should == search_videos_path
 
-  page.should     have_css("img[src$='tmp/super_bad.jpg']")
-  page.should     have_css("img[src$='tmp/super_bad_2.jpg']")
+  page.should     have_css("img[src$='tmp/superbad.jpg']")
+  page.should     have_css("img[src$='tmp/superbad_2.jpg']")
   page.should_not have_css("img[src$='tmp/flight.jpg']")
 end
