@@ -11,7 +11,6 @@ categories = Category.create([
                               { name: "Reality" },
                               { name: "Action" },
                               { name: "Sci-Fi" },
-
                              ])
 
 videos = Video.create([

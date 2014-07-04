@@ -7,7 +7,7 @@
     %li= link_to "People"
   = form_tag search_videos_path, method: :get, class: "col-md-5 navbar-form"  do
     .form-group
-      = text_field_tag :search_term, params[:search_term], class: "form-control"
+      = text_field_tag :search_term, params[:search_term], class: "form-control", placeholder: "Search for videos here"
     = button_tag :search, class: "btn btn-default"
   #user_links.pull-right
     %ul

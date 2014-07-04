@@ -31,7 +31,7 @@ end
 
 And /^they enter a term in the search bar$/ do
   fill_in "Search for videos here", with: "Super"
-  click_button "Search"
+  click_button "search"
 end
 
 Then /^they see videos matching their search term$/ do
