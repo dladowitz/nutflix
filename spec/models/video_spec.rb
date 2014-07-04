@@ -50,29 +50,5 @@ describe Video do
       end
     end
   end
-
-  describe "#recent_videos" do
-    context "when there are 7 vidoes in the db" do
-      before :each do
-        @videos = []
-        7.times do
-          video = create(:video)
-          @videos << video
-          # TODO speed this up!!
-          sleep 1
-        end
-      end
-
-      subject { Video.recent_videos }
-      it "should return 6 videoes" do
-        expect(subject.count).to eq 6
-      end
-
-      it "should order them from latest to earliest" do
-        @videos.reverse!.pop
-        expect(subject).to match_array(@videos)
-      end
-    end
-  end
 end
 

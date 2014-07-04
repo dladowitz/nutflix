@@ -28,9 +28,4 @@ class Video < ActiveRecord::Base
   def self.search_by_title(search_term)
     Video.where("title LIKE '%#{search_term}%'").order("created_at DESC")
   end
-
-  def self.recent_videos
-    Video.order("created_at DESC").limit(6)
-  end
-
 end
