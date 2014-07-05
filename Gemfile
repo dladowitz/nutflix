@@ -2,6 +2,8 @@ source "https://rubygems.org"
 ruby "2.1.1"
 
 gem "bootstrap-sass"
+gem "bootstrap_form"
+gem "bcrypt"
 gem "coffee-rails"
 gem "haml-rails"
 gem "jquery-rails"
@@ -23,7 +25,7 @@ end
 group :development, :test do
   gem "factory_girl_rails", "~> 4.2.1"
   gem "pry-rails"
-  # gem "pry-debugger"
+  gem "pry-debugger"
   gem "quiet_assets"
   gem "rspec-rails", "2.99"
 end

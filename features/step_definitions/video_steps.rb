@@ -15,8 +15,8 @@ Given /^multiple videos are created$/ do
   Video.create(title: "Real World", description: "Things and things",   category_id: 3, small_cover_url: "real_world.jpg")
 end
 
-And /^a user visits the home page$/ do
-  visit home_path
+And /^a user visits the videos_path$/ do
+  visit videos_path
 end
 
 Then /^they can see videos in the database$/ do
