@@ -24,6 +24,7 @@ end
 
 group :development, :test do
   gem "factory_girl_rails", "~> 4.2.1"
+  gem "faker"
   gem "pry-rails"
   gem "pry-debugger"
   gem "quiet_assets"
