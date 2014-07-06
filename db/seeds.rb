@@ -5,6 +5,12 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+users =      User.create([
+                          { email_address: "david@ladowitz.com", password: "123456", full_name: "David Ladowitz" },
+                          { email_address: "dusy@cats.com",      password: "123456", full_name: "Dusty Huang" },
+                          { email_address: "aiko@cats.com",      password: "123456", full_name: "Aiko Huang" }
+                         ])
+
 categories = Category.create([
                               { name: "Comedy" },
                               { name: "Drama" },
@@ -13,7 +19,7 @@ categories = Category.create([
                               { name: "Sci-Fi" },
                              ])
 
-videos = Video.create([
+videos =     Video.create([
                         { title: "Family Guy",    description: "Peter does bad things",   category_id: 1, small_cover_url: "family_guy.jpg" },
                         { title: "Futurama",      description: "Fry does bad things",     category_id: 1, small_cover_url: "futurama.jpg" },
                         { title: "Monk",          description: "Monk does bad things",    category_id: 1, small_cover_url: "monk.jpg",        large_cover_url: "monk_large.jpg" },

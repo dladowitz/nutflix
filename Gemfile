@@ -1,9 +1,9 @@
 source "https://rubygems.org"
 ruby "2.1.1"
 
+gem "bcrypt"
 gem "bootstrap-sass"
 gem "bootstrap_form"
-gem "bcrypt"
 gem "coffee-rails"
 gem "haml-rails"
 gem "jquery-rails"
