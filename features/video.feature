@@ -18,3 +18,9 @@ Feature: Video Pages
     And   they enter a term in the search bar
     Then  they see videos matching their search term
 
+  Scenario: User can choose to see videos in only one category
+    Given multiple videos are created
+    And   a user visits the videos_path
+    And   a user clicks on a category link
+    Then  they should see only videos from that category
+

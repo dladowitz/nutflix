@@ -52,8 +52,25 @@ Then /^they see videos matching their search term$/ do
   uri = URI.parse(current_url)
   uri.path.should == search_videos_path
 
-  page.should     have_css("img[src$='tmp/superbad.jpg']")
-  page.should     have_css("img[src$='tmp/superbad_2.jpg']")
+  page.should have_css("img[src$='tmp/superbad.jpg']")
+  page.should have_css("img[src$='tmp/superbad_2.jpg']")
 
   page.should_not have_css("img[src$='tmp/flight.jpg']")
+end
+
+And /^a user clicks on a category link$/ do
+  click_link "Comedy"
+end
+
+Then /^they should see only videos from that category$/ do
+  page.should have_css("img[src$='tmp/superbad.jpg']")
+  page.should have_css("img[src$='tmp/superbad_2.jpg']")
+  page.should have_css("img[src$='tmp/superbad_3.jpg']")
+  page.should have_css("img[src$='tmp/superbad_4.jpg']")
+  page.should have_css("img[src$='tmp/superbad_5.jpg']")
+  page.should have_css("img[src$='tmp/superbad_6.jpg']")
+  page.should have_css("img[src$='tmp/superbad_7.jpg']")
+
+  page.should_not have_css("img[src$='tmp/flight.jpg']")
+  page.should_not have_css("img[src$='tmp/real_world.jpg']")
 end
