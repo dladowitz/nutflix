@@ -9,7 +9,7 @@ describe Video do
 
 
   it "saves itself to the database" do
-    video = Video.create(title: "Planet of the Apes", description: "Get your damn dirty hands off me")
+    video = create(:video, title: "Planet of the Apes")
     expect(Video.find_by_title "Planet of the Apes").to eq video
   end
 
@@ -28,7 +28,7 @@ describe Video do
 
     context "when one matching video is in the DB" do
       it "returns an array with a single video" do
-        iron_man = Video.create(title: "Iron Man", description: "The Beginning")
+        iron_man = create(:video, title: "Iron Man")
 
         expect(subject).to match_array [iron_man]
       end
@@ -36,9 +36,9 @@ describe Video do
 
     context "when two matching vidoes are in the DB" do
       before :each do
-        @iron_man   = Video.create(title: "Iron Man", description: "The Beginning")
-        @iron_man_2 = Video.create(title: "Iron Man 2", description: "The Middle")
-        @thor = Video.create(title: "Thor", description: "The Beginning")
+        @iron_man   = create(:video, title: "Iron Man")
+        @iron_man_2 = create(:video, title: "Iron Man 2")
+        @thor       = create(:video, title: "Thor")
       end
 
       it "returns an array with multiple vidoes ordered by created_at" do

@@ -16,21 +16,24 @@ describe SessionsController do
   end
 
   describe "POST 'create'" do
-    before  :each do
-      User.create email_address: "bruce@banner.com", password: "smash", full_name: "Bruce Banner"
-    end
+
+    let(:user1) {create(:user, password: "123456")}
 
     context "with a correct email and password" do
-      subject { post :create, email_address: "bruce@banner.com", password: "smash"  }
+      subject { post :create, { email_address: user1.email_address, password: "123456"}  }
+
+      it "finds the correct user in the database" do
+        subject
+        expect(assigns(:user).email_address).to eq user1.email_address
+      end
 
       it "redirects to the vidoes_path" do
-
         expect(subject).to redirect_to videos_path
       end
     end
 
     context "with an incorrect password" do
-      subject { post :create, email_address: "bruce@banner.com", password: "gamma ray" }
+      subject { post :create, email_address: user1.email_address, password: "bad_password" }
       it "renders the signin new page" do
         expect(subject).to render_template :new
       end

@@ -33,7 +33,7 @@ Then /^they can create an account$/ do
 
   uri = URI.parse(current_url)
   uri.path.should == signin_path
-  # page.should have_content("You have successfully created an account")
+  page.should have_content("You have successfully created an account")
 
 end
 
@@ -51,4 +51,6 @@ And /^they log in$/ do
 
   uri = URI.parse(current_url)
   uri.path.should == videos_path
+
+  page.should have_content("Successfully logged in")
 end

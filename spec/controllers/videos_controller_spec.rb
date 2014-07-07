@@ -2,16 +2,8 @@ require "spec_helper"
 
 describe VideosController do
   subject { get :index }
-  let(:comedy)    { Category.create(name: "Comedy") }
-  let(:scifi)     { Category.create(name: "Sci-Fi") }
-  let(:iron_man)  { Video.create title: "Iron Man",   description: "Someone Saves the world",  category_id: 1}
-  let(:iron_man_2){ Video.create title: "Iron Man 2", description: "Someone Saves the world",  category_id: 1}
-  let(:iron_man_2){ Video.create title: "Iron Man 3", description: "Someone Saves the world",  category_id: 1}
-  let(:iron_man_2){ Video.create title: "Iron Man 4", description: "Someone Saves the world",  category_id: 1}
-  let(:iron_man_2){ Video.create title: "Iron Man 5", description: "Someone Saves the world",  category_id: 1}
-  let(:iron_man_2){ Video.create title: "Iron Man 6", description: "Someone Saves the world",  category_id: 1}
-  let(:iron_man_2){ Video.create title: "Iron Man 7", description: "Someone Saves the world",  category_id: 1}
-  let(:thor)      { Video.create title: "Thor",       description: "Someone Saves the world",  category_id: 2}
+  let!(:comedy)     { create(:category_comedy) }
+  let!(:action)     { create(:category_action) }
 
   before { subject }
 
@@ -25,14 +17,14 @@ describe VideosController do
     end
 
     it "returns an array of categories" do
-      expect(assigns(:categories)).to match_array [comedy, scifi ]
+      expect(assigns(:categories)).to match_array [comedy, action]
     end
   end
 
   describe "GET 'show'" do
     before :each do
-      @video = Video.create title: "Iron Man", description: "Someone Saves the world"
-      get :show, {id: @video.id}
+      @video = create(:video)
+      get :show, { id: @video.id }
     end
 
     it "renders the show template" do
@@ -60,9 +52,9 @@ describe VideosController do
     end
 
     it "returns an array of the correct videos" do
-      iron_man   = Video.create title: "Iron Man",   description: "Someone Saves the world",  category_id: 1
-      iron_man_2 = Video.create title: "Iron Man 2", description: "Someone Saves the world",  category_id: 1
-      thor       = Video.create title: "Thor",       description: "Someone Saves the world",  category_id: 2
+      iron_man   = create(:video, title: "Iron Man")
+      iron_man_2 = create(:video, title: "Iron Man 2")
+      thor       = create(:video, title: "Thor")
 
       expect(assigns(:videos)).to match_array [iron_man, iron_man_2]
     end
