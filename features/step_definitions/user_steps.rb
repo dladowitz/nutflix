@@ -44,6 +44,7 @@ end
 And /^they log in$/ do
   uri = URI.parse(current_url)
   uri.path.should == signin_path
+  page.should_not have_content("Welcome") # need to remove header bar when not logged in
 
   fill_in "Email Address", with: "tony@stark_labs.com"
   fill_in "Password",      with: "the_mandarin"
@@ -51,6 +52,7 @@ And /^they log in$/ do
 
   uri = URI.parse(current_url)
   uri.path.should == videos_path
+  page.should have_content("Welcome")
 
   page.should have_content("Successfully logged in")
 end

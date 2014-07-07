@@ -5,6 +5,14 @@ describe SessionsController do
     subject { get :new }
     before  { subject }
 
+    context "for authenticated users" do
+      it "redirects to the vidoes path" do
+
+        session[:user_id] = (create(:user)).id
+        expect(response).to render_template :new
+      end
+    end
+
     context "for unathenticated users" do
       it "renders the new template" do
         expect(response).to render_template :new
@@ -12,14 +20,6 @@ describe SessionsController do
 
       it "returns http success" do
         expect(response).to be_success
-      end
-    end
-
-    context "for authenticated users" do
-      it "redirects to the vidoes path" do
-        user1 = create(:user)
-        session[:user_id] = user1.id
-        expect(response).to redirect_to videos_path
       end
     end
   end
