@@ -45,6 +45,10 @@ describe UsersController do
         expect(response).to render_template :new
       end
 
+      it "sets @user" do
+        expect(assigns(:user)).to be_instance_of(User)
+      end
+
       it "should not create a record in the database" do
         expect(User.count).to eq 0
       end

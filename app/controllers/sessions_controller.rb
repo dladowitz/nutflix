@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   def new
+    # redirect_to videos_path if current_user
   end
 
   def create
@@ -15,5 +16,10 @@ class SessionsController < ApplicationController
       flash.now[:danger] = "Email is incorrect"
       render :new
     end
+  end
+
+  def destroy
+    session[:user_id] = nil
+    redirect_to signin_path
   end
 end
