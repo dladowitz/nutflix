@@ -79,4 +79,38 @@ describe SessionsController do
       end
     end
   end
+
+  describe "GET 'destroy'" do
+    subject { get :destroy }
+
+    context "with an authenticated user" do
+      before do
+        session[:user_id] = (create(:user).id)
+        subject
+      end
+
+      it "should log the user out" do
+        expect(session[:user_id]).to be nil
+      end
+
+      it "should redirect to the home page" do
+        expect(response).to redirect_to home_path
+      end
+    end
+
+    context "with an unauthenticated user" do
+      it "should redirect to the home page" do
+        subject
+        expect(response).to redirect_to home_path
+      end
+    end
+  end
+
+  describe "DELETE 'destroy'" do
+    it "should clear the session's user id" do
+      session[:user_id] = (create(:user)).id
+      delete :destroy
+      expect(session[:user_id]).to be nil
+    end
+  end
 end
