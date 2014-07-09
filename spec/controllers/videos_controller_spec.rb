@@ -34,25 +34,40 @@ describe VideosController do
   end
 
   describe "GET 'show'" do
-    let!(:video) { create(:video) }
+    let!(:video)  { create(:video) }
     subject { get :show, { id: video.id } }
 
     context "with an authenticated user" do
       before :each do
         session[:user_id] = (create(:user)).id
-        subject
       end
 
       it "renders the show template" do
+        subject
         expect(response).to render_template :show
       end
 
       it "returns success" do
+        subject
         expect(response).to be_success
       end
 
       it "returns the correct video" do
+        subject
         expect(assigns(:video).title).to match video.title
+      end
+
+      context "with reviews of the video in the db" do
+        it "returns all the reviews of the video" do
+          create(:review, video: video)
+          subject
+
+          expect(assigns(:reviews).count).to eq video.reviews.count
+        end
+      end
+
+      context "with no reviews of the video in the db" do
+        it "returns no reviews of the vidoe"
       end
     end
 

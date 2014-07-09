@@ -17,6 +17,7 @@ class Video < ActiveRecord::Base
   validates :description, presence: true
 
   belongs_to :category
+  has_many   :reviews
 
   scope :comedies,   -> { where(category_id: 1) }
   scope :dramas,     -> { where(category_id: 2) }

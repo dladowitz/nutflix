@@ -31,6 +31,6 @@ Feature: Video Pages
   Scenario: User can write and read reviews of videos
     Given multiple videos are created
     And   user login
+    And   user can review a video
     Then  user can see video reviews
-#    And   user can review videos
 
