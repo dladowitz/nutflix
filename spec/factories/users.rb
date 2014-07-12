@@ -15,7 +15,7 @@ require "faker"
 FactoryGirl.define do
   factory :user do
     email_address { Faker::Internet.email }
-    password      "123456"
+    password      "asdfasdf"
     full_name     { Faker::Name.name }
   end
 end

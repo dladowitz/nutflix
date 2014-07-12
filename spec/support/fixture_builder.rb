@@ -11,19 +11,31 @@ FixtureBuilder.configure do |fbuilder|
     # They seem to become named instances in the yml file, but not in a consistancy I can see
 
     # categories
-    comedy = create(:category, name: "Comedy")
-    action = create(:category, name: "Action")
-    scifi  = create(:category, name: "SciFi")
+    comedy  = create(:category, name: "Comedy")
+    action  = create(:category, name: "Action")
+    scifi   = create(:category, name: "SciFi")
+    drama   = create(:category, name: "Drama")
+    reality = create(:category, name: "Reality")
 
     # users
     @james_bond = create(:user, full_name: "James Bond")
 
 
     # videos
-    iron_man = create(:video, title: "Iron Man", category: action)
-    fbuilder.name(:iron_man_2, create(:video, title: "Iron Man 2", category: action))
-    fbuilder.name(:thor,       create(:video, title: "Thor", category: action))
-    fbuilder.name(:star_trek, create(:video, title: "Star Trek", category: scifi))
+    iron_man =                 create(:video, title: "Iron Man",   category: action, small_cover_url: "iron_man.jpg",   created_at: Time.now - 7.hour)
+    fbuilder.name(:iron_man_2, create(:video, title: "Iron Man 2", category: action, small_cover_url: "iron_man_2.jpg", created_at: Time.now - 6.hour))
+    fbuilder.name(:iron_man_3, create(:video, title: "Iron Man_3", category: action, small_cover_url: "iron_man_3.jpg", created_at: Time.now - 5.hour))
+    fbuilder.name(:iron_man_4, create(:video, title: "Iron Man 4", category: action, small_cover_url: "iron_man_4.jpg", created_at: Time.now - 4.hour))
+    fbuilder.name(:iron_man_5, create(:video, title: "Iron Man 5", category: action, small_cover_url: "iron_man_5.jpg", created_at: Time.now - 3.hour))
+    fbuilder.name(:iron_man_6, create(:video, title: "Iron Man 6", category: action, small_cover_url: "iron_man_6.jpg", created_at: Time.now - 2.hour))
+    fbuilder.name(:iron_man_7, create(:video, title: "Iron Man 7", category: action, small_cover_url: "iron_man_7.jpg", created_at: Time.now - 1.hour))
+
+    fbuilder.name(:thor,       create(:video, title: "Thor",       category: action, small_cover_url: "thor.jpg",       created_at: Time.now - 8.hour))
+    fbuilder.name(:thor_2,     create(:video, title: "Thor_2",     category: action, small_cover_url: "thor_2.jpg",     created_at: Time.now - 9.hour))
+
+    fbuilder.name(:star_trek,  create(:video, title: "Star Trek",  category: scifi,  small_cover_url: "star_trek.jpg"))
+    fbuilder.name(:flight,     create(:video, title: "Flight",     category: drama,  small_cover_url: "flight.jpg"))
+
 
     # reviews
     fbuilder.name(:iron_man_review, create(:review, video: iron_man, user: @james_bond))

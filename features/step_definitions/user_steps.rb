@@ -1,21 +1,12 @@
 Given /^user login$/ do
-  visit register_path
+  user = users(:james_bond)
+  visit signin_path
 
-  fill_in "user_email_address",   with: "tony@stark_labs.com"
-  fill_in "user_password",        with: "the_mandarin"
-  fill_in "user_full_name",       with: "Tony Stark"
-  click_button "Sign Up"
-
-  uri = URI.parse(current_url)
-  uri.path.should == signin_path
-
-  fill_in "Email Address", with: "tony@stark_labs.com"
-  fill_in "Password",      with: "the_mandarin"
+  fill_in "Email Address", with: user.email_address
+  fill_in "Password",      with: "asdfasdf"
   click_button "Sign In"
 
-  uri = URI.parse(current_url)
-  uri.path.should == videos_path
-
+  URI.parse(current_url).path.should == videos_path
   page.should have_content "Successfully logged in"
 end
 
@@ -56,13 +47,16 @@ end
 
 Given /^an unauthenticated user visits videos path$/ do
   visit videos_path
-  page.should_not have_content "Welcome"
+  user = users(:james_bond)
+
+  page.should_not have_content user.full_name
   page.should_not have_content "Videos"
 end
 
-
 Then /^they can see content$/ do
-  page.should have_content "Welcome"
+  user = users(:james_bond)
+
+  page.should have_content user.full_name
   page.should have_content "Videos"
 end
 

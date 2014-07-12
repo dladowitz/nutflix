@@ -30,19 +30,19 @@ describe Video do
 
     context "when one matching video is in the DB" do
       it "returns an array with a single video" do
-        videos = Video.search_by_title "Thor"
+        videos = Video.search_by_title "Star Trek"
         expect(videos.count).to eq 1
       end
     end
 
     context "when two matching vidoes are in the DB" do
-      before { @videos = Video.search_by_title "Iron" }
+      before { @videos = Video.search_by_title "Thor" }
       it "returns an array with multiple vidoes ordered by created_at" do
         expect(@videos.count).to eq 2
       end
 
       it "does not return unmatched videos" do
-        expect(@videos).to_not include videos(:thor)
+        expect(@videos).to_not include videos(:iron_man)
       end
     end
   end

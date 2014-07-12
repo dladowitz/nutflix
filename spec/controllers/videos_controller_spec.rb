@@ -82,7 +82,7 @@ describe VideosController do
   end
 
   describe "POST 'search'" do
-    subject { post :search, { search_term: "Iron"} }
+    subject { post :search, { search_term: "Thor"} }
 
     context "with an authenticated user" do
       before :each do
@@ -99,11 +99,11 @@ describe VideosController do
       end
 
       it "returns an array of the correct videos" do
-        iron_man   = videos(:iron_man)
-        iron_man_2 = videos(:iron_man_2)
-        thor       = videos(:thor)
+        thor     = videos(:thor)
+        thor_2   = videos(:thor_2)
+        iron_man = videos(:iron_man)
 
-        expect(assigns(:videos)).to match_array [iron_man, iron_man_2]
+        expect(assigns(:videos)).to match_array [thor, thor_2]
       end
     end
 
