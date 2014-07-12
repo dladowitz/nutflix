@@ -39,18 +39,18 @@ describe UsersController do
 
     context "with invalid inputs" do
       subject { post :create, user: { email_address: nil, password: nil, full_name: nil } }
-      before { subject }
 
       it "renders the new template" do
-        expect(response).to render_template :new
+        expect(subject).to render_template :new
       end
 
       it "sets @user" do
+        subject
         expect(assigns(:user)).to be_instance_of(User)
       end
 
       it "should not create a record in the database" do
-        expect(User.count).to eq 0
+        expect { subject }.to_not change{User.count}
       end
     end
   end

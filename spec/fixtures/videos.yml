@@ -1,0 +1,45 @@
+---
+iron_man:
+  id: 46
+  title: Iron Man
+  description: Five Vermont state troopers, avid pranksters with a knack for screwing
+    up, try to save their jobs and out-do the local police department by solving a
+    crime
+  small_cover_url: super_troppers.jpg
+  large_cover_url: super_troppers_large.jpg
+  created_at: 2014-07-12 04:56:47.826839000 Z
+  updated_at: 2014-07-12 04:56:47.826839000 Z
+  category_id: 41
+iron_man_2:
+  id: 47
+  title: Iron Man 2
+  description: Five Vermont state troopers, avid pranksters with a knack for screwing
+    up, try to save their jobs and out-do the local police department by solving a
+    crime
+  small_cover_url: super_troppers.jpg
+  large_cover_url: super_troppers_large.jpg
+  created_at: 2014-07-12 04:56:47.829383000 Z
+  updated_at: 2014-07-12 04:56:47.829383000 Z
+  category_id: 41
+thor:
+  id: 48
+  title: Thor
+  description: Five Vermont state troopers, avid pranksters with a knack for screwing
+    up, try to save their jobs and out-do the local police department by solving a
+    crime
+  small_cover_url: super_troppers.jpg
+  large_cover_url: super_troppers_large.jpg
+  created_at: 2014-07-12 04:56:47.831681000 Z
+  updated_at: 2014-07-12 04:56:47.831681000 Z
+  category_id: 41
+star_trek:
+  id: 49
+  title: Star Trek
+  description: Five Vermont state troopers, avid pranksters with a knack for screwing
+    up, try to save their jobs and out-do the local police department by solving a
+    crime
+  small_cover_url: super_troppers.jpg
+  large_cover_url: super_troppers_large.jpg
+  created_at: 2014-07-12 04:56:47.833900000 Z
+  updated_at: 2014-07-12 04:56:47.833900000 Z
+  category_id: 42

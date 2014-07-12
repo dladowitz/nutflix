@@ -7,8 +7,7 @@ describe SessionsController do
 
     context "for authenticated users" do
       it "redirects to the vidoes path" do
-
-        session[:user_id] = (create(:user)).id
+        session[:user_id] = (users(:james_bond).id)
         expect(response).to render_template :new
       end
     end
@@ -108,7 +107,7 @@ describe SessionsController do
 
   describe "DELETE 'destroy'" do
     it "should clear the session's user id" do
-      session[:user_id] = (create(:user)).id
+      session[:user_id] = (users(:james_bond).id)
       delete :destroy
       expect(session[:user_id]).to be nil
     end

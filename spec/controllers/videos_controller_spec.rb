@@ -1,14 +1,16 @@
 require "spec_helper"
 
 describe VideosController do
+  fixtures :users
+
   describe "GET 'index'" do
-    let!(:comedy)     { create(:category_comedy) }
-    let!(:action)     { create(:category_action) }
+    let!(:comedy) { categories(:comedy) }
+    let!(:action) { categories(:action) }
     subject { get :index }
 
     context "with an authenticated user" do
       before :each do
-        session[:user_id] = (create(:user)).id
+        session[:user_id] = users(:james_bond).id
         subject
       end
 
@@ -21,7 +23,7 @@ describe VideosController do
       end
 
       it "returns an array of categories" do
-        expect(assigns(:categories)).to match_array [comedy, action]
+        expect(assigns(:categories)).to match_array Category.all
       end
     end
 
@@ -34,12 +36,12 @@ describe VideosController do
   end
 
   describe "GET 'show'" do
-    let!(:video)  { create(:video) }
+    let!(:video)  { videos(:iron_man) }
     subject { get :show, { id: video.id } }
 
     context "with an authenticated user" do
       before :each do
-        session[:user_id] = (create(:user)).id
+        session[:user_id] = (users(:james_bond)).id
       end
 
       it "renders the show template" do
@@ -84,7 +86,7 @@ describe VideosController do
 
     context "with an authenticated user" do
       before :each do
-        session[:user_id] = (create(:user)).id
+        session[:user_id] = users(:james_bond).id
         subject
       end
 
@@ -97,9 +99,9 @@ describe VideosController do
       end
 
       it "returns an array of the correct videos" do
-        iron_man   = create(:video, title: "Iron Man")
-        iron_man_2 = create(:video, title: "Iron Man 2")
-        thor       = create(:video, title: "Thor")
+        iron_man   = videos(:iron_man)
+        iron_man_2 = videos(:iron_man_2)
+        thor       = videos(:thor)
 
         expect(assigns(:videos)).to match_array [iron_man, iron_man_2]
       end

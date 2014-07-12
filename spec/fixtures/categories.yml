@@ -1,0 +1,16 @@
+---
+comedy:
+  id: 40
+  name: Comedy
+  created_at: 2014-07-12 04:56:47.571747000 Z
+  updated_at: 2014-07-12 04:56:47.571747000 Z
+action:
+  id: 41
+  name: Action
+  created_at: 2014-07-12 04:56:47.577019000 Z
+  updated_at: 2014-07-12 04:56:47.577019000 Z
+sci_fi:
+  id: 42
+  name: SciFi
+  created_at: 2014-07-12 04:56:47.580015000 Z
+  updated_at: 2014-07-12 04:56:47.580015000 Z

@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe Video do
-  let(:video){ create(:video) }
+  let(:iron_man) { videos(:iron_man) }
 
   it { should belong_to(:category) }
   it { should have_many(:reviews) }
@@ -10,44 +10,39 @@ describe Video do
 
 
   it "saves itself to the database" do
-    video = create(:video, title: "Planet of the Apes")
+    video = Video.create(title: "Planet of the Apes", description: "Apes in the future")
     expect(Video.find_by_title "Planet of the Apes").to eq video
   end
 
   it "has a valid factory" do
+    video = create(:video)
     expect(video).to be_valid
   end
 
   describe "#search_by_title" do
-    subject { Video.search_by_title "Iron" }
 
     context "when no matching videos are in the DB" do
       it "returns an empty array" do
-        expect(subject).to match_array []
+        videos = Video.search_by_title "Superman"
+        expect(videos.count).to eq 0
       end
     end
 
     context "when one matching video is in the DB" do
       it "returns an array with a single video" do
-        iron_man = create(:video, title: "Iron Man")
-
-        expect(subject).to match_array [iron_man]
+        videos = Video.search_by_title "Thor"
+        expect(videos.count).to eq 1
       end
     end
 
     context "when two matching vidoes are in the DB" do
-      before :each do
-        @iron_man   = create(:video, title: "Iron Man")
-        @iron_man_2 = create(:video, title: "Iron Man 2")
-        @thor       = create(:video, title: "Thor")
-      end
-
+      before { @videos = Video.search_by_title "Iron" }
       it "returns an array with multiple vidoes ordered by created_at" do
-        expect(subject).to eq [@iron_man_2, @iron_man]
+        expect(@videos.count).to eq 2
       end
 
       it "does not return unmatched videos" do
-        expect(subject).to_not include @thor
+        expect(@videos).to_not include videos(:thor)
       end
     end
   end

@@ -6,11 +6,11 @@ class VideosController < ApplicationController
   end
 
   def show
-    @video  = Video.find(params[:id])
+    @video  = Video.find(params.fetch(:id)) # fetch(:id) is the same as [:id]
     @reviews = @video.reviews
   end
 
   def search
-    @videos = Video.search_by_title(params[:search_term])
+    @videos = Video.search_by_title(params.fetch(:search_term))
   end
 end

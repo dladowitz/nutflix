@@ -77,7 +77,7 @@ end
 
 And /^user can review a video$/ do
   # @name = set from header bar
-  video = Video.first
+  video = Vssssssqq`ideo.first
   visit video_path(video)
   fill_in "review_text", with: "This is the most best movie I've ever scene"
   # choose "4 stars" from the select drop down - Not sure how to do this

@@ -4,8 +4,7 @@ describe PagesController do
   describe "GET 'home'" do
     context "with an authenticated user" do
       it "should redirect to the videos path" do
-        user = create(:user)
-        session[:user_id] = user.id
+        session[:user_id] = users(:james_bond).id
 
         get :home
         expect(response).to redirect_to videos_path
