@@ -71,12 +71,11 @@ And /^user can review a video$/ do
 end
 
 Then /^user can see video reviews$/ do
-  page.should have_content("User Reviews")
-  page.should have_content("5 / 5")
-
-  # page.text.should match(/User Reviews \(\d*\)/)
-  # page.text.should match (/Rating: [1-4]\.[0-9] \/ 5/)
-  page.should have_content "by"  # add @name once header bar is set with name
+  user = users(:james_bond)
+  page.text.should match (/Average Rating: [1-5]\.[0-9] Stars/)
+  page.text.should match(/User Reviews \(\d*\)/)
+  page.text.should match (/Rating: [1-5] \/ 5/)
+  page.should have_content "by #{user.full_name}"
   page.should have_content "This is the most best movie I've ever scene"
 end
 

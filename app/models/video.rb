@@ -25,8 +25,17 @@ class Video < ActiveRecord::Base
   scope :action,     -> { where(category_id: 4) }
   scope :scifi,      -> { where(category_id: 5) }
 
-
+  # Class Methods
   def self.search_by_title(search_term)
     Video.where("title LIKE '%#{search_term}%'").order("created_at DESC")
+  end
+
+  # Instance Methods
+  def average_rating
+    if reviews.count > 0
+      Review.where(video_id: self.id).average(:rating).to_f
+    else
+      "No Reviews Yet"
+    end
   end
 end

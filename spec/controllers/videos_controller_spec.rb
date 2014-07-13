@@ -61,15 +61,19 @@ describe VideosController do
 
       context "with reviews of the video in the db" do
         it "returns all the reviews of the video" do
-          create(:review, video: video)
           subject
-
           expect(assigns(:reviews).count).to eq video.reviews.count
         end
       end
 
       context "with no reviews of the video in the db" do
-        it "returns no reviews of the vidoe"
+        let(:video_2) { videos(:thor) }
+        subject { get :show, {id: video_2.id} }
+
+        it "returns no reviews of the vidoe" do
+          subject
+          expect(assigns(:reviews).count).to eq 0
+        end
       end
     end
 

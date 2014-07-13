@@ -46,5 +46,28 @@ describe Video do
       end
     end
   end
+
+  describe "#average_rating" do
+    context "there are reviews of the video in the db" do
+      it "returns a number between 1 and 5" do
+        expect(iron_man.average_rating).to be_between(1.0, 5.0)
+      end
+
+      it "should have a precision of one decimal point" do
+        expect(iron_man.average_rating.to_s.length).to eq 3 #testing that the is only one number on either side of the decimal point
+      end
+
+      it "should correctly average the reveiw ratings" do
+        average =  iron_man.reviews.pluck(:rating).sum / iron_man.reviews.count
+        expect(iron_man.average_rating).to eq average
+      end
+    end
+
+    context "there are no reviews of the video in the db" do
+      it "should return 'no reviews' text" do
+        expect(videos(:star_trek).average_rating).to eq "No Reviews Yet"
+      end
+    end
+  end
 end
 

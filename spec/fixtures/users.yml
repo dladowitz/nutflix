@@ -1,8 +1,8 @@
 ---
 james_bond:
-  id: 31
-  email_address: orlando@stokehanahan.biz
-  password_digest: "$2a$04$nYLUuAUQzReOVkb2IMml7ez1OPV8bAkzAz4QrPKppdbCx17V9pRxu"
+  id: 3
+  email_address: elton_shields@reynoldsdickinson.info
+  password_digest: "$2a$04$vWrHbO7ylMH/OCSMDcIy5.67ncLk.Mz9GlhubER/sWJ3rDac.vXRW"
   full_name: James Bond
-  created_at: 2014-07-12 19:15:42.959104000 Z
-  updated_at: 2014-07-12 19:15:42.959104000 Z
+  created_at: 2014-07-13 01:35:17.674310000 Z
+  updated_at: 2014-07-13 01:35:17.674310000 Z

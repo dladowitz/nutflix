@@ -7,6 +7,7 @@ class VideosController < ApplicationController
 
   def show
     @video  = Video.find(params.fetch(:id)) # fetch(:id) is the same as [:id]
+    @review = Review.new  # for the review form_for method
     @reviews = @video.reviews
   end
 

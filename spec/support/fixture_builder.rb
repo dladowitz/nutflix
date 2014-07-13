@@ -38,7 +38,8 @@ FixtureBuilder.configure do |fbuilder|
 
 
     # reviews
-    fbuilder.name(:iron_man_review, create(:review, video: iron_man, user: @james_bond))
+    fbuilder.name(:iron_man_review, create(:review, video: iron_man, user: @james_bond, rating: 5))
+    fbuilder.name(:iron_man_review, create(:review, video: iron_man, user: @james_bond, rating: 4))
   end
 end
 
