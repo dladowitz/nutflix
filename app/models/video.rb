@@ -13,16 +13,20 @@
 #
 
 class Video < ActiveRecord::Base
-  validates :title,      presence: true
-  validates :description, presence: true
+  # Validations
+  validates_presence_of :description
+  validates_presence_of :title
 
+  # Associations
   belongs_to :category
   has_many   :reviews
+  has_many   :queue_items
 
+  # Scopes
+  scope :action,     -> { where(category_id: 4) }
   scope :comedies,   -> { where(category_id: 1) }
   scope :dramas,     -> { where(category_id: 2) }
   scope :realities,  -> { where(category_id: 3) }
-  scope :action,     -> { where(category_id: 4) }
   scope :scifi,      -> { where(category_id: 5) }
 
   # Class Methods

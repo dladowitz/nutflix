@@ -11,8 +11,12 @@
 #
 
 class User < ActiveRecord::Base
-  validates_presence_of   :email_address, :password_digest, :full_name
+  # Validations
+  validates_presence_of   :email_address, :full_name, :password_digest
   validates_uniqueness_of :email_address
+
+  # Associations
+  has_many :queue_items
 
   has_secure_password
 end

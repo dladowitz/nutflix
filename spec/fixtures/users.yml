@@ -1,8 +1,27 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  email_address   :string(255)
+#  password_digest :string(255)
+#  full_name       :string(255)
+#  created_at      :datetime
+#  updated_at      :datetime
+#
+
 ---
 james_bond:
-  id: 3
-  email_address: elton_shields@reynoldsdickinson.info
-  password_digest: "$2a$04$vWrHbO7ylMH/OCSMDcIy5.67ncLk.Mz9GlhubER/sWJ3rDac.vXRW"
+  id: 11
+  email_address: edyth_bernier@heaney.com
+  password_digest: "$2a$04$uz4SZdmyktXpJ.2DkjFyhepfXAoFqrKtK3nsP5prvJ7aMCJ.2UGcG"
   full_name: James Bond
-  created_at: 2014-07-13 01:35:17.674310000 Z
-  updated_at: 2014-07-13 01:35:17.674310000 Z
+  created_at: 2014-07-15 02:08:48.398500000 Z
+  updated_at: 2014-07-15 02:08:48.398500000 Z
+dr_evil:
+  id: 12
+  email_address: ebony@bartoletti.com
+  password_digest: "$2a$04$nEFbzJyVkvKCaeuoQMz.se5kxZBFu5fT315EdfpI5HqkboF7QO4xu"
+  full_name: Dr Evil
+  created_at: 2014-07-15 02:08:48.404367000 Z
+  updated_at: 2014-07-15 02:08:48.404367000 Z

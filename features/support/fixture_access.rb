@@ -1,6 +1,3 @@
-# Copied direct from Kiaros, not really sure whats all happening. Especially with Database Cleaner
-# Called when cucumbers run
-
 Cucumber::Rails::World.use_transactional_fixtures
 
 require Rails.root.join("spec","support","fixture_builder.rb")

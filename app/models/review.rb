@@ -12,8 +12,11 @@
 #
 
 class Review < ActiveRecord::Base
+  # Validations
+  validates_presence_of :rating, :user_id
+
+  # Associations
   belongs_to :user
   belongs_to :video
 
-  validates_presence_of :rating, :user_id
 end

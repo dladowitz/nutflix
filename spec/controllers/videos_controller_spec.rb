@@ -10,7 +10,8 @@ describe VideosController do
 
     context "with an authenticated user" do
       before :each do
-        session[:user_id] = users(:james_bond).id
+        user = users(:james_bond)
+        login_as user
         subject
       end
 
@@ -41,7 +42,8 @@ describe VideosController do
 
     context "with an authenticated user" do
       before :each do
-        session[:user_id] = (users(:james_bond)).id
+        user = users(:james_bond)
+        login_as user
       end
 
       it "renders the show template" do
@@ -90,7 +92,7 @@ describe VideosController do
 
     context "with an authenticated user" do
       before :each do
-        session[:user_id] = users(:james_bond).id
+        login_as users(:james_bond)
         subject
       end
 

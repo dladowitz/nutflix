@@ -19,6 +19,7 @@ FixtureBuilder.configure do |fbuilder|
 
     # users
     @james_bond = create(:user, full_name: "James Bond")
+    @dr_evil    = create(:user, full_name: "Dr Evil")
 
 
     # videos
@@ -30,16 +31,19 @@ FixtureBuilder.configure do |fbuilder|
     fbuilder.name(:iron_man_6, create(:video, title: "Iron Man 6", category: action, small_cover_url: "iron_man_6.jpg", created_at: Time.now - 2.hour))
     fbuilder.name(:iron_man_7, create(:video, title: "Iron Man 7", category: action, small_cover_url: "iron_man_7.jpg", created_at: Time.now - 1.hour))
 
-    fbuilder.name(:thor,       create(:video, title: "Thor",       category: action, small_cover_url: "thor.jpg",       created_at: Time.now - 8.hour))
+    thor =                     create(:video, title: "Thor",       category: action, small_cover_url: "thor.jpg",       created_at: Time.now - 8.hour)
     fbuilder.name(:thor_2,     create(:video, title: "Thor_2",     category: action, small_cover_url: "thor_2.jpg",     created_at: Time.now - 9.hour))
 
     fbuilder.name(:star_trek,  create(:video, title: "Star Trek",  category: scifi,  small_cover_url: "star_trek.jpg"))
     fbuilder.name(:flight,     create(:video, title: "Flight",     category: drama,  small_cover_url: "flight.jpg"))
 
-
     # reviews
     fbuilder.name(:iron_man_review, create(:review, video: iron_man, user: @james_bond, rating: 5))
     fbuilder.name(:iron_man_review, create(:review, video: iron_man, user: @james_bond, rating: 4))
+
+    # queue_items
+    fbuilder.name(:james_bond_first_qi,  create(:queue_item, user: @james_bond, video: iron_man, queue_rank: 1))
+    fbuilder.name(:james_bond_second_qi, create(:queue_item, user: @james_bond, video: thor,     queue_rank: 2))
   end
 end
 
