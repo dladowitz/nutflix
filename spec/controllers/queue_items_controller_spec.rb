@@ -71,4 +71,53 @@ describe QueueItemsController do
       end
     end
   end
+
+  describe "POST #create" do
+    let(:video) { videos(:iron_man_2) }
+    subject { post :create, user: user.id, video: video.id }
+
+    context "with an authenticated user" do
+      before { login_as user }
+
+      context "when the video is not in the users queue already" do
+        it "creates a new queue item in the database" do
+          expect { subject }.to change{QueueItem.count}.by(1)
+        end
+
+        it "adds the video to the correct users queue" do
+          subject
+          expect(assigns(:queue_item).user).to eq user
+        end
+        it "sets the queue rank to the end of the queue" do
+          subject
+          expect(assigns(:queue_item).queue_rank).to user.queue_item.count
+        end
+      end
+
+      context "when the video is already in the users queue" do
+        before { create(:queue_item, user: user, video: video) }
+
+        it "does not create a new queue item" do
+          expect { subject }.to_not change{QueueItem.count}
+        end
+        it "renders the video show page with a notice" do
+          subject
+          expect(response).to render_template video_path video
+          expect(flash[:notice]).to eq "Chill, this video is already in your queue"
+        end
+      end
+
+    end
+
+    context "with an unauthenticated user" do
+      it "does not create a new queue_item" do
+        expect { subject }.to_not change{QueueItem.count}
+      end
+
+
+      it "redirects to the signin page" do
+        expect(subject).to redirect_to signin_path
+      end
+    end
+  end
 end
