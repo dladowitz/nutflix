@@ -3,17 +3,20 @@ require "spec_helper"
 describe QueueItemsController do
   let(:user) { users(:james_bond) }
 
+  shared_examples "unauthenticated_access to the queue" do
+    it "does not add or delete queue_items" do
+      expect { subject }.to_not change{QueueItem.count}
+    end
+
+    it "redirects to the signin page" do
+      expect(subject).to redirect_to signin_path
+    end
+  end
+
   describe "GET #index" do
     subject { get :index }
 
-    context "for an unauthenticated user" do
-      before { subject }
-
-      it "should redirect to the signing page" do
-        expect(response).to redirect_to signin_path
-      end
-
-    end
+    it_behaves_like "unauthenticated_access to the queue"
 
     context "for an authenticated user" do
       before { login_as user }
@@ -36,37 +39,37 @@ describe QueueItemsController do
         end
 
         it "finds all the queue items for a user" do
-          first_qi = queue_items(:james_bond_first_qi)
-          second_qi = queue_items(:james_bond_second_qi)
+          first_qi = queue_items(:james_bonds_first_qi)
+          second_qi = queue_items(:james_bonds_second_qi)
           subject
 
           expect(assigns(:queue_items)).to match_array [first_qi, second_qi]
         end
 
         it "orders queue items by 'queue_rank' property" do
-          first_qi = queue_items(:james_bond_first_qi)
-          second_qi = queue_items(:james_bond_second_qi)
+          first_qi = queue_items(:james_bonds_first_qi)
+          second_qi = queue_items(:james_bonds_second_qi)
           subject
 
           expect(assigns(:queue_items).first).to eql first_qi
           expect(assigns(:queue_items).last ).to eql second_qi
         end
+      end
 
-        context "when the user doesn't have a queue" do
-          let(:user_2) { users(:dr_evil) }
-          before do
-            login_as user_2
-            subject
-          end
+      context "when the user doesn't have any queued items" do
+        let(:user_2) { users(:fat_bastard) }
+        before do
+          login_as user_2
+          subject
+        end
 
-          it "renders the show template" do
-            expect(response).to render_template :index
-          end
+        it "renders the show template" do
+          expect(response).to render_template :index
+        end
 
-          it "returns no queue items" do
-            subject
-            expect(assigns(:queue_items).count).to be 0
-          end
+        it "returns no queue items" do
+          subject
+          expect(assigns(:queue_items).count).to be 0
         end
       end
     end
@@ -74,7 +77,9 @@ describe QueueItemsController do
 
   describe "POST #create" do
     let(:video) { videos(:iron_man_2) }
-    subject { post :create, user_id: user.id, video_id: video.id }
+    subject { post :create, video_id: video.id }
+
+    it_behaves_like "unauthenticated_access to the queue"
 
     context "with an authenticated user" do
       before { login_as user }
@@ -110,14 +115,57 @@ describe QueueItemsController do
       end
     end
 
-    context "with an unauthenticated user" do
-      it "does not create a new queue_item" do
-        expect { subject }.to_not change{QueueItem.count}
+  end
+
+  describe "DELETE #destroy" do
+    let(:queue_item) { queue_items(:james_bonds_first_qi) }
+    subject { delete :destroy, id: queue_item.id}
+
+    it_behaves_like "unauthenticated_access to the queue"
+
+    context "with an athenticated user" do
+      before { login_as user }
+
+      context "with a valid queue_item_id" do
+        context "with an item matching an item in the queue" do
+          it "redirects to the queue index page" do
+            expect(subject).to redirect_to queue_path
+          end
+
+          it "finds the correct queue item" do
+            subject
+            expect(assigns(:queue_item)).to eq queue_item
+          end
+
+          it "removes the video from the users queue" do
+            expect { subject }.to change{QueueItem.count}.by(-1)
+          end
+        end
+
+        context "with an item not matching an item in the queue" do
+          let(:queue_item) { queue_items(:dr_evils_first_qi) }
+
+          it "does not remove anything from the users queue" do
+            expect { subject }.to_not change{QueueItem.count}
+          end
+
+          it "adds a message to the flash" do
+            subject
+            expect(flash[:error]).to eq "Whoa, hold on partna'. That video isn't in your queue"
+          end
+        end
       end
 
+      context "with an invalid video_id" do
+        subject { delete :destroy, id: "bad-id"}
+        it "does not remove anything from the users queue" do
+          expect { subject }.to_not change{QueueItem.count}
+        end
 
-      it "redirects to the signin page" do
-        expect(subject).to redirect_to signin_path
+        it "adds a message to the flash" do
+          subject
+          expect(flash[:error]).to eq "That not even an item in anyone's queue."
+        end
       end
     end
   end

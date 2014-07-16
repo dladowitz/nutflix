@@ -18,8 +18,9 @@ FixtureBuilder.configure do |fbuilder|
     reality = create(:category, name: "Reality")
 
     # users
-    @james_bond = create(:user, full_name: "James Bond")
-    @dr_evil    = create(:user, full_name: "Dr Evil")
+    @james_bond  = create(:user, full_name: "James Bond")
+    @dr_evil     = create(:user, full_name: "Dr Evil")
+    @fat_bastard = create(:user, full_name: "Fat Bastart")
 
 
     # videos
@@ -42,8 +43,9 @@ FixtureBuilder.configure do |fbuilder|
     fbuilder.name(:iron_man_review, create(:review, video: iron_man, user: @james_bond, rating: 4))
 
     # queue_items
-    fbuilder.name(:james_bond_first_qi,  create(:queue_item, user: @james_bond, video: iron_man, queue_rank: 1))
-    fbuilder.name(:james_bond_second_qi, create(:queue_item, user: @james_bond, video: thor,     queue_rank: 2))
+    fbuilder.name(:james_bonds_first_qi,  create(:queue_item, user: @james_bond, video: iron_man, queue_rank: 1))
+    fbuilder.name(:james_bonds_second_qi, create(:queue_item, user: @james_bond, video: thor,     queue_rank: 2))
+    fbuilder.name(:dr_evils_first_qi,     create(:queue_item, user: @dr_evil,    video: iron_man, queue_rank: 1))
   end
 end
 

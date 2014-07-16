@@ -11,11 +11,11 @@
 #
 
 class QueueItem < ActiveRecord::Base
-  validates_presence_of :queue_rank
-  validates_presence_of :user
-  validates_presence_of :video
-  validates_uniqueness_of :queue_rank, scoped: :user
-  validates_uniqueness_of :video, scope: :user
+  validates_presence_of   :queue_rank
+  validates_presence_of   :user
+  validates_presence_of   :video
+  validates_uniqueness_of :queue_rank, scope: :user
+  validates_uniqueness_of :video,      scope: :user
 
   # Associations
   belongs_to :user

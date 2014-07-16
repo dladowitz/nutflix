@@ -16,14 +16,14 @@ describe QueueItem do
   end
 
   it "should have a unique queue_rank across all queue items belonging to the same user" do
-    queue_item     = queue_items(:james_bond_first_qi)
+    queue_item     = queue_items(:james_bonds_first_qi)
     bad_queue_item = QueueItem.new queue_rank: queue_item.queue_rank, user: queue_item.user, video: video
 
     expect(bad_queue_item.save).to be false
   end
 
   it "should have a unique video_id across all queue items belonging to the same user" do
-    queue_item     = queue_items(:james_bond_first_qi)
+    queue_item     = queue_items(:james_bonds_first_qi)
     bad_queue_item = QueueItem.new queue_rank: 10, user: queue_item.user, video: queue_item.video
 
     expect(bad_queue_item.save).to be false

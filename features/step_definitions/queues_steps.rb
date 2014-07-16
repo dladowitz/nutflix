@@ -14,21 +14,19 @@ Then /^they can see their queue$/ do
 end
 
 Then /^they can add a video to their queue$/ do
-  video = videos(:star_trek)
-  visit video_path(video)
-  click_button "My Queue"
+  @video = videos(:star_trek)
+  visit video_path(@video)
+  click_link "+ My Queue"
 
   URI.parse(current_url).path.should == queue_path
-  page.should have_content video.title
+  page.should have_content @video.title
   page.should have_selector 'td input[type$="text"]', :count => 3
 end
 
 And /^they can remove a video from their queue$/ do
-  # video = videos(:star_trek)
-  # visit queue_path
-
+  visit queue_path
   ## Can't figure out how to get capybara to click on the remove (x) button
-  # click_link "Remove #{video.title}"
+  click_link "remove-3"
 end
 
 Then /^they can reorder their queue$/ do

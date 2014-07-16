@@ -12,12 +12,12 @@ class QueueItemsController < ApplicationController
   end
 
   def create
-    user =  User.find params[:user_id]
+    user =  User.find current_user.id
     video = Video.find params[:video_id]
     items_already_in_queue = QueueItem.where(user: user)
     rank = items_already_in_queue.count + 1
 
-    @queue_item = QueueItem.new(queue_rank: rank, user_id: params[:user_id], video_id: params[:video_id])
+    @queue_item = QueueItem.new(queue_rank: rank, user_id: user.id, video_id: video.id)
 
     if @queue_item.save
       redirect_to queue_path
@@ -29,6 +29,23 @@ class QueueItemsController < ApplicationController
       end
 
       redirect_to video_path Video.find params[:video_id]
+    end
+  end
+
+  def destroy
+    @queue_item = QueueItem.find_by_id params[:id]
+    items_in_users_queue = QueueItem.where(user_id: current_user.id)
+
+    if @queue_item == nil
+      flash[:error] = "That not even an item in anyone's queue."
+      redirect_to queue_path
+    elsif items_in_users_queue.include?(@queue_item)
+      @queue_item.delete
+      flash[:notice] = "Goodbye video!"
+      redirect_to queue_path
+    else
+      flash[:error] = "Whoa, hold on partna'. That video isn't in your queue"
+      redirect_to queue_path
     end
   end
 end
