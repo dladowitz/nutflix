@@ -74,7 +74,7 @@ describe QueueItemsController do
 
   describe "POST #create" do
     let(:video) { videos(:iron_man_2) }
-    subject { post :create, user: user.id, video: video.id }
+    subject { post :create, user_id: user.id, video_id: video.id }
 
     context "with an authenticated user" do
       before { login_as user }
@@ -88,25 +88,26 @@ describe QueueItemsController do
           subject
           expect(assigns(:queue_item).user).to eq user
         end
+
         it "sets the queue rank to the end of the queue" do
           subject
-          expect(assigns(:queue_item).queue_rank).to user.queue_item.count
+          expect(assigns(:queue_item).queue_rank).to eq user.queue_items.count
         end
       end
 
       context "when the video is already in the users queue" do
-        before { create(:queue_item, user: user, video: video) }
+        before { create(:queue_item, user: user, video: video, queue_rank: 10) }
 
         it "does not create a new queue item" do
           expect { subject }.to_not change{QueueItem.count}
         end
+
         it "renders the video show page with a notice" do
           subject
-          expect(response).to render_template video_path video
-          expect(flash[:notice]).to eq "Chill, this video is already in your queue"
+          expect(response).to redirect_to video_path video
+          expect(flash[:danger]).to eq "Chill, this video is already in your queue."
         end
       end
-
     end
 
     context "with an unauthenticated user" do
