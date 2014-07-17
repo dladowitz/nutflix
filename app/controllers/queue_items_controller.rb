@@ -13,21 +13,11 @@ class QueueItemsController < ApplicationController
 
   def create
     video = Video.find params[:video_id]
-    items_already_in_queue = current_user.queue_items
-    rank = items_already_in_queue.count + 1
 
-    @queue_item = QueueItem.new(queue_rank: rank, user_id: current_user.id, video_id: video.id)
-
-    if @queue_item.save
+    if queue_video(video)
       redirect_to queue_path
     else
-      if items_already_in_queue.where(video_id: video.id).any?
-        flash[:danger] = "Chill, this video is already in your queue."
-      else
-        flash[:danger] = "Something has gone wrong. Hide yo kids, hide yo wife."
-      end
-
-      redirect_to video_path Video.find params[:video_id]
+      redirect_to video_path video
     end
   end
 
@@ -46,5 +36,36 @@ class QueueItemsController < ApplicationController
       flash[:error] = "Whoa, hold on partna'. That video isn't in your queue"
       redirect_to queue_path
     end
+  end
+
+  private
+
+  def items_already_in_queue
+    current_user.queue_items
+  end
+
+  def item_rank
+    items_already_in_queue.count + 1
+  end
+
+  def queue_video(video)
+    @queue_item = QueueItem.new(queue_rank: item_rank, user_id: current_user.id, video_id: video.id)
+
+    if @queue_item.save
+      return true
+    else
+      if video_already_in_queue?(video)
+        flash[:danger] = "Chill, this video is already in your queue."
+      else
+        flash[:danger] = "Something has gone wrong. Hide yo kids, hide yo wife."
+      end
+
+      return false
+    end
+  end
+
+  def video_already_in_queue?(video)
+    queue_item = QueueItem.where(user: current_user, video: video).first
+    items_already_in_queue.include?(queue_item)
   end
 end
