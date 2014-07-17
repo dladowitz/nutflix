@@ -11,14 +11,30 @@
 #
 
 class QueueItem < ActiveRecord::Base
-  validates_presence_of   :queue_rank
-  validates_presence_of   :user
-  validates_presence_of   :video
-  validates_uniqueness_of :queue_rank, scope: :user
-  validates_uniqueness_of :video,      scope: :user
+  # Validations
+  validates_presence_of   :queue_rank, :user, :video
+  validates_uniqueness_of :queue_rank, scope: :user_id
+  validates_uniqueness_of :video_id,   scope: :user_id
 
   # Associations
   belongs_to :user
   belongs_to :video
 
+  # Delegations
+  delegate :category, to: :video
+  delegate :title,    to: :video, prefix: true
+
+  def category_name
+    category ? category.name : "none"
+  end
+
+  def rating
+    review = Review.where(user: user, video: video).first
+
+    if review
+      review.rating
+    else
+      "none"
+    end
+  end
 end

@@ -14,8 +14,7 @@ describe UsersController do
     end
 
     it "creates a new user" do
-      expect(assigns(:user)).to be_new_record
-      expect(assigns(:user)).to be_kind_of(User)
+      expect(assigns(:user)).to be_a_new User
     end
   end
 

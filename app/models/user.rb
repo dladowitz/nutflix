@@ -12,7 +12,7 @@
 
 class User < ActiveRecord::Base
   # Validations
-  validates_presence_of   :email_address, :full_name, :password_digest
+  validates_presence_of   :email_address, :full_name, :password
   validates_uniqueness_of :email_address
 
   # Associations
