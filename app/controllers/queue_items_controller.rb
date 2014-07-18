@@ -21,6 +21,23 @@ class QueueItemsController < ApplicationController
     end
   end
 
+  def update
+    @queue_items = current_user.queue_items
+
+    first  = QueueItem.where(user: current_user, queue_rank: 1).first
+    second = QueueItem.where(user: current_user, queue_rank: 2).first
+
+
+    QueueItem.transaction do
+      first.update_attributes(queue_rank: 1000)
+      second.update_attributes(queue_rank: 100)
+      first.update_attributes(queue_rank: 2)
+      second.update_attributes(queue_rank: 1)
+    end
+
+    redirect_to queue_path
+  end
+
   def destroy
     @queue_item = QueueItem.find_by_id params[:id]
     items_in_users_queue = current_user.queue_items
@@ -30,7 +47,7 @@ class QueueItemsController < ApplicationController
       redirect_to queue_path
     elsif items_in_users_queue.include?(@queue_item)
       @queue_item.delete
-      flash[:notice] = "Goodbye video!"
+      flash[:warning] = "Goodbye video!"
       redirect_to queue_path
     else
       flash[:error] = "Whoa, hold on partna'. That video isn't in your queue"

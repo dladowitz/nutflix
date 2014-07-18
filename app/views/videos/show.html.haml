@@ -6,7 +6,7 @@
       .video_info.col-sm-3
         %header
           %h3= @video.title
-          %span Average Rating: 3.9 Stars
+          %span=  "Average Rating: #{@video.average_rating}"
         %p= @video.description
         .actions
           %a.btn.btn-primary(href="") Watch Now

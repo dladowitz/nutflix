@@ -11,7 +11,3 @@ Feature: Queues
     And   they can remove a video from their queue
     And   they can reorder their queue
 
-
-  Scenario: User can reorder their Queue
-    Given user login
-

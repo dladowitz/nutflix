@@ -17,7 +17,7 @@
             - @queue_items.each do |queue_item|
               %tr
                 %td
-                  %input{ class: "form-control", type: "text", value: queue_item.queue_rank}
+                  %input{ class: "form-control", id: "rank: #{queue_item.queue_rank}", type: "text", value: queue_item.queue_rank}
                 %td
                   = link_to queue_item.video_title, queue_item.video
                 %td
@@ -29,4 +29,4 @@
                 %td
                   = link_to "/queue_items/#{queue_item.id}", id: "remove-#{queue_item.queue_rank}", method: :delete do
                     %i.glyphicon.glyphicon-remove
-        = button_to "Update Instant Queue", nil, class: "btn btn-default"
+        = button_to "Update Instant Queue", "/queue", class: "btn btn-default", method: :patch

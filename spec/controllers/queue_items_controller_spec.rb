@@ -117,6 +117,71 @@ describe QueueItemsController do
 
   end
 
+  describe "PATCH #update" do
+    subject { patch :update }
+
+    context "with an unauthenticated user" do
+      it_behaves_like "unauthenticated_access to the queue"
+    end
+
+    context "with an authenticated user" do
+      before do
+        login_as user
+      end
+
+      it "redirects to the index page" do
+        expect(subject).to redirect_to queue_path
+      end
+
+      context "with two items in the queue" do
+        it "finds both items in the database" do
+          all_items = QueueItem.where(user: user)
+          subject
+
+          expect(assigns(:queue_items)).to match_array all_items
+        end
+
+        it "swaps the queue rank of the items" do
+          first = QueueItem.where(user: user, queue_rank: 1).first
+          second = QueueItem.where(user: user, queue_rank: 2).first
+
+          subject
+
+          expect(first.reload.queue_rank).to eq 2
+          expect(second.reload.queue_rank).to eq 1
+        end
+      end
+
+      context "with four items in the queue" do
+        context "when only one queue rank is changed in the ui" do
+          it "updates the items to the correct rank and pushes all others down"
+
+        end
+
+        context "when the queue rank for two items are swapped in the ui" do
+          it "swaps the queue rank for the two items correctly"
+
+        end
+
+        context "when the queue rank for three items are changed" do
+
+        end
+
+        context "when two items are given the same queue rank" do
+          it "sets the queue rank only on the item with the higher initial queue rank"
+        end
+
+        context "when there are gaps in the queue rank order" do
+          it "moves items up in rank to have a continuous ranking"
+        end
+
+        context "when none of the queue ranks where changed in the ui" do
+          it "doesn't change anything"
+        end
+      end
+    end
+  end
+
   describe "DELETE #destroy" do
     let(:queue_item) { queue_items(:james_bonds_first_qi) }
     subject { delete :destroy, id: queue_item.id}
