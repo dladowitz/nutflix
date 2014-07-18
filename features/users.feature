@@ -7,9 +7,16 @@ Feature: Users
     Then  they can create an account
 
   Scenario: User can log in
-    Given a user account is in the db
-    And   a user visits the home_path
-    Then  they click on the signin link
-    And   they log in
+    Given user login
+
+  Scenario: User must sign in to see content
+    Given an unauthenticated user visits videos path
+    And   user login
+    Then  they can see content
+
+  Scenario: A user can sign out
+    Given user login
+    Then  user signout
+
 
 

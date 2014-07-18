@@ -6,9 +6,9 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 users =      User.create([
-                  { email_address: "david@ladowitz.com", password: "123456", full_name: "David Ladowitz" },
-                  { email_address: "dusy@cats.com",      password: "123456", full_name: "Dusty Huang" },
-                  { email_address: "aiko@cats.com",      password: "123456", full_name: "Aiko Huang" }
+                  { email_address: "david@ladowitz.com", password: "asdfasdf", full_name: "David Ladowitz" },
+                  { email_address: "dusy@cats.com",      password: "asdfasdf", full_name: "Dusty Huang" },
+                  { email_address: "aiko@cats.com",      password: "asdfasdf", full_name: "Aiko Huang" }
                  ])
 
 categories = Category.create([
@@ -59,4 +59,16 @@ videos =     Video.create([
                   { title: "Avengers",      description: "Save the world",          category_id: 5, small_cover_url: "south_park.jpg", large_cover_url: "monk_large.jpg" },
                   { title: "Avengers",      description: "Save the world",          category_id: 5, small_cover_url: "south_park.jpg", large_cover_url: "monk_large.jpg" },
                   { title: "Avengers",      description: "Save the world",          category_id: 5, small_cover_url: "south_park.jpg", large_cover_url: "monk_large.jpg" },
+                ])
+
+queue_items = QueueItem.create([
+                  { user: User.first, video: Video.first,  queue_rank: 4 },
+                  { user: User.first, video: Video.second, queue_rank: 2 },
+                  { user: User.first, video: Video.third,  queue_rank: 3 },
+                  { user: User.first, video: Video.fourth, queue_rank: 1 },
+
+                  { user: User.second, video: Video.fifth,  queue_rank: 1 },
+                  { user: User.second, video: Video.second, queue_rank: 2 },
+
+
                 ])

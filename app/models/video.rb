@@ -13,19 +13,33 @@
 #
 
 class Video < ActiveRecord::Base
-  validates :title,      presence: true
-  validates :description, presence: true
+  # Validations
+  validates_presence_of :description
+  validates_presence_of :title
 
+  # Associations
   belongs_to :category
+  has_many   :reviews
+  has_many   :queue_items
 
+  # Scopes
+  scope :action,     -> { where(category_id: 4) }
   scope :comedies,   -> { where(category_id: 1) }
   scope :dramas,     -> { where(category_id: 2) }
   scope :realities,  -> { where(category_id: 3) }
-  scope :action,     -> { where(category_id: 4) }
   scope :scifi,      -> { where(category_id: 5) }
 
-
+  # Class Methods
   def self.search_by_title(search_term)
-    Video.where("title LIKE '%#{search_term}%'").order("created_at DESC")
+    Video.where("title LIKE '%#{search_term}%'").order("created_at ASC")
+  end
+
+  # Instance Methods
+  def average_rating
+    if reviews.count > 0
+      Review.where(video_id: self.id).average(:rating).to_f
+    else
+      "No Reviews Yet"
+    end
   end
 end

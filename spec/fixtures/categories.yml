@@ -1,0 +1,26 @@
+---
+comedy:
+  id: 80
+  name: Comedy
+  created_at: 2014-07-16 04:35:33.710381000 Z
+  updated_at: 2014-07-16 04:35:33.710381000 Z
+action:
+  id: 81
+  name: Action
+  created_at: 2014-07-16 04:35:33.717373000 Z
+  updated_at: 2014-07-16 04:35:33.717373000 Z
+sci_fi:
+  id: 82
+  name: SciFi
+  created_at: 2014-07-16 04:35:33.720590000 Z
+  updated_at: 2014-07-16 04:35:33.720590000 Z
+drama:
+  id: 83
+  name: Drama
+  created_at: 2014-07-16 04:35:33.722975000 Z
+  updated_at: 2014-07-16 04:35:33.722975000 Z
+reality:
+  id: 84
+  name: Reality
+  created_at: 2014-07-16 04:35:33.725981000 Z
+  updated_at: 2014-07-16 04:35:33.725981000 Z

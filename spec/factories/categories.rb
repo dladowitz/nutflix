@@ -9,9 +9,19 @@
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl
+require "faker"
+
 
 FactoryGirl.define do
   factory :category do
-    name "Comedy"
+    name { Faker::Company.catch_phrase }
+
+    factory :category_horror do
+      name "Horror"
+    end
+
+    factory :category_invalid do
+      name nil
+    end
   end
 end

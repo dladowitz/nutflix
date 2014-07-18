@@ -10,13 +10,12 @@
 #  updated_at      :datetime
 #
 
-class User < ActiveRecord::Base
-  # Validations
-  validates_presence_of   :email_address, :full_name, :password
-  validates_uniqueness_of :email_address
+require "faker"
 
-  # Associations
-  has_many :queue_items
-
-  has_secure_password
+FactoryGirl.define do
+  factory :user do
+    email_address { Faker::Internet.email }
+    password      "asdfasdf"
+    full_name     { Faker::Name.name }
+  end
 end

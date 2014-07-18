@@ -9,8 +9,10 @@
 #
 
 class Category < ActiveRecord::Base
+  # Validations
   validates :name, presence: true, uniqueness: true
 
+  # Associations
   has_many :videos, -> { order "created_at DESC" }
 
   def recent_videos

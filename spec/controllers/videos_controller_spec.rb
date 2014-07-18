@@ -1,70 +1,123 @@
 require "spec_helper"
 
 describe VideosController do
-  subject { get :index }
-  let(:comedy)    { Category.create(name: "Comedy") }
-  let(:scifi)     { Category.create(name: "Sci-Fi") }
-  let(:iron_man)  { Video.create title: "Iron Man",   description: "Someone Saves the world",  category_id: 1}
-  let(:iron_man_2){ Video.create title: "Iron Man 2", description: "Someone Saves the world",  category_id: 1}
-  let(:iron_man_2){ Video.create title: "Iron Man 3", description: "Someone Saves the world",  category_id: 1}
-  let(:iron_man_2){ Video.create title: "Iron Man 4", description: "Someone Saves the world",  category_id: 1}
-  let(:iron_man_2){ Video.create title: "Iron Man 5", description: "Someone Saves the world",  category_id: 1}
-  let(:iron_man_2){ Video.create title: "Iron Man 6", description: "Someone Saves the world",  category_id: 1}
-  let(:iron_man_2){ Video.create title: "Iron Man 7", description: "Someone Saves the world",  category_id: 1}
-  let(:thor)      { Video.create title: "Thor",       description: "Someone Saves the world",  category_id: 2}
-
-  before { subject }
+  fixtures :users
 
   describe "GET 'index'" do
-    it "renders the index template" do
-      expect(response).to render_template :index
+    let!(:comedy) { categories(:comedy) }
+    let!(:action) { categories(:action) }
+    subject { get :index }
+
+    context "with an authenticated user" do
+      before :each do
+        user = users(:james_bond)
+        login_as user
+        subject
+      end
+
+      it "renders the index template" do
+        expect(response).to render_template :index
+      end
+
+      it "returns http success" do
+        expect(response).to be_success
+      end
+
+      it "returns an array of categories" do
+        expect(assigns(:categories)).to match_array Category.all
+      end
     end
 
-    it "returns http success" do
-      expect(response).to be_success
-    end
-
-    it "returns an array of categories" do
-      expect(assigns(:categories)).to match_array [comedy, scifi ]
+    context "with an unauthenticated user" do
+      it "renders the signin page" do
+        subject
+        expect(response).to redirect_to signin_path
+      end
     end
   end
 
   describe "GET 'show'" do
-    before :each do
-      @video = Video.create title: "Iron Man", description: "Someone Saves the world"
-      get :show, {id: @video.id}
+    let!(:video)  { videos(:iron_man) }
+    subject { get :show, { id: video.id } }
+
+    context "with an authenticated user" do
+      before :each do
+        user = users(:james_bond)
+        login_as user
+      end
+
+      it "renders the show template" do
+        subject
+        expect(response).to render_template :show
+      end
+
+      it "returns success" do
+        subject
+        expect(response).to be_success
+      end
+
+      it "returns the correct video" do
+        subject
+        expect(assigns(:video).title).to match video.title
+      end
+
+      context "with reviews of the video in the db" do
+        it "returns all the reviews of the video" do
+          subject
+          expect(assigns(:reviews).count).to eq video.reviews.count
+        end
+      end
+
+      context "with no reviews of the video in the db" do
+        let(:video_2) { videos(:thor) }
+        subject { get :show, {id: video_2.id} }
+
+        it "returns no reviews of the vidoe" do
+          subject
+          expect(assigns(:reviews).count).to eq 0
+        end
+      end
     end
 
-    it "renders the show template" do
-      expect(response).to render_template :show
-    end
-
-    it "returns success" do
-      expect(response).to be_success
-    end
-
-    it "returns the correct video" do
-      expect(assigns(:video).title).to match @video.title
+    context "with an unathenticated user" do
+      it "redirects to the signin page" do
+        subject
+        expect(response).to redirect_to signin_path
+      end
     end
   end
 
   describe "POST 'search'" do
-    subject { post :search, { search_term: "Iron"} }
+    subject { post :search, { search_term: "Thor"} }
 
-    it "renders the search template" do
-      expect(response).to render_template :search
+    context "with an authenticated user" do
+      before :each do
+        login_as users(:james_bond)
+        subject
+      end
+
+      it "renders the search template" do
+        expect(response).to render_template :search
+      end
+
+      it "returns a success" do
+        expect(response).to be_success
+      end
+
+      it "returns an array of the correct videos" do
+        thor     = videos(:thor)
+        thor_2   = videos(:thor_2)
+        iron_man = videos(:iron_man)
+
+        expect(assigns(:videos)).to match_array [thor, thor_2]
+      end
     end
 
-    it "returns a success" do
-      expect(response).to be_success
-    end
-
-    it "returns an array of the correct videos" do
-      iron_man   = Video.create title: "Iron Man",   description: "Someone Saves the world",  category_id: 1
-      iron_man_2 = Video.create title: "Iron Man 2", description: "Someone Saves the world",  category_id: 1
-      thor       = Video.create title: "Thor",       description: "Someone Saves the world",  category_id: 2
-
-      expect(assigns(:videos)).to match_array [iron_man, iron_man_2]
+    context "with an unathenticated user" do
+      it "redirects to the signin page" do
+        subject
+        expect(response).to redirect_to signin_path
+      end
     end
   end
 end

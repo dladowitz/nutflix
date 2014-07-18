@@ -1,52 +1,71 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe Video do
-  let(:video){ create(:video) }
+  let(:iron_man) { videos(:iron_man) }
 
   it { should belong_to(:category) }
+  it { should have_many(:reviews) }
   it { should validate_presence_of(:title) }
   it { should validate_presence_of(:description) }
 
 
   it "saves itself to the database" do
-    video = Video.create(title: "Planet of the Apes", description: "Get your damn dirty hands off me")
+    video = Video.create(title: "Planet of the Apes", description: "Apes in the future")
     expect(Video.find_by_title "Planet of the Apes").to eq video
   end
 
   it "has a valid factory" do
+    video = create(:video)
     expect(video).to be_valid
   end
 
   describe "#search_by_title" do
-    subject { Video.search_by_title "Iron" }
 
     context "when no matching videos are in the DB" do
       it "returns an empty array" do
-        expect(subject).to match_array []
+        videos = Video.search_by_title "Superman"
+        expect(videos).to eq []
       end
     end
 
     context "when one matching video is in the DB" do
       it "returns an array with a single video" do
-        iron_man = Video.create(title: "Iron Man", description: "The Beginning")
-
-        expect(subject).to match_array [iron_man]
+        videos = Video.search_by_title "Star Trek"
+        expect(videos).to eq [videos(:star_trek)]
       end
     end
 
     context "when two matching vidoes are in the DB" do
-      before :each do
-        @iron_man   = Video.create(title: "Iron Man", description: "The Beginning")
-        @iron_man_2 = Video.create(title: "Iron Man 2", description: "The Middle")
-        @thor = Video.create(title: "Thor", description: "The Beginning")
-      end
-
+      before { @videos = Video.search_by_title "Thor" }
       it "returns an array with multiple vidoes ordered by created_at" do
-        expect(subject).to eq [@iron_man_2, @iron_man]
+        expect(@videos).to eq [videos(:thor_2), videos(:thor)]
       end
 
       it "does not return unmatched videos" do
-        expect(subject).to_not include @thor
+        expect(@videos).to_not include videos(:iron_man)
+      end
+    end
+  end
+
+  describe "#average_rating" do
+    context "there are reviews of the video in the db" do
+      it "returns a number between 1 and 5" do
+        expect(iron_man.average_rating).to be_between(1.0, 5.0)
+      end
+
+      it "should have a precision of one decimal point" do
+        expect(iron_man.average_rating.to_s.length).to eq 3 #testing that the is only one number on either side of the decimal point
+      end
+
+      it "should correctly average the reveiw ratings" do
+        average =  iron_man.reviews.pluck(:rating).sum / iron_man.reviews.count
+        expect(iron_man.average_rating).to eq average
+      end
+    end
+
+    context "there are no reviews of the video in the db" do
+      it "should return 'no reviews' text" do
+        expect(videos(:star_trek).average_rating).to eq "No Reviews Yet"
       end
     end
   end
