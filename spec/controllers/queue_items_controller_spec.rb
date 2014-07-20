@@ -119,61 +119,44 @@ describe QueueItemsController do
   end
 
   describe "PATCH #update" do
-    # subject { patch :update }
+    let(:first_item)  { queue_items(:james_bonds_first_qi) }
+    let(:second_item) { queue_items(:james_bonds_second_qi)}
+    let(:third_item)  { queue_items(:james_bonds_third_qi) }
+    let(:fourth_item) { queue_items(:james_bonds_fourth_qi)}
 
-    # context "with an unauthenticated user" do
-    #   it_behaves_like "unauthenticated_access to the queue"
-    # end
+    subject { patch :update, { queue_items: [{ id: second_item.id, queue_rank: 1 }] } }
+
+    context "with an unauthenticated user" do
+      it_behaves_like "unauthenticated_access to the queue"
+    end
 
     context "with an authenticated user" do
       before do
         login_as user
       end
 
-      # it "redirects to the index page"# do
-      #   expect(subject).to redirect_to queue_path
-      # end
+      it "redirects to the index page" do
+        expect(subject).to redirect_to queue_path
+      end
 
-      # context "with two items in the queue" do
-      #   it "finds both items in the database" #do
-      #     all_items = QueueItem.where(user: user)
-      #     subject
-      #
-      #     expect(assigns(:queue_items)).to match_array all_items
-      #   end
-      #
-      #   it "swaps the queue rank of the items" #do
-      #     first = QueueItem.where(user: user, queue_rank: 1).first
-      #     second = QueueItem.where(user: user, queue_rank: 2).first
-      #
-      #     subject
-      #
-      #     expect(first.reload.queue_rank).to eq 2
-      #     expect(second.reload.queue_rank).to eq 1
-      #   end
-      # end
-      #
       context "with four items in the queue" do
         context "when only one queue item rank is changed" do
-          let(:first_item)  { queue_items(:james_bonds_first_qi) }
-          let(:second_item) { queue_items(:james_bonds_second_qi)}
-          subject { patch :update, { changing_items: [{ id: second_item.id, queue_rank: 1 }] } }
+          subject { patch :update, { queue_items: [{ id: second_item.id, queue_rank: 1 }] } }
 
           it "updates the items to the correct rank and pushes all others down" do
             subject
+
             expect(first_item.reload.queue_rank ).to eq 2
             expect(second_item.reload.queue_rank).to eq 1
           end
         end
 
         context "when two queue item ranks are changed" do
-          let(:third_item)  { queue_items(:james_bonds_third_qi) }
-          let(:fourth_item) { queue_items(:james_bonds_fourth_qi)}
-
-          subject { patch :update, {changing_items: [{ id: third_item.id,  queue_rank: 1}, {id: fourth_item.id, queue_rank: 2}] }}
+          subject { patch :update, {queue_items: [{ id: third_item.id,  queue_rank: 1}, {id: fourth_item.id, queue_rank: 2}] }}
 
           it "swaps the queue rank for the two items correctly" do
             subject
+
             expect(third_item.reload.queue_rank ).to eq 1
             expect(fourth_item.reload.queue_rank).to eq 2
           end
@@ -184,35 +167,19 @@ describe QueueItemsController do
           let(:third_item)  { queue_items(:james_bonds_third_qi )}
           let(:fourth_item) { queue_items(:james_bonds_fourth_qi)}
 
-          subject { patch :update, {changing_items: [{id: second_item.id,  queue_rank: 1},
+          subject { patch :update, {queue_items: [{id: second_item.id,  queue_rank: 1},
                                                      {id: third_item.id,  queue_rank: 4},
                                                      {id: fourth_item.id, queue_rank: 2}] }}
 
           it "swaps the queue rank for the two items correctly" do
             subject
+
             expect(second_item.reload.queue_rank).to eq 1
             expect(third_item.reload.queue_rank).to eq 4
             expect(fourth_item.reload.queue_rank).to eq 2
           end
         end
       end
-
-
-      # context "when the queue rank for three items are changed" do
-      #
-      # end
-      #
-      # context "when two items are given the same queue rank" do
-      #   it "sets the queue rank only on the item with the higher initial queue rank"
-      # end
-      #
-      # context "when there are gaps in the queue rank order" do
-      #   it "moves items up in rank to have a continuous ranking"
-      # end
-      #
-      # context "when none of the queue ranks where changed in the ui" do
-      #   it "doesn't change anything"
-      # end
     end
   end
 

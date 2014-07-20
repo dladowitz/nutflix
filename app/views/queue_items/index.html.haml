@@ -4,29 +4,32 @@
       %article
         %header
           %h2 My Queue
-        %table.table
-          %thead
-            %tr
-              %th(width="10%") List Order
-              %th(width="30%") Video Title
-              %th(width="10%") Play
-              %th(width="20%") Rating
-              %th(width="15%") Genre
-              %th(width="15%") Remove
-          %tbody
-            - @queue_items.each do |queue_item|
+        = form_tag queue_path,  method: :patch do
+          %table.table
+            %thead
               %tr
-                %td
-                  %input{ class: "form-control", id: "rank: #{queue_item.queue_rank}", type: "text", value: queue_item.queue_rank}
-                %td
-                  = link_to queue_item.video_title, queue_item.video
-                %td
-                  = button_to "Play", nil, class: "btn btn-default"
-                %td
-                  = queue_item.rating
-                %td
-                  = link_to queue_item.category_name, queue_item.category
-                %td
-                  = link_to "/queue_items/#{queue_item.id}", id: "remove-#{queue_item.queue_rank}", method: :delete do
-                    %i.glyphicon.glyphicon-remove
-        = button_to "Update Instant Queue", "/queue", class: "btn btn-default", method: :patch
+                %th(width="10%") List Order
+                %th(width="30%") Video Title
+                %th(width="10%") Play
+                %th(width="20%") Rating
+                %th(width="15%") Genre
+                %th(width="15%") Remove
+            %tbody
+              - @queue_items.each do |queue_item|
+                %tr
+                  %td
+                    %input{ name: "queue_items[][queue_rank]", type: "text", class: "form-control", id: "rank: #{queue_item.queue_rank}", value: "#{queue_item.queue_rank}"}
+                    %input{ name: "queue_items[][id]", type: "hidden", value: "#{queue_item.id}"}
+                  %td
+                    = link_to queue_item.video_title, queue_item.video
+                  %td
+                    = button_to "Play", nil, class: "btn btn-default"
+                  %td
+                    = queue_item.rating
+                  %td
+                    = link_to queue_item.category_name, queue_item.category
+                  %td
+                    = link_to "/queue_items/#{queue_item.id}", id: "remove-#{queue_item.queue_rank}", method: :delete do
+                      %i.glyphicon.glyphicon-remove
+          = button_tag "Update Instant Queue", class: "btn btn-default"
+

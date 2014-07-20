@@ -1,22 +1,34 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  email_address   :string(255)
+#  password_digest :string(255)
+#  full_name       :string(255)
+#  created_at      :datetime
+#  updated_at      :datetime
+#
+
 ---
 james_bond:
-  id: 32
-  email_address: bertha_schuster@hayes.org
-  password_digest: "$2a$10$/K9AUH5HMLBXQpAqlS3N1epBA.CNzgyCeOyZefKuPe7sM7osSZ/3m"
+  id: 38
+  email_address: shannon@hammeporer.com
+  password_digest: "$2a$10$FPBPIIFnlbVE36gVbvPaxOYY7KVkMF.v/p07H57ckc1k.Hz/XnMny"
   full_name: James Bond
-  created_at: 2014-07-19 05:40:05.464169000 Z
-  updated_at: 2014-07-19 05:40:05.464169000 Z
+  created_at: 2014-07-20 03:18:14.373623000 Z
+  updated_at: 2014-07-20 03:18:14.373623000 Z
 dr_evil:
-  id: 33
-  email_address: wilson@olsonjast.name
-  password_digest: "$2a$10$1dfeMVzUel3QkroXzNuH5eEV21S48yGVoYAacoOqav8f5x6KU5kza"
+  id: 39
+  email_address: madelynn@smith.org
+  password_digest: "$2a$10$pcZQ6KoJ01gWTMlzy7VlnetKgG.Tky0KYywqBEf.F.EHIwzF2BHpa"
   full_name: Dr Evil
-  created_at: 2014-07-19 05:40:05.539398000 Z
-  updated_at: 2014-07-19 05:40:05.539398000 Z
+  created_at: 2014-07-20 03:18:14.445548000 Z
+  updated_at: 2014-07-20 03:18:14.445548000 Z
 fat_bastard:
-  id: 34
-  email_address: lonny@upton.info
-  password_digest: "$2a$10$zekd/6j0VPdZhokHLkpGZee.Rted1z01nf8tiGZAfJX7f3HaeIR9i"
+  id: 40
+  email_address: ivory@goodwin.com
+  password_digest: "$2a$10$oyYnK3Fr6pk4tvTFUfudrucgBbBExO6y3ov0gpveFpzT8VZYINVMe"
   full_name: Fat Bastart
-  created_at: 2014-07-19 05:40:05.617985000 Z
-  updated_at: 2014-07-19 05:40:05.617985000 Z
+  created_at: 2014-07-20 03:18:14.523028000 Z
+  updated_at: 2014-07-20 03:18:14.523028000 Z

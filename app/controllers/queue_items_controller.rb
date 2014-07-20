@@ -22,43 +22,8 @@ class QueueItemsController < ApplicationController
   end
 
   def update
-    @queue_items = current_user.queue_items
-    @queue_items.each {|i| p "#{i.video_title} #{i.queue_rank}"}
-    puts "-----------------------"
-
-    if params[:changing_items].count == 1
-      puts "One item changing"
-      # id   = params[:changing_items].first[:id]
-      # rank = params[:changing_items].first[:queue_rank]
-      #
-      # single_item_update(id, rank)
-
-      multi_item_update(params[:changing_items])
-
-    elsif params[:changing_items].count == 2
-      puts "Two items changing"
-      # rank_options = {
-      #   first_id:   params[:changing_items].first[:id],
-      #   first_rank: params[:changing_items].first[:queue_rank],
-      #
-      #   second_id:   params[:changing_items].second[:id],
-      #   second_rank: params[:changing_items].second[:queue_rank],
-      # }
-      # double_item_update(rank_options)
-
-      multi_item_update(params[:changing_items])
-      
-    elsif params[:changing_items].count > 2
-      puts "Multiple items changing"
-
-      multi_item_update(params[:changing_items])
-    end
-
-
-    puts "-----------------------"
-    @queue_items = current_user.queue_items
-    @queue_items.each {|i| p "#{i.video_title} #{i.queue_rank}"}
-
+    user_changed_items = items_changed_in_ui
+    update_all_queue_items(user_changed_items)
     redirect_to queue_path
   end
 
@@ -81,86 +46,75 @@ class QueueItemsController < ApplicationController
 
   private
 
-  def single_item_update(id, rank)
-    QueueItem.transaction do
-      queue_items = current_user.queue_items
-      ordered_items = queue_items.order(:queue_rank)
-      ordered_items.each_with_index {|item, index| item.update_attributes(queue_rank: 500 + index)}
-
-      item_to_change = QueueItem.find(id)
-      item_to_change.update_attributes(queue_rank: rank)
-
-      ordered_items.each_with_index do |item|
-        item.update_attributes(queue_rank: next_free_rank) unless item == item_to_change
-      end
-    end
+  def free_up_queue_rankings(ordered_items)
+    ordered_items.each_with_index {|item, index| item.update_attributes(queue_rank: 500 + index)}
   end
 
-  def double_item_update(rank_options)
-    QueueItem.transaction do
-      queue_items = current_user.queue_items
-      ordered_items = queue_items.order(:queue_rank) ### refactor to a scope
-      ordered_items.each_with_index {|item, index| item.update_attributes(queue_rank: 500 + index)}  ### refactor to a method
-
-      first_item_to_change  = QueueItem.find(rank_options[:first_id])
-      second_item_to_change = QueueItem.find(rank_options[:second_id])
-
-      first_item_to_change.update_attributes(queue_rank: rank_options[:first_rank])
-      puts "first_item_to_change updated to #{first_item_to_change.queue_rank}"
-
-      second_item_to_change.update_attributes(queue_rank: rank_options[:second_rank])
-      puts "second_item_to_change updated to #{second_item_to_change.queue_rank}"
-
-      items_to_change = [first_item_to_change, second_item_to_change]
-
-
-      ordered_items.each_with_index do |item|
-        item.update_attributes(queue_rank: next_free_rank) unless items_to_change.include?(item)
-      end
-    end
+  def get_item_instances(user_changed_items)
+    item_instances = []
+    user_changed_items.each { |hash| item_instances << hash[:queue_item] }
+    item_instances
   end
 
-  def multi_item_update(rank_options_array)
-    queue_items = current_user.queue_items
-    ordered_items = queue_items.order(:queue_rank) ### refactor to a scope
-    ordered_items.each_with_index {|item, index| item.update_attributes(queue_rank: 500 + index)}  ### refactor to a method
-
-    # update all items and collect
-    items_to_change = []
-    rank_options_array.each do |queue_item|
-      item = QueueItem.find(queue_item[:id])
-      item.update_attributes(queue_rank: queue_item[:queue_rank])
-      items_to_change << item
-      puts "items to change: #{items_to_change}"
-    end
-
-    ordered_items.each_with_index do |item|
-      item.update_attributes(queue_rank: next_free_rank) unless items_to_change.include?(item)
-    end
-  end
-
-  def next_free_rank
-    queue_items = QueueItem.where(user: current_user)
-    ranks = queue_items.map(&:queue_rank)
-    taken_ranks = ranks.select{|rank| rank if rank < 500}
-    p "taken ranks: #{taken_ranks}"
-
-    queue_items.count.times do |index|
-      if taken_ranks.include?(index + 1)
-        p "#{index + 1} is NOT free"
-      else
-        p "#{index + 1} IS free"
-        return index + 1
-      end
-    end
+  def item_rank
+    items_already_in_queue.count + 1
   end
 
   def items_already_in_queue
     current_user.queue_items
   end
 
-  def item_rank
-    items_already_in_queue.count + 1
+  # returns queue_items where the queue rank was changed in the UI
+  def items_changed_in_ui
+    items_to_change = []
+
+    params[:queue_items].each do |queue_item|
+      item = QueueItem.find(queue_item[:id])
+
+      if item.queue_rank != queue_item[:queue_rank].to_i
+        items_to_change << { queue_item: item, queue_rank: queue_item[:queue_rank] }
+      end
+    end
+
+    items_to_change
+  end
+
+
+  def update_all_queue_items(user_changed_items)
+    ordered_items = items_already_in_queue.order(:queue_rank)
+    free_up_queue_rankings(ordered_items)
+
+    update_user_changed_items(user_changed_items)
+
+    user_changed_item_instances = get_item_instances(user_changed_items)
+
+    update_non_user_changed_items(ordered_items, user_changed_item_instances)
+  end
+
+  def update_user_changed_items(user_changed_items)
+    user_changed_items.each do |item_and_rank|
+      item_and_rank[:queue_item].update_attributes(queue_rank: item_and_rank[:queue_rank])
+    end
+  end
+
+  def update_non_user_changed_items(ordered_items, user_changed_item_instances)
+    ordered_items.each_with_index do |item|
+      item.update_attributes(queue_rank: next_free_rank) unless user_changed_item_instances.include?(item)
+    end
+  end
+
+  def next_free_rank
+    queue_items = items_already_in_queue
+    ranks = queue_items.map(&:queue_rank)
+    taken_ranks = ranks.select{|rank| rank if rank < 500}
+
+    queue_items.count.times do |index|
+      if taken_ranks.include?(index + 1)
+        next
+      else
+        return index + 1
+      end
+    end
   end
 
   def queue_video(video)
