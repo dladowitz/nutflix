@@ -46,7 +46,7 @@ videos =     Video.create([
 
                   { title: "Skyfall",       description: "007",                     category_id: 4, small_cover_url: "family_guy.jpg", large_cover_url: "monk_large.jpg" },
                   { title: "Rambo",         description: "Guns",                    category_id: 4, small_cover_url: "futurama.jpg",   large_cover_url: "monk_large.jpg" },
-                  { title: "Blad Runner",   description: "Replicants",              category_id: 4, small_cover_url: "monk.jpg",       large_cover_url: "monk_large.jpg" },
+                  { title: "Blade Runner",   description: "Replicants",              category_id: 4, small_cover_url: "monk.jpg",       large_cover_url: "monk_large.jpg" },
                   { title: "Jack Reacher",  description: "Punching",                category_id: 4, small_cover_url: "south_park.jpg", large_cover_url: "monk_large.jpg" },
                   { title: "Jack Reacher",  description: "Punching",                category_id: 4, small_cover_url: "south_park.jpg", large_cover_url: "monk_large.jpg" },
                   { title: "Jack Reacher",  description: "Punching",                category_id: 4, small_cover_url: "south_park.jpg", large_cover_url: "monk_large.jpg" },

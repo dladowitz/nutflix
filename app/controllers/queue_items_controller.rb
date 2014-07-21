@@ -1,5 +1,5 @@
 class QueueItemsController < ApplicationController
-  before_filter :require_user
+  before_filter  :require_user
 
   def index
     if current_user
@@ -22,8 +22,13 @@ class QueueItemsController < ApplicationController
   end
 
   def update
-    user_changed_items = items_changed_in_ui
-    update_all_queue_items(user_changed_items)
+    if invalid_update_params?
+      flash[:danger] = "Not gonna happen mang"
+    else
+      user_changed_items = items_changed_in_ui
+      update_all_queue_items(user_changed_items)
+    end
+
     redirect_to queue_path
   end
 
@@ -33,15 +38,15 @@ class QueueItemsController < ApplicationController
 
     if @queue_item == nil
       flash[:error] = "That not even an item in anyone's queue."
-      redirect_to queue_path
     elsif items_in_users_queue.include?(@queue_item)
       @queue_item.delete
+      items_already_in_queue.each{ |item| item.update_attributes(queue_rank: next_free_rank) }
       flash[:warning] = "Goodbye video!"
-      redirect_to queue_path
     else
       flash[:error] = "Whoa, hold on partna'. That video isn't in your queue"
-      redirect_to queue_path
     end
+
+    redirect_to queue_path
   end
 
   private
@@ -54,6 +59,32 @@ class QueueItemsController < ApplicationController
     item_instances = []
     user_changed_items.each { |hash| item_instances << hash[:queue_item] }
     item_instances
+  end
+
+  def invalid_update_params?
+    ranks = []
+    params[:queue_items].each do |queue_item|
+      item = QueueItem.find_by_id queue_item[:id]
+
+      return true unless item # tests for valid id
+      return true unless is_integer?(queue_item[:queue_rank])
+      return true unless item.user == current_user # tests to ensure only users queue items are being updated
+
+      ranks << queue_item[:queue_rank]
+    end
+
+    # tests for duplicate queue_ranks
+    return true unless ranks.length == ranks.uniq.length
+
+    return false
+  end
+
+  def is_integer?(string)
+    begin
+      eval(string).class == Fixnum ? true : false
+    rescue
+      return false
+    end
   end
 
   def item_rank
@@ -77,30 +108,6 @@ class QueueItemsController < ApplicationController
     end
 
     items_to_change
-  end
-
-
-  def update_all_queue_items(user_changed_items)
-    ordered_items = items_already_in_queue.order(:queue_rank)
-    free_up_queue_rankings(ordered_items)
-
-    update_user_changed_items(user_changed_items)
-
-    user_changed_item_instances = get_item_instances(user_changed_items)
-
-    update_non_user_changed_items(ordered_items, user_changed_item_instances)
-  end
-
-  def update_user_changed_items(user_changed_items)
-    user_changed_items.each do |item_and_rank|
-      item_and_rank[:queue_item].update_attributes(queue_rank: item_and_rank[:queue_rank])
-    end
-  end
-
-  def update_non_user_changed_items(ordered_items, user_changed_item_instances)
-    ordered_items.each_with_index do |item|
-      item.update_attributes(queue_rank: next_free_rank) unless user_changed_item_instances.include?(item)
-    end
   end
 
   def next_free_rank
@@ -130,6 +137,32 @@ class QueueItemsController < ApplicationController
       end
 
       return false
+    end
+  end
+
+  # this method is getting pretty messy. could use a refactor
+  def update_all_queue_items(user_changed_items)
+    ordered_items = items_already_in_queue.order(:queue_rank)
+    free_up_queue_rankings(ordered_items)
+
+    update_user_changed_items(user_changed_items)
+
+    # need to turn queue item hashes into item instances
+    user_changed_item_instances = get_item_instances(user_changed_items)
+
+    # skips anything in user_changed_item_instances
+    update_non_user_changed_items(ordered_items, user_changed_item_instances)
+  end
+
+  def update_user_changed_items(user_changed_items)
+    user_changed_items.each do |item_and_rank|
+      item_and_rank[:queue_item].update_attributes(queue_rank: item_and_rank[:queue_rank])
+    end
+  end
+
+  def update_non_user_changed_items(ordered_items, user_changed_item_instances)
+    ordered_items.each_with_index do |item|
+      item.update_attributes(queue_rank: next_free_rank) unless user_changed_item_instances.include?(item)
     end
   end
 

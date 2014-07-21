@@ -39,6 +39,6 @@ Then /^they can reorder their queue$/ do
   URI.parse(current_url).path.should == queue_path
 
   user = users(:james_bond)
-  page.should     have_content /#{user.queue_items.second.video.title}.*#{user.queue_items.first.video.title}/
-  page.should_not have_content /#{user.queue_items.first.video.title}.*#{user.queue_items.second.video.title}/
+  page.should     have_content /#{user.queue_items.third.video.title}.*#{user.queue_items.second.video.title}/
+  page.should_not have_content /#{user.queue_items.second.video.title}.*#{user.queue_items.third.video.title}/
 end

@@ -49,7 +49,7 @@ describe QueueItemsController do
         end
 
         it "orders queue items by 'queue_rank' property" do
-          first_qi = queue_items(:james_bonds_first_qi)
+          first_qi  = queue_items(:james_bonds_first_qi)
           second_qi = queue_items(:james_bonds_second_qi)
           subject
 
@@ -126,6 +126,21 @@ describe QueueItemsController do
 
     subject { patch :update, { queue_items: [{ id: second_item.id, queue_rank: 1 }] } }
 
+    shared_examples "does not update any items" do
+      before { subject }
+
+      it "should not update any of the queue items"  do
+        expect(first_item.queue_rank ).to eq 1
+        expect(second_item.queue_rank).to eq 2
+        expect(third_item.queue_rank ).to eq 3
+        expect(fourth_item.queue_rank).to eq 4
+      end
+
+      it "should show an error message" do
+        expect(flash[:danger]).to eq "Not gonna happen mang"
+      end
+    end
+
     context "with an unauthenticated user" do
       it_behaves_like "unauthenticated_access to the queue"
     end
@@ -139,7 +154,40 @@ describe QueueItemsController do
         expect(subject).to redirect_to queue_path
       end
 
-      context "with four items in the queue" do
+      context "with invalid params" do
+        context "when more than one item is changed to have the same rank" do
+          subject { patch :update, {queue_items: [{ id: second_item.id, queue_rank: 1}, { id: third_item.id, queue_rank: 1}] } }
+
+          it_behaves_like "does not update any items"
+        end
+
+        context "with an invalid queue_item id" do
+          subject { patch :update, { queue_items: [{ id: "bad_queue_id", queue_rank: 1 }] } }
+
+          it_behaves_like "does not update any items"
+        end
+
+        context "with 1.5 for the queue_rank" do
+          subject { patch :update, { queue_items: [{ id: first_item.id, queue_rank: 1.5 }] } }
+
+          it_behaves_like "does not update any items"
+        end
+
+        context "with 'aaa' for the queue_rank" do
+          subject { patch :update, { queue_items: [{ id: first_item.id, queue_rank: "aaa" }] } }
+
+          it_behaves_like "does not update any items"
+        end
+
+        context "with queue_items not belonging to the current user" do
+          let(:other_accounts_qi) {queue_items(:dr_evils_first_qi)}
+          subject { patch :update, {queue_items: [{ id: other_accounts_qi.id, queue_rank: 1}] } }
+
+          it_behaves_like "does not update any items"
+        end
+      end
+
+      context "with valid params" do
         context "when only one queue item rank is changed" do
           subject { patch :update, { queue_items: [{ id: second_item.id, queue_rank: 1 }] } }
 
@@ -168,8 +216,8 @@ describe QueueItemsController do
           let(:fourth_item) { queue_items(:james_bonds_fourth_qi)}
 
           subject { patch :update, {queue_items: [{id: second_item.id,  queue_rank: 1},
-                                                     {id: third_item.id,  queue_rank: 4},
-                                                     {id: fourth_item.id, queue_rank: 2}] }}
+                                                  {id: third_item.id,  queue_rank: 4},
+                                                  {id: fourth_item.id, queue_rank: 2}] }}
 
           it "swaps the queue rank for the two items correctly" do
             subject
@@ -184,7 +232,10 @@ describe QueueItemsController do
   end
 
   describe "DELETE #destroy" do
-    let(:queue_item) { queue_items(:james_bonds_first_qi) }
+    let(:queue_item)   { queue_items(:james_bonds_first_qi ) }
+    let(:queue_item_2) { queue_items(:james_bonds_second_qi) }
+    let(:queue_item_3) { queue_items(:james_bonds_third_qi ) }
+    let(:queue_item_4) { queue_items(:james_bonds_fourth_qi) }
     subject { delete :destroy, id: queue_item.id}
 
     it_behaves_like "unauthenticated_access to the queue"
@@ -205,6 +256,11 @@ describe QueueItemsController do
 
           it "removes the video from the users queue" do
             expect { subject }.to change{QueueItem.count}.by(-1)
+          end
+
+          it "normalizes all remaining queue ranks" do
+            subject
+            expect(user.queue_items).to eq [queue_item_2, queue_item_3, queue_item_4]
           end
         end
 
