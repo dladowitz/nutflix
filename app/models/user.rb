@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   # Associations
   # has_many :queue_items
   has_many :queue_items, -> { order "queue_rank ASC" }
+  has_many :reviews,     -> { order "updated_at DESC" }
 
   has_secure_password
 end

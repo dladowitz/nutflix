@@ -46,3 +46,23 @@ Then /^they can reorder their queue$/ do
   page.should     have_content /Thor.*Iron Man/
   page.should_not have_content /Iron Man.*Thor/
 end
+
+Then /they can see their review of a video/ do
+  page.should have_select("rating-1", :options => ["none", "1 Star", "2 Stars", "3 Stars", "4 Stars", "5 Stars"], selected: "none")
+  page.should have_select("rating-2", :options => ["none", "1 Star", "2 Stars", "3 Stars", "4 Stars", "5 Stars"], selected: "5 Stars")
+  page.should have_select("rating-3", :options => ["none", "1 Star", "2 Stars", "3 Stars", "4 Stars", "5 Stars"], selected: "none")
+  page.should have_select("rating-4", :options => ["none", "1 Star", "2 Stars", "3 Stars", "4 Stars", "5 Stars"], selected: "none")
+end
+
+And /they can change their review of a video/ do
+
+  select("4 Stars", :from => "rating-1")
+  URI.parse(current_url).path.should == queue_path
+
+  page.should have_select("rating-1", :options => ["none", "1 Star", "2 Stars", "3 Stars", "4 Stars", "5 Stars"], selected: "4 Stars") # This is what we want
+
+  video = Video.find_by_title "Thor"
+  user = users(:james_bond)
+  review = Review.where(video: video, user: user).last
+  review.rating.should eq 4
+end

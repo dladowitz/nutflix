@@ -10,4 +10,6 @@ Feature: Queues
     Then  they can add a video to their queue
     And   they can remove a video from their queue
     And   they can reorder their queue
+    Then  they can see their review of a video
+    And   they can change their review of a video
 

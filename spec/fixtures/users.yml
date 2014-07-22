@@ -1,22 +1,22 @@
 ---
 james_bond:
-  id: 41
-  email_address: dereck@wuckert.name
-  password_digest: "$2a$04$pOWWVLELNocsONmrZToaiuP5kNgQDv9EO3ToSkWx5EI0w16MPdXtO"
+  id: 53
+  email_address: fredy_rau@zulaufjohnson.info
+  password_digest: "$2a$04$ptR0tTJiLQDoL8aIIFLlxORoXMIMbK6cwr76Ph/JPkQS0KVXePvHW"
   full_name: James Bond
-  created_at: 2014-07-22 02:25:44.944621000 Z
-  updated_at: 2014-07-22 02:25:44.944621000 Z
+  created_at: 2014-07-22 03:57:22.353992000 Z
+  updated_at: 2014-07-22 03:57:22.353992000 Z
 dr_evil:
-  id: 42
-  email_address: dallas@smith.org
-  password_digest: "$2a$04$fap8iJMvsCPy7KGtU4PWmuOZ3PbwaSBpxZ9Eu9dm/5ZFa0oJAuEUu"
+  id: 54
+  email_address: florencio.mertz@leffler.name
+  password_digest: "$2a$04$93JMyD5fJSpI2XwLJhtzO.aNnpaL/xR1lh5Fhf9EQED9YKGH.4bO."
   full_name: Dr Evil
-  created_at: 2014-07-22 02:25:44.950323000 Z
-  updated_at: 2014-07-22 02:25:44.950323000 Z
+  created_at: 2014-07-22 03:57:22.359874000 Z
+  updated_at: 2014-07-22 03:57:22.359874000 Z
 fat_bastard:
-  id: 43
-  email_address: kelley@hoeger.net
-  password_digest: "$2a$04$poDedyZEO8aZzYG8tURBou7/b9TDwwY6/IWTOGPfiX31mwJoYvB56"
+  id: 55
+  email_address: merlin@paucek.name
+  password_digest: "$2a$04$hpRhODv.EK4/UMeDAh7G.Oi0rppAsvK4UelhgrFnaUnBfR5WE25me"
   full_name: Fat Bastart
-  created_at: 2014-07-22 02:25:44.991517000 Z
-  updated_at: 2014-07-22 02:25:44.991517000 Z
+  created_at: 2014-07-22 03:57:22.402583000 Z
+  updated_at: 2014-07-22 03:57:22.402583000 Z

@@ -37,8 +37,8 @@ FixtureBuilder.configure do |fbuilder|
     fbuilder.name(:flight,     create(:video, title: "Flight",     category: drama,  small_cover_url: "flight.jpg"))
 
     # reviews
-    fbuilder.name(:iron_man_review, create(:review, video: iron_man, user: @james_bond, rating: 5))
-    fbuilder.name(:iron_man_review, create(:review, video: iron_man, user: @james_bond, rating: 4))
+    fbuilder.name(:iron_man_review_1, create(:review, video: iron_man, user: @james_bond, rating: 5))
+    fbuilder.name(:iron_man_review_2, create(:review, video: iron_man, user: @dr_evil,    rating: 4))
 
     # queue_items
     fbuilder.name(:james_bonds_first_qi,  create(:queue_item, user: @james_bond, video: iron_man,   queue_rank: 1))

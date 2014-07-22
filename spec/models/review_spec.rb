@@ -3,7 +3,7 @@ require "spec_helper"
 describe Review do
   let(:user)  { users(:james_bond) }
   let(:video) { videos(:iron_man) }
-  subject(:review) { reviews(:iron_man_review) }
+  subject(:review) { reviews(:iron_man_review_1) }
 
   it { should belong_to(:video) }
   it { should belong_to(:user) }
