@@ -4,7 +4,7 @@ class QueueItemsController < ApplicationController
   def index
     if current_user
       @user = current_user
-      @queue_items = current_user.queue_items.order("queue_rank ASC")
+      @queue_items = current_user.queue_items
     else
       flash[:warning] = "Whatcho talkin' bout Willis? You need to be logged in to view your Queue."
       redirect_to signin_path
@@ -21,12 +21,15 @@ class QueueItemsController < ApplicationController
     end
   end
 
+  # note that the underlying code is more complex than the solution video
+  # I choose to allow users to change just one or two positions in the queue and
+  # have the rest of the items update accordingly.
   def update
     if invalid_update_params?
       flash[:danger] = "Not gonna happen mang"
     else
-      user_changed_items = items_changed_in_ui
-      update_all_queue_items(user_changed_items)
+      user_changed_items_and_rank = items_changed_in_ui
+      update_all_queue_items(user_changed_items_and_rank)
     end
 
     redirect_to queue_path
@@ -34,13 +37,12 @@ class QueueItemsController < ApplicationController
 
   def destroy
     @queue_item = QueueItem.find_by_id params[:id]
-    items_in_users_queue = current_user.queue_items
 
     if @queue_item == nil
       flash[:error] = "That not even an item in anyone's queue."
-    elsif items_in_users_queue.include?(@queue_item)
+    elsif current_users_queue.include?(@queue_item)
       @queue_item.delete
-      items_already_in_queue.each{ |item| item.update_attributes(queue_rank: next_free_rank) }
+      normalize_queue
       flash[:warning] = "Goodbye video!"
     else
       flash[:error] = "Whoa, hold on partna'. That video isn't in your queue"
@@ -55,12 +57,6 @@ class QueueItemsController < ApplicationController
     ordered_items.each_with_index {|item, index| item.update_attributes(queue_rank: 500 + index)}
   end
 
-  def get_item_instances(user_changed_items)
-    item_instances = []
-    user_changed_items.each { |hash| item_instances << hash[:queue_item] }
-    item_instances
-  end
-
   def invalid_update_params?
     ranks = []
     params[:queue_items].each do |queue_item|
@@ -73,25 +69,17 @@ class QueueItemsController < ApplicationController
       ranks << queue_item[:queue_rank]
     end
 
-    # tests for duplicate queue_ranks
+    # tests for duplicate queue_ranks in the same users queue
     return true unless ranks.length == ranks.uniq.length
 
     return false
   end
 
-  def is_integer?(string)
-    begin
-      eval(string).class == Fixnum ? true : false
-    rescue
-      return false
-    end
-  end
-
   def item_rank
-    items_already_in_queue.count + 1
+    current_users_queue.count + 1
   end
 
-  def items_already_in_queue
+  def current_users_queue
     current_user.queue_items
   end
 
@@ -111,17 +99,21 @@ class QueueItemsController < ApplicationController
   end
 
   def next_free_rank
-    queue_items = items_already_in_queue
-    ranks = queue_items.map(&:queue_rank)
+    ranks = current_users_queue.map(&:queue_rank)
     taken_ranks = ranks.select{|rank| rank if rank < 500}
 
-    queue_items.count.times do |index|
+    current_users_queue.count.times do |index|
       if taken_ranks.include?(index + 1)
         next
       else
         return index + 1
       end
     end
+  end
+
+  # remove any empty spaces in the continuity of queue ranks for a users queue
+  def normalize_queue
+    current_users_queue.each_with_index{ |item, index| item.update_attributes(queue_rank: index + 1) }
   end
 
   def queue_video(video)
@@ -140,34 +132,32 @@ class QueueItemsController < ApplicationController
     end
   end
 
-  # this method is getting pretty messy. could use a refactor
-  def update_all_queue_items(user_changed_items)
-    ordered_items = items_already_in_queue.order(:queue_rank)
-    free_up_queue_rankings(ordered_items)
-
-    update_user_changed_items(user_changed_items)
-
-    # need to turn queue item hashes into item instances
-    user_changed_item_instances = get_item_instances(user_changed_items)
+  # this method is getting pretty messy under the hood. could use a refactor
+  def update_all_queue_items(user_changed_items_and_rank)
+    free_up_queue_rankings(current_users_queue)
+    update_user_changed_items(user_changed_items_and_rank)
 
     # skips anything in user_changed_item_instances
-    update_non_user_changed_items(ordered_items, user_changed_item_instances)
+    update_user_unchanged_items(current_users_queue, user_changed_items_and_rank)
   end
 
-  def update_user_changed_items(user_changed_items)
-    user_changed_items.each do |item_and_rank|
+  def update_user_changed_items(user_changed_items_and_rank)
+    user_changed_items_and_rank.each do |item_and_rank|
       item_and_rank[:queue_item].update_attributes(queue_rank: item_and_rank[:queue_rank])
     end
   end
 
-  def update_non_user_changed_items(ordered_items, user_changed_item_instances)
-    ordered_items.each_with_index do |item|
-      item.update_attributes(queue_rank: next_free_rank) unless user_changed_item_instances.include?(item)
+  def update_user_unchanged_items(current_users_queue, user_changed_items_and_rank)
+    user_changed_items = []
+    user_changed_items_and_rank.each { |hash| user_changed_items << hash[:queue_item] }
+
+    current_users_queue.each_with_index do |item|
+      item.update_attributes(queue_rank: next_free_rank) unless user_changed_items.include?(item)
     end
   end
 
   def video_already_in_queue?(video)
     queue_item = QueueItem.where(user: current_user, video: video).first
-    items_already_in_queue.include?(queue_item)
+    current_users_queue.include?(queue_item)
   end
 end

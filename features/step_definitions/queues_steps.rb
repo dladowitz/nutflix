@@ -4,8 +4,8 @@ Then /^they can see their queue$/ do
   visit queue_path
 
   # checks to make sure the queue items appear in the correct order
-  page.should     have_content /#{user.queue_items.first.video.title}.*#{user.queue_items.second.video.title}.*#{user.queue_items.third.video.title}/
-  page.should_not have_content /#{user.queue_items.second.video.title}.*#{user.queue_items.first.video.title}.*#{user.queue_items.third.video.title}/
+  page.should     have_content /Iron Man.*Thor.*Iron Man 2/
+  page.should_not have_content /Thor.*Iron Man.*Iron Man 2/
 
   # checks for 4 items iin the queue
   page.should have_selector 'td input[type$="text"]', :count => 4
@@ -26,8 +26,12 @@ Then /^they can add a video to their queue$/ do
 end
 
 And /^they can remove a video from their queue$/ do
+
+  page.should have_content /Iron Man 2/
   visit queue_path
   click_link "remove-3"
+  page.should_not have_content /Iron Man 2/
+  page.should     have_content /Iron Man.*Thor.*Iron Man 3/
 end
 
 Then /^they can reorder their queue$/ do
@@ -39,6 +43,6 @@ Then /^they can reorder their queue$/ do
   URI.parse(current_url).path.should == queue_path
 
   user = users(:james_bond)
-  page.should     have_content /#{user.queue_items.third.video.title}.*#{user.queue_items.second.video.title}/
-  page.should_not have_content /#{user.queue_items.second.video.title}.*#{user.queue_items.third.video.title}/
+  page.should     have_content /Thor.*Iron Man/
+  page.should_not have_content /Iron Man.*Thor/
 end
