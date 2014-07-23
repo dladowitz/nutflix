@@ -38,4 +38,8 @@ class QueueItem < ActiveRecord::Base
       "none"
     end
   end
+
+  def users_last_review
+    review = Review.where(user: user, video: video).last
+  end
 end

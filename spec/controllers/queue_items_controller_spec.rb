@@ -119,9 +119,9 @@ describe QueueItemsController do
   end
 
   describe "PATCH #update" do
-    let(:first_item)  { queue_items(:james_bonds_first_qi) }
+    let(:first_item)  { queue_items(:james_bonds_first_qi )}
     let(:second_item) { queue_items(:james_bonds_second_qi)}
-    let(:third_item)  { queue_items(:james_bonds_third_qi) }
+    let(:third_item)  { queue_items(:james_bonds_third_qi )}
     let(:fourth_item) { queue_items(:james_bonds_fourth_qi)}
 
     subject { patch :update, { queue_items: [{ id: second_item.id, queue_rank: 1 }] } }
@@ -156,25 +156,28 @@ describe QueueItemsController do
 
       context "with invalid params" do
         context "when more than one item is changed to have the same rank" do
-          subject { patch :update, {queue_items: [{ id: second_item.id, queue_rank: 1}, { id: third_item.id, queue_rank: 1}] } }
+          subject { patch :update, { queue_items: [{id: first_item.id,  queue_rank: 1, rating: 5},    #same
+                                                   {id: second_item.id, queue_rank: 1, rating: 0},    #changed rank
+                                                   {id: third_item.id,  queue_rank: 1, rating: 0},    #changed rank
+                                                   {id: fourth_item.id, queue_rank: 4, rating: 0}] }} #same
 
           it_behaves_like "does not update any items"
         end
 
         context "with an invalid queue_item id" do
-          subject { patch :update, { queue_items: [{ id: "bad_queue_id", queue_rank: 1 }] } }
+          subject { patch :update, { queue_items: [{ id: "bad_queue_id", queue_rank: 1, rating: 0}] } }
 
           it_behaves_like "does not update any items"
         end
 
         context "with 1.5 for the queue_rank" do
-          subject { patch :update, { queue_items: [{ id: first_item.id, queue_rank: 1.5 }] } }
+          subject { patch :update, { queue_items: [{ id: first_item.id, queue_rank: 1.5, rating: 5 }] } }
 
           it_behaves_like "does not update any items"
         end
 
         context "with 'aaa' for the queue_rank" do
-          subject { patch :update, { queue_items: [{ id: first_item.id, queue_rank: "aaa" }] } }
+          subject { patch :update, { queue_items: [{ id: first_item.id, queue_rank: "aaa", rating: 5 }] } }
 
           it_behaves_like "does not update any items"
         end
@@ -188,42 +191,73 @@ describe QueueItemsController do
       end
 
       context "with valid params" do
+        context "when a rating is changed on a queue item" do
+          it "updates the queue item with the correct rating" do
+
+            patch :update, { queue_items: [{id: first_item.id,  queue_rank: 1, rating: 1},    #changed rating
+                                           {id: second_item.id, queue_rank: 2, rating: 0},    #same
+                                           {id: third_item.id,  queue_rank: 3, rating: 0},    #same
+                                           {id: fourth_item.id, queue_rank: 4, rating: 0}] }  #same
+
+            expect(first_item.reload.rating).to eq 1
+          end
+        end
+
+        context "when a rating is added for the first time" do
+          it "adds a review with the correct rating" do
+            patch :update, { queue_items: [{id: first_item.id,  queue_rank: 1, rating: 5},    #same
+                                           {id: second_item.id, queue_rank: 2, rating: 2},    #changed rating
+                                           {id: third_item.id,  queue_rank: 3, rating: 0},    #same
+                                           {id: fourth_item.id, queue_rank: 4, rating: 0}] }  #same
+
+            expect(second_item.reload.rating).to eq 2
+          end
+        end
+
         context "when only one queue item rank is changed" do
-          subject { patch :update, { queue_items: [{ id: second_item.id, queue_rank: 1 }] } }
+          subject { patch :update, { queue_items: [{id: first_item.id,  queue_rank: 1, rating: 5},    #same
+                                                   {id: second_item.id, queue_rank: 1, rating: 0},    #changed rank
+                                                   {id: third_item.id,  queue_rank: 3, rating: 0},    #same
+                                                   {id: fourth_item.id, queue_rank: 4, rating: 0}] }} #same
 
           it "updates the items to the correct rank and pushes all others down" do
             subject
 
             expect(first_item.reload.queue_rank ).to eq 2
             expect(second_item.reload.queue_rank).to eq 1
+            expect(third_item.reload.queue_rank ).to eq 3
+            expect(fourth_item.reload.queue_rank).to eq 4
           end
         end
 
         context "when two queue item ranks are changed" do
-          subject { patch :update, {queue_items: [{ id: third_item.id,  queue_rank: 1}, {id: fourth_item.id, queue_rank: 2}] }}
+          subject { patch :update, {queue_items: [{id: first_item.id,  queue_rank: 1, rating: 5},     #same
+                                                  {id: second_item.id, queue_rank: 2, rating: 0},     #same
+                                                  {id: third_item.id,  queue_rank: 1, rating: 0},     #changed rank
+                                                  {id: fourth_item.id, queue_rank: 2, rating: 0}] }}  #changed rank
 
-          it "swaps the queue rank for the two items correctly" do
+          it "changes the queue rank for the two items correctly" do
             subject
 
+            expect(first_item.reload.queue_rank ).to eq 3
+            expect(second_item.reload.queue_rank).to eq 4
             expect(third_item.reload.queue_rank ).to eq 1
             expect(fourth_item.reload.queue_rank).to eq 2
           end
         end
 
         context "when multiple queue item ranks are changed" do
-          let(:second_item) { queue_items(:james_bonds_second_qi)}
-          let(:third_item)  { queue_items(:james_bonds_third_qi )}
-          let(:fourth_item) { queue_items(:james_bonds_fourth_qi)}
-
-          subject { patch :update, {queue_items: [{id: second_item.id,  queue_rank: 1},
-                                                  {id: third_item.id,  queue_rank: 4},
-                                                  {id: fourth_item.id, queue_rank: 2}] }}
+          subject { patch :update, {queue_items: [{id: first_item.id,  queue_rank: 1, rating: 5},    #same
+                                                  {id: second_item.id, queue_rank: 1, rating: 0},    #changed rank
+                                                  {id: third_item.id,  queue_rank: 4, rating: 0},    #changed rank
+                                                  {id: fourth_item.id, queue_rank: 2, rating: 0}] }} #changed rank
 
           it "swaps the queue rank for the two items correctly" do
             subject
 
+            expect(first_item.reload.queue_rank ).to eq 3
             expect(second_item.reload.queue_rank).to eq 1
-            expect(third_item.reload.queue_rank).to eq 4
+            expect(third_item.reload.queue_rank ).to eq 4
             expect(fourth_item.reload.queue_rank).to eq 2
           end
         end

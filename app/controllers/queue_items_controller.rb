@@ -30,6 +30,7 @@ class QueueItemsController < ApplicationController
     else
       user_changed_items_and_rank = items_changed_in_ui
       update_all_queue_items(user_changed_items_and_rank)
+      update_ratings
     end
 
     redirect_to queue_path
@@ -57,20 +58,28 @@ class QueueItemsController < ApplicationController
     ordered_items.each_with_index {|item, index| item.update_attributes(queue_rank: 500 + index)}
   end
 
-  def invalid_update_params?
+  # I really hate having to do this just to find out if there are 3 queue ranks with the same value
+
+  def invalid_rankings?
     ranks = []
+    params[:queue_items].each{ |qi| ranks << qi[:queue_rank] }
+
+    rank_count = Hash.new(0)
+    ranks.each { |rank| rank_count[rank] += 1 }
+
+    rank_count.each{ |rank, count| return true if count >= 3 }
+
+    return false
+  end
+
+  def invalid_update_params?
     params[:queue_items].each do |queue_item|
       item = QueueItem.find_by_id queue_item[:id]
-
       return true unless item # tests for valid id
       return true unless is_integer?(queue_item[:queue_rank])
       return true unless item.user == current_user # tests to ensure only users queue items are being updated
-
-      ranks << queue_item[:queue_rank]
     end
-
-    # tests for duplicate queue_ranks in the same users queue
-    return true unless ranks.length == ranks.uniq.length
+    return true if invalid_rankings?
 
     return false
   end
@@ -153,6 +162,21 @@ class QueueItemsController < ApplicationController
 
     current_users_queue.each_with_index do |item|
       item.update_attributes(queue_rank: next_free_rank) unless user_changed_items.include?(item)
+    end
+  end
+
+  def update_ratings
+    params[:queue_items].each do |queue_item|  #could dry this up as its similiar to items_changed_in_ui
+      if /[1-5]/ =~ queue_item[:rating]
+        item = QueueItem.find(queue_item[:id])
+
+        if item.rating == "none"
+          Review.create(user: current_user, video: item.video, rating: queue_item[:rating])
+        elsif item.rating != queue_item[:rating].to_i
+          review = item.users_last_review
+          review.update_attributes(rating: queue_item[:rating].to_i)
+        end
+      end
     end
   end
 

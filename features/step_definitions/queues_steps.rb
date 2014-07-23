@@ -60,6 +60,7 @@ And /they can change their review of a video/ do
   URI.parse(current_url).path.should == queue_path
 
   page.should have_select("rating-1", :options => ["none", "1 Star", "2 Stars", "3 Stars", "4 Stars", "5 Stars"], selected: "4 Stars") # This is what we want
+  click_button "Update Instant Queue"
 
   video = Video.find_by_title "Thor"
   user = users(:james_bond)
