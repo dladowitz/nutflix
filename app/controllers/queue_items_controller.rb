@@ -170,12 +170,7 @@ class QueueItemsController < ApplicationController
       if /[1-5]/ =~ queue_item[:rating]
         item = QueueItem.find(queue_item[:id])
 
-        if item.rating == "none"
-          Review.create(user: current_user, video: item.video, rating: queue_item[:rating])
-        elsif item.rating != queue_item[:rating].to_i
-          review = item.users_last_review
-          review.update_attributes(rating: queue_item[:rating].to_i)
-        end
+        item.rating = queue_item[:rating].to_i
       end
     end
   end

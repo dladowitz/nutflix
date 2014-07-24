@@ -29,6 +29,10 @@ class QueueItem < ActiveRecord::Base
     category ? category.name : "none"
   end
 
+  def review
+    Review.where(user: user, video: video).last
+  end
+
   def rating
     review = Review.where(user: user, video: video).last
 
@@ -39,7 +43,11 @@ class QueueItem < ActiveRecord::Base
     end
   end
 
-  def users_last_review
-    review = Review.where(user: user, video: video).last
+  def rating=(review_rating)
+    if rating = "none"
+      Review.create user: user, video: video, rating: review_rating
+    else
+      review.update_attributes! rating: review_rating
+    end
   end
 end
