@@ -7,8 +7,7 @@ describe SessionsController do
 
     context "for authenticated users" do
       it "redirects to the vidoes path" do
-        user = users(:james_bond)
-        login_as user
+        login_user
         expect(response).to render_template :new
       end
     end
@@ -85,8 +84,7 @@ describe SessionsController do
 
     context "with an authenticated user" do
       before do
-        user =  users(:james_bond)
-        login_as user
+        login_user
         subject
       end
 

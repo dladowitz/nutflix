@@ -44,7 +44,7 @@ class QueueItem < ActiveRecord::Base
   end
 
   def rating=(review_rating)
-    if rating = "none"
+    if rating == "none"
       Review.create user: user, video: video, rating: review_rating
     else
       review.update_attributes! rating: review_rating
