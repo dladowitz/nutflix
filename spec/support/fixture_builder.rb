@@ -20,7 +20,7 @@ FixtureBuilder.configure do |fbuilder|
     # users
     @james_bond  = create(:user, full_name: "James Bond")
     @dr_evil     = create(:user, full_name: "Dr Evil")
-    @fat_bastard = create(:user, full_name: "Fat Bastart")
+    @fat_bastard = create(:user, full_name: "Fat Bastard")
 
 
     # videos

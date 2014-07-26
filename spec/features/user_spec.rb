@@ -5,7 +5,7 @@ feature "User signs in" do
     user = users(:james_bond)
     signin_user user
 
-    URI.parse(current_url).path.should == videos_path
+    url_should_be videos_path
     page.should have_content "Successfully logged in"
   end
 end

@@ -6,3 +6,7 @@ def signin_user(given_user = nil)
   fill_in "Password", with: "asdfasdf"
   click_button "Sign In"
 end
+
+def url_should_be(path)
+  URI.parse(current_url).path.should == path
+end

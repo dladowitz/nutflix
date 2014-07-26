@@ -1,0 +1,5 @@
+%tr.queue_item
+  %td
+    = link_to queue_item.video_title, video_path(queue_item.video)
+  %td
+    = link_to queue_item.category.name, category_path(queue_item.category)

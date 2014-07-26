@@ -40,15 +40,5 @@
           User Reviews
           = "(#{Review.count})"
       %ul
-        - @reviews.each do |review|
-          %article.review
-            %li.row
-              .col-sm-2
-                %span
-                  = "Rating: #{review.rating} / 5"
-                %p
-                  by
-                  = link_to review.user.full_name, ""
-              .col-sm-8
-                %p
-                  = review.text
+        = render partial: "review", collection: @reviews
+

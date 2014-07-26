@@ -53,4 +53,39 @@ describe UsersController do
       end
     end
   end
+
+  describe "GET 'show'" do
+    let(:user_1) { users(:dr_evil) }
+    let(:user_2) { users(:james_bond) }
+    subject { get :show, id: user_2.id }
+
+    it_behaves_like "requires signin without an authenticated user" do
+      let(:http_request)        { subject }
+    end
+
+    context "with an authenticated user" do
+      before do
+        login_user user_1
+        subject
+      end
+
+      it_behaves_like "renders template with an authenticated user" do
+        let(:http_request)           { subject }
+        let(:authenticated_template) { :show }
+      end
+
+      it "finds all the users reviews" do
+        reviews = user_2.reviews
+        expect(assigns(:reviews).count).to eq reviews.count
+      end
+
+      it "finds all the videos the users queue" do
+        queue_items = user_2.queue_items
+        expect(assigns(:queue_items).count).to eq queue_items.count
+      end
+
+
+    end
+
+  end
 end
