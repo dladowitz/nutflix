@@ -16,8 +16,6 @@ group :development do
   gem "awesome_print"
   gem "better_errors"
   gem "binding_of_caller"
-  gem "pry"
-  gem "pry-nav"
   gem "sqlite3"
   gem "thin"
 end
@@ -26,8 +24,9 @@ group :development, :test do
   gem "factory_girl_rails", "~> 4.2.1"
   gem "faker"
   gem "fixture_builder"
-  gem "pry-rails"
   gem "pry-debugger"
+  gem "pry-nav"
+  gem "pry-rails"
   gem "quiet_assets"
   gem "rspec-rails", "2.99"
 end

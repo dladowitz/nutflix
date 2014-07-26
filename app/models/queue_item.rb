@@ -12,9 +12,10 @@
 
 class QueueItem < ActiveRecord::Base
   # Validations
-  validates_presence_of   :queue_rank, :user, :video
-  validates_uniqueness_of :queue_rank, scope: :user_id
-  validates_uniqueness_of :video_id,   scope: :user_id
+  validates_numericality_of :queue_rank, only_integer: true
+  validates_presence_of     :queue_rank, :user, :video
+  validates_uniqueness_of   :queue_rank, scope: :user_id
+  validates_uniqueness_of   :video_id,   scope: :user_id
 
   # Associations
   belongs_to :user
@@ -28,13 +29,25 @@ class QueueItem < ActiveRecord::Base
     category ? category.name : "none"
   end
 
+  def review
+    Review.where(user: user, video: video).last
+  end
+
   def rating
-    review = Review.where(user: user, video: video).first
+    review = Review.where(user: user, video: video).last
 
     if review
       review.rating
     else
       "none"
+    end
+  end
+
+  def rating=(review_rating)
+    if rating == "none"
+      Review.create user: user, video: video, rating: review_rating
+    else
+      review.update_attributes! rating: review_rating
     end
   end
 end

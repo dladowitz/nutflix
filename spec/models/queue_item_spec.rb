@@ -3,6 +3,7 @@ require "spec_helper"
 describe QueueItem do
   let(:queue_item) { queue_items(:james_bonds_first_qi) }
 
+  it { should validate_numericality_of(:queue_rank).only_integer }
   it { should validate_presence_of :queue_rank }
   it { should belong_to :user  }
   it { should validate_presence_of :user }
