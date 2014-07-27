@@ -34,6 +34,22 @@ describe UsersController do
       it "creates a user in the database" do
         expect(assigns(:user)).to eq User.find_by_email_address("tony@stark_labs.com")
       end
+
+      describe "Welcome Emails" do
+        it "sends an email on user creation" do
+          ActionMailer::Base.deliveries.should_not be_empty
+        end
+
+        it "send the the correct user" do
+          email = ActionMailer::Base.deliveries.last
+          email.to.should eq ["tony@stark_labs.com"]
+        end
+
+        it "has the correct content in the body" do
+          email = ActionMailer::Base.deliveries.last
+          email.body.should include("Welcome Tony Stark")
+        end
+      end
     end
 
     context "with invalid inputs" do
