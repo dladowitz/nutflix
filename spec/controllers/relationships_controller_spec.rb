@@ -40,6 +40,20 @@ describe RelationshipsController do
       expect(assigns(:relationships)).to match_array james_bond.followed_user_relationships
     end
   end
+
+  describe "DELETE #destroy" do
+    let!(:relationship) { Relationship.first}
+    subject { delete :destroy, id: relationship.id }
+
+    it_behaves_like "requires signin without an authenticated user" do
+      let(:http_request) { subject }
+    end
+
+    it "deletes a relationship between two users" do
+      expect { subject }.to change{Relationship.count}.by -1
+    end
+
+  end
 end
 
 

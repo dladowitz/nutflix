@@ -16,6 +16,8 @@ feature "Followers" do
     page.should have_content "Unfollow"
 
     expect_to_be_following(dr_evil)
+
+    unfollow(dr_evil)
   end
 
   def follow(user)
@@ -30,6 +32,11 @@ feature "Followers" do
 
     expect(find(:xpath, "//a[text()='#{user.full_name}']"))
     page.should     have_content /#{user.full_name}.*#{video_count}.*#{follower_count}/
+  end
+
+  def unfollow(user)
+    click_link("delete-#{user.full_name}")
+    page.should_not have_content user.full_name
   end
 end
 

@@ -23,4 +23,11 @@ class RelationshipsController < ApplicationController
 
     redirect_to user_path followed_user
   end
+
+  def destroy
+    relationship = Relationship.find params[:id]
+    relationship.delete
+
+    redirect_to people_path
+  end
 end
