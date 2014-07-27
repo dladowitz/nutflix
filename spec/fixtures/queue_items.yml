@@ -1,36 +1,36 @@
 ---
 james_bonds_first_qi:
-  id: 75
+  id: 11
   queue_rank: 1
-  video_id: 310
-  user_id: 59
-  created_at: 2014-07-26 02:53:27.163795000 Z
-  updated_at: 2014-07-26 02:53:27.163795000 Z
+  video_id: 23
+  user_id: 7
+  created_at: 2014-07-27 00:24:52.129581000 Z
+  updated_at: 2014-07-27 00:24:52.129581000 Z
 james_bonds_second_qi:
-  id: 76
+  id: 12
   queue_rank: 2
-  video_id: 317
-  user_id: 59
-  created_at: 2014-07-26 02:53:27.167238000 Z
-  updated_at: 2014-07-26 02:53:27.167238000 Z
+  video_id: 30
+  user_id: 7
+  created_at: 2014-07-27 00:24:52.133098000 Z
+  updated_at: 2014-07-27 00:24:52.133098000 Z
 james_bonds_third_qi:
-  id: 77
+  id: 13
   queue_rank: 3
-  video_id: 311
-  user_id: 59
-  created_at: 2014-07-26 02:53:27.171898000 Z
-  updated_at: 2014-07-26 02:53:27.171898000 Z
+  video_id: 24
+  user_id: 7
+  created_at: 2014-07-27 00:24:52.136092000 Z
+  updated_at: 2014-07-27 00:24:52.136092000 Z
 james_bonds_fourth_qi:
-  id: 78
+  id: 14
   queue_rank: 4
-  video_id: 312
-  user_id: 59
-  created_at: 2014-07-26 02:53:27.176165000 Z
-  updated_at: 2014-07-26 02:53:27.176165000 Z
+  video_id: 25
+  user_id: 7
+  created_at: 2014-07-27 00:24:52.139144000 Z
+  updated_at: 2014-07-27 00:24:52.139144000 Z
 dr_evils_first_qi:
-  id: 79
+  id: 15
   queue_rank: 1
-  video_id: 310
-  user_id: 60
-  created_at: 2014-07-26 02:53:27.180406000 Z
-  updated_at: 2014-07-26 02:53:27.180406000 Z
+  video_id: 23
+  user_id: 8
+  created_at: 2014-07-27 00:24:52.144274000 Z
+  updated_at: 2014-07-27 00:24:52.144274000 Z

@@ -18,10 +18,9 @@ FixtureBuilder.configure do |fbuilder|
     reality = create(:category, name: "Reality")
 
     # users
-    @james_bond  = create(:user, full_name: "James Bond")
-    @dr_evil     = create(:user, full_name: "Dr Evil")
-    @fat_bastard = create(:user, full_name: "Fat Bastard")
-
+    @james_bond  = create(:user, full_name: "James Bond", email_address: "james@007.com" )
+    @dr_evil     = create(:user, full_name: "Dr Evil", email_address: "dr@evil.com")
+    @fat_bastard = create(:user, full_name: "Fat Bastard", email_address: "baby_back_ribs@chilis")
 
     # videos
     iron_man   =               create(:video, title: "Iron Man",   category: action, small_cover_url: "iron_man.jpg",   created_at: Time.now - 7.hour)
@@ -46,6 +45,9 @@ FixtureBuilder.configure do |fbuilder|
     fbuilder.name(:james_bonds_third_qi,  create(:queue_item, user: @james_bond, video: iron_man_2, queue_rank: 3))
     fbuilder.name(:james_bonds_fourth_qi, create(:queue_item, user: @james_bond, video: iron_man_3, queue_rank: 4))
     fbuilder.name(:dr_evils_first_qi,     create(:queue_item, user: @dr_evil,    video: iron_man,   queue_rank: 1))
+
+    # relationships
+    create(:relationship, followed_user: @fat_bastard, follower: @james_bond)
   end
 end
 

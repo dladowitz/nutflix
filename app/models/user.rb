@@ -8,6 +8,7 @@
 #  full_name       :string(255)
 #  created_at      :datetime
 #  updated_at      :datetime
+#  follower_id     :integer
 #
 
 class User < ActiveRecord::Base
@@ -19,6 +20,15 @@ class User < ActiveRecord::Base
   # has_many :queue_items
   has_many :queue_items, -> { order "queue_rank ASC" }
   has_many :reviews,     -> { order "updated_at DESC" }
+
+  has_many :follower_relationships, class_name: "Relationship", foreign_key: :followed_user_id
+  has_many :followers,              through:    :follower_relationships,     source: :follower
+
+  has_many :followed_user_relationships, class_name: "Relationship",   foreign_key: :follower_id
+  has_many :followed_users, through:     :followed_user_relationships, source: :followed_user
+
+  # has_many :followed_users, class_name: "Relationship", foreign_key: :follower_id
+  # has_many :followers,      class_name: "Relationship", foreign_key: :followed_user_id
 
   has_secure_password
 end

@@ -37,7 +37,7 @@ class Video < ActiveRecord::Base
   # Instance Methods
   def average_rating
     if reviews.any?
-      @rating = reviews.average(:rating).to_f
+      @rating = reviews.average(:rating).to_f.round(1)
       @rating == 1.0 ? "#{@rating} Star" : "#{@rating } Stars"
     else
       "No Reviews Yet"
