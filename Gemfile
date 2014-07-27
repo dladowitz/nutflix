@@ -16,6 +16,7 @@ group :development do
   gem "awesome_print"
   gem "better_errors"
   gem "binding_of_caller"
+  gem "letter_opener"
   gem "sqlite3"
   gem "thin"
 end
@@ -24,7 +25,6 @@ group :development, :test do
   gem "factory_girl_rails", "~> 4.2.1"
   gem "faker"
   gem "fixture_builder"
-  gem "letter_opener"
   gem "pry-debugger"
   gem "pry-nav"
   gem "pry-rails"
