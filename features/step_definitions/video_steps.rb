@@ -72,7 +72,7 @@ end
 
 Then /^user can see video reviews$/ do
   user = users(:james_bond)
-  page.text.should match (/Average Rating: [1-5]\.[0-9]/)
+  page.text.should match (/Average Rating: [1-5]\.[0-9]\b/)
   page.text.should match(/User Reviews \(\d*\)/)
   page.text.should match (/Rating: [1-5] \/ 5/)
   page.should have_content "by #{user.full_name}"

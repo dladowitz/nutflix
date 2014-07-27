@@ -8,6 +8,7 @@
 #  full_name       :string(255)
 #  created_at      :datetime
 #  updated_at      :datetime
+#  follower_id     :integer
 #
 
 require "faker"

@@ -5,7 +5,7 @@ feature "User can manage a queue" do
     signin_user
 
     video = (Video.search_by_title "Iron Man 7").first
-    find("a[href='/videos/#{video.id}']").click
+    click_on_video_on_videos_page video
     page.should have_content "Iron Man 7"
     click_link "+ My Queue"
 
