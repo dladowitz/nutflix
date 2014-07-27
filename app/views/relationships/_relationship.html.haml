@@ -5,5 +5,5 @@
   %td.extra-padding= relationship.followed_user.queue_items.count
   %td.extra-padding= relationship.followed_user.followers.count
   %td.extra-padding
-    = link_to relationships_path, method: :delete do
+    = link_to relationship_path(relationship), id: "delete-#{relationship.followed_user.full_name}", method: :delete do
       %i.glyphicon.glyphicon-remove
