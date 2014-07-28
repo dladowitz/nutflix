@@ -1,4 +1,4 @@
-class Admin::PasswordResetController < ApplicationController
+class PasswordResetController < ApplicationController
   def edit
     @user = User.find_by_reset_token params[:reset_token]
 
