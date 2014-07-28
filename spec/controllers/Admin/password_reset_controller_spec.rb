@@ -10,6 +10,6 @@ describe Admin::PasswordResetController do
     it "finds the correct user"
     it "updates the users password"
     it "redirect to the home path"
-    it "logs the user in "
+    it "logs the user in"
   end
 end
