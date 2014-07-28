@@ -17,7 +17,6 @@ class PasswordResetController < ApplicationController
     if user && user.save
       user.reset_token = nil
       user.save(validate: false)
-
       #### TODO log user in
       flash[:success] = "You're password was reset. Maybe don't forget it again."
     else
