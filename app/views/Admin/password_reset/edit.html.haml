@@ -1,0 +1,14 @@
+%section.reset_password.container
+  .row
+    .col-sm-10.col-sm-offset-1
+      = form_tag "/admin/password_reset", method: :patch do
+        %header
+          %h1 Reset Your Password
+        %fieldset.form-group
+          %label New Password
+          .row
+            .col-sm-4
+              = password_field_tag "password_reset[new_password]", nil, class: "form-control"
+              = hidden_field_tag "password_reset[reset_token]", params[:id]
+        %fieldset.form-group.action
+          = button_tag "Reset Password", class: "btn btn-default"

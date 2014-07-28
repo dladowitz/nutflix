@@ -18,8 +18,8 @@ FixtureBuilder.configure do |fbuilder|
     reality = create(:category, name: "Reality")
 
     # users
-    @james_bond  = create(:user, full_name: "James Bond", email_address: "james@007.com" )
-    @dr_evil     = create(:user, full_name: "Dr Evil", email_address: "dr@evil.com")
+    @james_bond  = create(:user, full_name: "James Bond",  email_address: "james@007.com" )
+    @dr_evil     = create(:user, full_name: "Dr Evil",     email_address: "dr@evil.com")
     @fat_bastard = create(:user, full_name: "Fat Bastard", email_address: "baby_back_ribs@chilis")
 
     # videos

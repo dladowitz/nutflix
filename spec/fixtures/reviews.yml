@@ -1,17 +1,17 @@
 ---
 iron_man_review_1:
-  id: 5
+  id: 1
   rating: 5
-  text: extend intuitive niches
-  user_id: 7
-  video_id: 23
-  created_at: 2014-07-27 00:24:52.112628000 Z
-  updated_at: 2014-07-27 00:24:52.112628000 Z
+  text: aggregate best-of-breed channels
+  user_id: 1
+  video_id: 1
+  created_at: 2014-07-28 04:37:16.981266000 Z
+  updated_at: 2014-07-28 04:37:16.981266000 Z
 iron_man_review_2:
-  id: 6
+  id: 2
   rating: 4
-  text: revolutionize wireless initiatives
-  user_id: 8
-  video_id: 23
-  created_at: 2014-07-27 00:24:52.116805000 Z
-  updated_at: 2014-07-27 00:24:52.116805000 Z
+  text: iterate 24/365 networks
+  user_id: 2
+  video_id: 1
+  created_at: 2014-07-28 04:37:16.985647000 Z
+  updated_at: 2014-07-28 04:37:16.985647000 Z
