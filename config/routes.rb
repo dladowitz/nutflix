@@ -20,13 +20,12 @@ Myflix::Application.routes.draw do
   resources :queue_items,          only: [:create, :destroy]
   resources :relationships,        only: [:index, :create, :destroy]
 
-  scope '/admin' do
-    get   :password_reset_requests,  to: "admin/password_reset_requests#new",    as: :password_reset_request
-    post  :password_reset_requests,  to: "admin/password_reset_requests#create", as: :password_reset_requests
 
-    get   "password_reset/:id",       to: "admin/password_reset#edit",            as: :password_reset
-    patch :password_reset,            to: "admin/password_reset#update"
-  end
+  get   :password_reset_requests,  to: "password_reset_requests#new",    as: :password_reset_request
+  post  :password_reset_requests,  to: "password_reset_requests#create", as: :password_reset_requests
+
+  get   "password_reset/:id",       to: "password_reset#edit",           as: :password_reset
+  patch :password_reset,            to: "password_reset#update"
 
   resources :videos,                 only: [:show, :index] do
     collection do
