@@ -8,4 +8,12 @@ class UserMailer < ActionMailer::Base
     mail(to: @user.email_address, subject: "Welcome to NutFlix")
   end
 
+  def password_reset_request(user)
+    @user = user
+    @first_name = user.full_name.split(" ").first
+    @reset_link = "http://nutflix.heroku.com/admin/password_reset/#{user.reset_token}"
+
+    mail(to: @user.email_address, subject: "Password Reset")
+  end
+
 end

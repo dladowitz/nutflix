@@ -21,7 +21,8 @@ describe UsersController do
   describe "POST 'create'" do
     context "with valid input for all fields" do
       subject { post :create, user: {email_address: "tony@stark_labs.com", password: "the_mandarin", full_name: "Tony Stark" } }
-      before { subject }
+      before  { subject }
+      after   { ActionMailer::Base.deliveries.clear }
 
       it "returns http 302 redirect" do
         expect(response.status).to eq 302
@@ -37,23 +38,24 @@ describe UsersController do
 
       describe "Welcome Emails" do
         it "sends an email on user creation" do
-          ActionMailer::Base.deliveries.should_not be_empty
+          expect(ActionMailer::Base.deliveries).to_not be_empty
         end
 
         it "send the the correct user" do
           email = ActionMailer::Base.deliveries.last
-          email.to.should eq ["tony@stark_labs.com"]
+          expect(email.to).to eq ["tony@stark_labs.com"]
         end
 
         it "has the correct content in the body" do
           email = ActionMailer::Base.deliveries.last
-          email.body.should include("Welcome Tony Stark")
+          expect(email.body).to include("Welcome Tony Stark")
         end
       end
     end
 
     context "with invalid inputs" do
       subject { post :create, user: { email_address: nil, password: nil, full_name: nil } }
+      after   { ActionMailer::Base.deliveries.clear }
 
       it "renders the new template" do
         expect(subject).to render_template :new
@@ -64,8 +66,13 @@ describe UsersController do
         expect(assigns(:user)).to be_instance_of(User)
       end
 
-      it "should not create a record in the database" do
+      it "does not create a record in the database" do
         expect { subject }.to_not change{User.count}
+      end
+
+      it "does not sent out an email" do
+        subject
+        expect(ActionMailer::Base.deliveries).to be_empty
       end
     end
   end
