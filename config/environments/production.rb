@@ -6,17 +6,6 @@ Myflix::Application.configure do
   config.action_controller.perform_caching = true
 
   config.serve_static_assets = false
-
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address:              "smtp.gmail.com",
-    port:                 587,
-    domain:               "nutflix.herokuapp.com",
-    user_name:            ENV["GMAIL_USERNAME"],
-    password:             ENV["GMAIL_PASSWORD"],
-    authentication:       "plain",
-    enable_starttls_auto: true  }
-
   config.assets.compress = true
   config.assets.js_compressor = :uglifier
 
@@ -27,4 +16,20 @@ Myflix::Application.configure do
   config.i18n.fallbacks = true
 
   config.active_support.deprecation = :notify
+
+  #### Mailer Optipns
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+    address:              "smtp.gmail.com",
+    port:                 587,
+    domain:               "nutflix.herokuapp.com",
+    user_name:            ENV["GMAIL_USERNAME"],
+    password:             ENV["GMAIL_PASSWORD"],
+    authentication:       "plain",
+    enable_starttls_auto: true  }
+
+  config.action_mailer.default_url_options = {
+    :host => "nutflix.heroku.com"
+  }
 end
