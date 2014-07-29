@@ -1,6 +1,9 @@
 source "https://rubygems.org"
 ruby "2.1.1"
 
+gem 'capybara-email'
+
+
 gem "bcrypt"
 gem "bootstrap-sass"
 gem "bootstrap_form"
