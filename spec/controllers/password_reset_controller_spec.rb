@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Admin::PasswordResetController do
+describe PasswordResetController do
   describe "GET #edit" do
     it "renders the password reset template"
     it "finds the correct user"

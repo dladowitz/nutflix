@@ -1,7 +1,4 @@
 class PasswordResetRequestsController < ApplicationController
-  def new
-  end
-
   def create
     user = User.find_by_email_address password_reset_request_params[:email_address]
 

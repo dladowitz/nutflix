@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Admin::PasswordResetRequestsController do
+describe PasswordResetRequestsController do
   describe "GET #new" do
     subject { get :new }
 
@@ -31,7 +31,9 @@ describe Admin::PasswordResetRequestsController do
 
         skip "contains a reset link" do
           email = ActionMailer::Base.deliveries.last
-          link = #### TODO how can we know the link ahead of time? Stubbing
+          user = User.find_by_email_address(email.to)
+
+          link = "http//:127.0.0.1/password_reset/#{user.reset_token}"
           expet(email.body).to include(link)
         end
       end
