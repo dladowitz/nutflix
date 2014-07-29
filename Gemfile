@@ -1,7 +1,6 @@
 source "https://rubygems.org"
 ruby "2.1.1"
 
-gem 'capybara-email'
 
 
 gem "bcrypt"
@@ -37,6 +36,7 @@ end
 
 group :test do
   gem "capybara", require: false
+  gem "capybara-email"
   gem "cucumber-rails", require: false
   gem "database_cleaner", "1.2.0"
   gem "launchy"
