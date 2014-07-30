@@ -9,11 +9,12 @@
 #  created_at      :datetime
 #  updated_at      :datetime
 #  follower_id     :integer
-#  reset_token     :string(255)
-#  referral_token  :string(255)
+#  token           :string(255)
 #
 
 class User < ActiveRecord::Base
+  include Tokenable
+
   # Validations
   validates_presence_of   :email_address, :full_name, :password
   validates_uniqueness_of :email_address
@@ -22,15 +23,12 @@ class User < ActiveRecord::Base
   # has_many :queue_items
   has_many :queue_items, -> { order "queue_rank ASC" }
   has_many :reviews,     -> { order "updated_at DESC" }
+  has_many :invitations, foreign_key: :inviter_id
 
   has_many :follower_relationships, class_name: "Relationship", foreign_key: :followed_user_id
   has_many :followers,              through:    :follower_relationships,     source: :follower
-
   has_many :followed_user_relationships, class_name: "Relationship",   foreign_key: :follower_id
   has_many :followed_users, through:     :followed_user_relationships, source: :followed_user
-
-  # has_many :followed_users, class_name: "Relationship", foreign_key: :follower_id
-  # has_many :followers,      class_name: "Relationship", foreign_key: :followed_user_id
 
   has_secure_password
 

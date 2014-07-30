@@ -2,25 +2,25 @@
 comedy:
   id: 1
   name: Comedy
-  created_at: 2014-07-29 06:36:21.718561000 Z
-  updated_at: 2014-07-29 06:36:21.718561000 Z
+  created_at: 2014-07-30 04:14:33.302081000 Z
+  updated_at: 2014-07-30 04:14:33.302081000 Z
 action:
   id: 2
   name: Action
-  created_at: 2014-07-29 06:36:21.723645000 Z
-  updated_at: 2014-07-29 06:36:21.723645000 Z
+  created_at: 2014-07-30 04:14:33.306669000 Z
+  updated_at: 2014-07-30 04:14:33.306669000 Z
 sci_fi:
   id: 3
   name: SciFi
-  created_at: 2014-07-29 06:36:21.727320000 Z
-  updated_at: 2014-07-29 06:36:21.727320000 Z
+  created_at: 2014-07-30 04:14:33.309860000 Z
+  updated_at: 2014-07-30 04:14:33.309860000 Z
 drama:
   id: 4
   name: Drama
-  created_at: 2014-07-29 06:36:21.731569000 Z
-  updated_at: 2014-07-29 06:36:21.731569000 Z
+  created_at: 2014-07-30 04:14:33.314145000 Z
+  updated_at: 2014-07-30 04:14:33.314145000 Z
 reality:
   id: 5
   name: Reality
-  created_at: 2014-07-29 06:36:21.735391000 Z
-  updated_at: 2014-07-29 06:36:21.735391000 Z
+  created_at: 2014-07-30 04:14:33.317014000 Z
+  updated_at: 2014-07-30 04:14:33.317014000 Z

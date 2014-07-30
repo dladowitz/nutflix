@@ -7,8 +7,8 @@ iron_man:
     crime
   small_cover_url: iron_man.jpg
   large_cover_url: monk_large.jpg
-  created_at: 2014-07-28 23:36:21.760526000 Z
-  updated_at: 2014-07-29 06:36:21.773975000 Z
+  created_at: 2014-07-29 21:14:33.348822000 Z
+  updated_at: 2014-07-30 04:14:33.362258000 Z
   category_id: 2
 iron_man_2:
   id: 2
@@ -18,8 +18,8 @@ iron_man_2:
     crime
   small_cover_url: iron_man_2.jpg
   large_cover_url: monk_large.jpg
-  created_at: 2014-07-29 00:36:21.775822000 Z
-  updated_at: 2014-07-29 06:36:21.776707000 Z
+  created_at: 2014-07-29 22:14:33.364039000 Z
+  updated_at: 2014-07-30 04:14:33.364909000 Z
   category_id: 2
 iron_man_3:
   id: 3
@@ -29,8 +29,8 @@ iron_man_3:
     crime
   small_cover_url: iron_man_3.jpg
   large_cover_url: monk_large.jpg
-  created_at: 2014-07-29 01:36:21.778170000 Z
-  updated_at: 2014-07-29 06:36:21.778869000 Z
+  created_at: 2014-07-29 23:14:33.366313000 Z
+  updated_at: 2014-07-30 04:14:33.367025000 Z
   category_id: 2
 iron_man_4:
   id: 4
@@ -40,8 +40,8 @@ iron_man_4:
     crime
   small_cover_url: iron_man_4.jpg
   large_cover_url: monk_large.jpg
-  created_at: 2014-07-29 02:36:21.780364000 Z
-  updated_at: 2014-07-29 06:36:21.781092000 Z
+  created_at: 2014-07-30 00:14:33.368421000 Z
+  updated_at: 2014-07-30 04:14:33.369148000 Z
   category_id: 2
 iron_man_5:
   id: 5
@@ -51,8 +51,8 @@ iron_man_5:
     crime
   small_cover_url: iron_man_5.jpg
   large_cover_url: monk_large.jpg
-  created_at: 2014-07-29 03:36:21.782495000 Z
-  updated_at: 2014-07-29 06:36:21.783211000 Z
+  created_at: 2014-07-30 01:14:33.370627000 Z
+  updated_at: 2014-07-30 04:14:33.371373000 Z
   category_id: 2
 iron_man_6:
   id: 6
@@ -62,8 +62,8 @@ iron_man_6:
     crime
   small_cover_url: iron_man_6.jpg
   large_cover_url: monk_large.jpg
-  created_at: 2014-07-29 04:36:21.784615000 Z
-  updated_at: 2014-07-29 06:36:21.785585000 Z
+  created_at: 2014-07-30 02:14:33.373986000 Z
+  updated_at: 2014-07-30 04:14:33.374759000 Z
   category_id: 2
 iron_man_7:
   id: 7
@@ -73,8 +73,8 @@ iron_man_7:
     crime
   small_cover_url: iron_man_7.jpg
   large_cover_url: monk_large.jpg
-  created_at: 2014-07-29 05:36:21.787090000 Z
-  updated_at: 2014-07-29 06:36:21.787844000 Z
+  created_at: 2014-07-30 03:14:33.376154000 Z
+  updated_at: 2014-07-30 04:14:33.376867000 Z
   category_id: 2
 thor:
   id: 8
@@ -84,8 +84,8 @@ thor:
     crime
   small_cover_url: thor.jpg
   large_cover_url: monk_large.jpg
-  created_at: 2014-07-28 22:36:21.789315000 Z
-  updated_at: 2014-07-29 06:36:21.790013000 Z
+  created_at: 2014-07-29 20:14:33.378256000 Z
+  updated_at: 2014-07-30 04:14:33.378898000 Z
   category_id: 2
 thor_2:
   id: 9
@@ -95,8 +95,8 @@ thor_2:
     crime
   small_cover_url: thor_2.jpg
   large_cover_url: monk_large.jpg
-  created_at: 2014-07-28 21:36:21.791574000 Z
-  updated_at: 2014-07-29 06:36:21.792350000 Z
+  created_at: 2014-07-29 19:14:33.380137000 Z
+  updated_at: 2014-07-30 04:14:33.380867000 Z
   category_id: 2
 star_trek:
   id: 10
@@ -106,8 +106,8 @@ star_trek:
     crime
   small_cover_url: star_trek.jpg
   large_cover_url: monk_large.jpg
-  created_at: 2014-07-29 06:36:21.794403000 Z
-  updated_at: 2014-07-29 06:36:21.794403000 Z
+  created_at: 2014-07-30 04:14:33.383021000 Z
+  updated_at: 2014-07-30 04:14:33.383021000 Z
   category_id: 3
 flight:
   id: 11
@@ -117,6 +117,6 @@ flight:
     crime
   small_cover_url: flight.jpg
   large_cover_url: monk_large.jpg
-  created_at: 2014-07-29 06:36:21.796735000 Z
-  updated_at: 2014-07-29 06:36:21.796735000 Z
+  created_at: 2014-07-30 04:14:33.385039000 Z
+  updated_at: 2014-07-30 04:14:33.385039000 Z
   category_id: 4

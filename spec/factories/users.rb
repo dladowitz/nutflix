@@ -9,8 +9,7 @@
 #  created_at      :datetime
 #  updated_at      :datetime
 #  follower_id     :integer
-#  reset_token     :string(255)
-#  referral_token  :string(255)
+#  token           :string(255)
 #
 
 require "faker"

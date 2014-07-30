@@ -9,4 +9,4 @@
 %h4
   = @message
 %p
-  = link_to "Do it, Do it now", register_url(referral_token: @referral_token, pre_filled_email: @email_address)
+  = link_to "Do it, Do it now", register_url(invitation_token: @token, pre_filled_email: @email_address)

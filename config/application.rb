@@ -15,5 +15,8 @@ module Myflix
       g.orm :active_record
       g.template_engine :haml
     end
+
+    # adds lib directory to the paths loaded at startup
+    config.autoload_paths << "#{Rails.root}/lib"
   end
 end
