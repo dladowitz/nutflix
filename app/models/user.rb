@@ -10,6 +10,7 @@
 #  updated_at      :datetime
 #  follower_id     :integer
 #  reset_token     :string(255)
+#  referral_token  :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -32,4 +33,12 @@ class User < ActiveRecord::Base
   # has_many :followers,      class_name: "Relationship", foreign_key: :followed_user_id
 
   has_secure_password
+
+  def first_name
+    full_name.split(" ").first
+  end
+
+  def last_name
+    full_name.split(" ").last
+  end
 end

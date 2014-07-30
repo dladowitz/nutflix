@@ -7,6 +7,10 @@ def signin_user(given_user = nil)
   click_button "Sign In"
 end
 
+def signout_user
+  click_link "Sign Out"
+end
+
 def url_should_be(path)
   URI.parse(current_url).path.should == path
 end

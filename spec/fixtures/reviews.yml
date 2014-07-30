@@ -2,16 +2,16 @@
 iron_man_review_1:
   id: 1
   rating: 5
-  text: aggregate best-of-breed channels
+  text: recontextualize open-source models
   user_id: 1
   video_id: 1
-  created_at: 2014-07-28 04:37:16.981266000 Z
-  updated_at: 2014-07-28 04:37:16.981266000 Z
+  created_at: 2014-07-29 06:36:22.039408000 Z
+  updated_at: 2014-07-29 06:36:22.039408000 Z
 iron_man_review_2:
   id: 2
   rating: 4
-  text: iterate 24/365 networks
+  text: transition enterprise experiences
   user_id: 2
   video_id: 1
-  created_at: 2014-07-28 04:37:16.985647000 Z
-  updated_at: 2014-07-28 04:37:16.985647000 Z
+  created_at: 2014-07-29 06:36:22.042979000 Z
+  updated_at: 2014-07-29 06:36:22.042979000 Z

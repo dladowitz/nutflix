@@ -1,0 +1,5 @@
+class AddReferralTokenToUser < ActiveRecord::Migration
+  def change
+    add_column :users, :referral_token, :string
+  end
+end

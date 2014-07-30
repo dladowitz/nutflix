@@ -3,7 +3,7 @@ module ControllerSpecHelpers
     session[:user_id] = ( account || users(:james_bond)).id
   end
 
-  def logout
+  def logout_user
     session[:user_id] = nil
   end
 
