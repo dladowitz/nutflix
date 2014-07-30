@@ -11,19 +11,19 @@ class UserMailer < ActionMailer::Base
   def password_reset_request(user)
     @user = user
     @first_name = user.first_name
-    @reset_token = user.reset_token
+    @reset_token = user.token
 
     mail(to: @user.email_address, subject: "Password Reset")
   end
 
-  def invitation_email(user_hash)
-    @referrer       = User.find user_hash[:referrer_id]
-    @referral_token = @referrer.referral_token
-    @message        = user_hash[:message]
-    @name           = user_hash[:friends_name]
-    @email_address  = user_hash[:email_address]
+  def invitation_email(invitation_options)
+    inviter        = User.find invitation_options[:inviter_id]
+    @token         = invitation_options[:token]
+    @message       = invitation_options[:message]
+    @name          = invitation_options[:friends_name]
+    @email_address = invitation_options[:email_address]
 
-    mail(to: user_hash[:email_address], subject: "#{@referrer.full_name} has an important message for you.")
+    mail(to: @email_address, subject: "#{inviter.full_name} has an important message for you.")
   end
 
 end

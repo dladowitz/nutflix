@@ -47,7 +47,6 @@ feature "Invitations" do
 
   def verify_relationship
     click_link "People"
-    save_and_open_page
     expect(page).to have_content "James Bond"
 
     signout_user

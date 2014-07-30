@@ -29,13 +29,13 @@ describe PasswordResetRequestsController do
           expect(email.to).to eq ["james@007.com"]
         end
 
-        skip "contains a reset link" do
-          email = ActionMailer::Base.deliveries.last
-          user = User.find_by_email_address(email.to)
-
-          link = "http//:127.0.0.1/password_reset/#{user.reset_token}"
-          expet(email.body).to include(link)
-        end
+        # it "contains a reset link" do
+        #   email = ActionMailer::Base.deliveries.last
+        #   user = User.find_by_email_address(email.to)
+        #
+        #   link = "http//:127.0.0.1/password_reset/#{user.token}"
+        #   expect(email.body).to include(link)
+        # end
       end
 
     end
