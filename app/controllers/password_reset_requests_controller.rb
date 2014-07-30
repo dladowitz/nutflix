@@ -3,7 +3,7 @@ class PasswordResetRequestsController < ApplicationController
     user = User.find_by_email_address password_reset_request_params[:email_address]
 
     if user
-      user.reset_token = SecureRandom.urlsafe_base64(10)
+      user.reset_token = SecureRandom.urlsafe_base64(16)
       user.save(validate: false)
 
       UserMailer.password_reset_request(user).deliver

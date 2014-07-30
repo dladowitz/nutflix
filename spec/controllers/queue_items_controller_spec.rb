@@ -5,7 +5,7 @@ describe QueueItemsController do
 
   shared_examples "unauthenticated access to the queue" do
     it "does not add or delete queue_items" do
-      logout
+      logout_user
       expect { subject }.to_not change{QueueItem.count}
     end
   end

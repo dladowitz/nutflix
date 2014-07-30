@@ -1,0 +1,12 @@
+
+
+
+%h2
+  = "#{@name}, join me, and I will complete your training. With our combined strength, we can end this destructive conflict and bring order to the galaxy."
+
+= image_tag "http://2.bp.blogspot.com/-js08u2vcO68/U2XzlBreuDI/AAAAAAAANDQ/1CQ2zTAKRVI/s1600/P1190174.jpg", height: "250"
+
+%h4
+  = @message
+%p
+  = link_to "Do it, Do it now", register_url(referral_token: @referral_token, pre_filled_email: @email_address)

@@ -8,7 +8,7 @@ gem "coffee-rails"
 gem "haml-rails"
 gem "jquery-rails"
 gem "rails", "4.1.1"
-gem "sass-rails"
+# gem "sass-rails"
 gem "uglifier"
 
 group :development do
@@ -34,7 +34,7 @@ end
 
 group :test do
   gem "capybara", require: false
-  gem "capybara-email"
+  gem "capybara-email", github: "dockyard/capybara-email"
   gem "cucumber-rails", require: false
   gem "database_cleaner", "1.2.0"
   gem "launchy"

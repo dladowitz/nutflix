@@ -9,6 +9,8 @@ Myflix::Application.routes.draw do
   get      :signout,              to: "sessions#destroy",      as: :signout    #used for signout through url
   get      :register,             to: "users#new",             as: :register
   delete   :sessions,             to: "sessions#destroy",      as: :session    #used for signout through link
+  get      :invite,               to: "invitations#new",       as: :invite
+  post     :invite,               to: "invitations#create"
 
   root to: "pages#home",                                       as: :home
   get      "ui(/:action)",         controller: "ui"
@@ -19,7 +21,6 @@ Myflix::Application.routes.draw do
   resources :categories,           only: [:show]
   resources :queue_items,          only: [:create, :destroy]
   resources :relationships,        only: [:index, :create, :destroy]
-
 
   get   :password_reset_requests,  to: "password_reset_requests#new",    as: :password_reset_request
   post  :password_reset_requests,  to: "password_reset_requests#create", as: :password_reset_requests
