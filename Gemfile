@@ -9,6 +9,9 @@ gem "haml-rails"
 gem "jquery-rails"
 gem "rails", "4.1.1"
 # gem "sass-rails"
+gem "sidekiq"
+gem "sinatra", require: false
+gem "slim"
 gem "uglifier"
 
 group :development do
@@ -26,9 +29,13 @@ group :development, :test do
   gem "factory_girl_rails", "~> 4.2.1"
   gem "faker"
   gem "fixture_builder"
-  gem "pry-debugger"
-  gem "pry-nav"
-  gem "pry-rails"
+  gem "jazz_hands"
+
+  #remove if jazz_hands works better
+  # gem "pry-debugger"
+  # gem "pry-nav"
+  # gem "pry-rails"
+
   gem "quiet_assets"
   gem "rspec-rails", "2.99"
 end

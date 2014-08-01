@@ -16,12 +16,12 @@ class UserMailer < ActionMailer::Base
     mail(to: @user.email_address, subject: "Password Reset")
   end
 
-  def invitation_email(invitation_options)
-    inviter        = User.find invitation_options[:inviter_id]
-    @token         = invitation_options[:token]
-    @message       = invitation_options[:message]
-    @name          = invitation_options[:friends_name]
-    @email_address = invitation_options[:email_address]
+  def invitation_email(invitation)
+    inviter        = User.find invitation.inviter_id
+    @token         = invitation.token
+    @message       = invitation.message
+    @name          = invitation.name
+    @email_address = invitation.email_address
 
     mail(to: @email_address, subject: "#{inviter.full_name} has an important message for you.")
   end

@@ -1,5 +1,9 @@
+require "sidekiq/web"
+
 Myflix::Application.routes.draw do
 
+# sidekiq sinatra monitoring interface
+  mount Sidekiq::Web, at: "/sidekiq"
 
 # verb     /url                   controller#action            #path_name
   get      :queue,                to: "queue_items#index",     as: :queue

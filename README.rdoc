@@ -1,1 +1,12 @@
 https://screen.yahoo.com/netflix-apology-000000795.html
+
+
+
+To start the app
+> redis-server
+> bundle exec sidekiq
+> foreman start or rails server
+
+
+foreman starts on port 5000
+rails server starts on port 3000
