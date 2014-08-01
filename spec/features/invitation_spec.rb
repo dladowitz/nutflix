@@ -16,7 +16,7 @@ feature "Invitations" do
 
   def send_invite
     visit invite_path
-    fill_in "friends_name",  with: "Mini Me"
+    fill_in "name",  with: "Mini Me"
     fill_in "email_address", with: "mini@me.com"
     fill_in "message",       with: "Join me, and together we can rule the galaxy as father and son"
     click_button "Send Invitation"
