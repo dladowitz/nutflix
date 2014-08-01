@@ -25,7 +25,7 @@ feature "Invitations" do
 
   def follow_email_link
     open_email("mini@me.com")
-    expect(current_email).to have_content "Mini Me"
+    expect(current_email).to have_content "Mini"
     expect(current_email).to have_content "Join me, and together we can rule the galaxy as father and son"
     current_email.click_link "Do it, Do it now"
     expect(page).to have_content "Register"
