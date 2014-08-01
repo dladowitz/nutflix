@@ -4,7 +4,11 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'capybara/email/rspec'
 require 'rspec/rails'
 require 'capybara/rails'
-# require 'fixture_builder'
+require 'sidekiq/testing'
+Sidekiq::Testing.inline!
+
+
+# require 'fixture_builder' -- automatically included
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
