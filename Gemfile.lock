@@ -309,7 +309,10 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+<<<<<<< HEAD
     uuidtools (2.1.4)
+=======
+>>>>>>> switch to unicorn
     websocket (1.0.7)
     xpath (2.0.0)
       nokogiri (~> 1.3)
