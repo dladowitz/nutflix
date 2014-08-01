@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params.slice(:email_address, :password, :full_name))
 
     if @user.save
-      UserMailer.welcome_email(@user).deliver
+      UserMailer.delay.welcome_email(@user)
       if invitation_token.present?
         invitation = find_invitation(invitation_token)
         create_relationship(invitation, @user)

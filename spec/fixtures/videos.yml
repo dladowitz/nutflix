@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: videos
+#
+#  id              :integer          not null, primary key
+#  title           :string(255)
+#  description     :text
+#  small_cover_url :string(255)
+#  large_cover_url :string(255)
+#  created_at      :datetime
+#  updated_at      :datetime
+#  category_id     :integer
+#
+
 ---
 iron_man:
   id: 1

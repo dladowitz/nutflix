@@ -3,7 +3,9 @@ class PasswordResetRequestsController < ApplicationController
     user = User.find_by_email_address password_reset_request_params[:email_address]
 
     if user
-      UserMailer.password_reset_request(user).deliver
+      PasswordResetRequestWorker.perform_async(user.id)
+      # Could also use
+      # UserMailer.delay.password_reset_request(user)
 
       render :email_sent
     else

@@ -1,21 +1,18 @@
 class InvitationsController < ApplicationController
 
   def create
+    params = invitation_params.merge( inviter_id: current_user.id )
+    invitation = current_user.invitations.create(params)
 
-    invitation = current_user.invitations.create
-    invitation_options = { inviter_id:    current_user.id,
-                           token:         invitation.token,
-                           email_address: invitation_params[:email_address],
-                           friends_name:  invitation_params[:friends_name],
-                           message:       invitation_params[:message] }
+    # alternate version - UserMailer.delay.invitation_email(invitation_options)
+    InvitationsWorker.perform_async(invitation.id)
 
-    UserMailer.invitation_email(invitation_options).deliver
     render "invitation_sent"
   end
 
   private
 
   def invitation_params
-    params.require(:invitation).permit(:email_address, :friends_name, :message)
+    params.require(:invitation).permit(:email_address, :name, :message)
   end
 end

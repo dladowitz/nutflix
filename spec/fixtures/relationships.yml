@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: relationships
+#
+#  id               :integer          not null, primary key
+#  followed_user_id :integer
+#  follower_id      :integer
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+
 ---
 relationships_001:
   id: 1
