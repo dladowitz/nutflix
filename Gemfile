@@ -23,7 +23,6 @@ group :development do
   gem "binding_of_caller"
   gem "letter_opener"
   gem "meta_request"
-  gem "paratrooper"
   gem "sqlite3"
   gem "thin"
 end
