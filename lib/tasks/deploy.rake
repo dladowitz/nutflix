@@ -2,7 +2,7 @@ require 'paratrooper'
 
 namespace :deploy do
   desc 'Deploy app in staging environment'
-  task :staging do
+  task :staging_because_i_said_so do
     deployment = Paratrooper::Deploy.new("nutflix-staging", tag: "staging")
 
     deployment.deploy
