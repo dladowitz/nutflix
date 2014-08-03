@@ -25,7 +25,9 @@ class QueueItemsController < ApplicationController
   # I choose to allow users to change just one or two positions in the queue and
   # have the rest of the items update accordingly.
   def update
-    if invalid_update_params?
+    if params[:queue_items].nil?
+      flash[:danger] = " Nothing to update, but you already knew that."
+    elsif invalid_update_params?
       flash[:danger] = "Not gonna happen mang"
     else
       user_changed_items_and_rank = items_changed_in_ui
