@@ -5,4 +5,7 @@ rvm:
 
 script:
   - bundle exec rake db:migrate
-  - bundle exec rspec spec/
+  - bundle exec rake
+
+services:
+  - redis-server
