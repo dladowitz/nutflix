@@ -1,28 +1,41 @@
 ---
 james_bond:
-  id: 7
+  id: 1
   email_address: james@007.com
-  password_digest: "$2a$10$p/xIAPFN6XPDeiUq0m.9hOSbl7om/QGDnkOaQDcxfwI8.dGijidMO"
+  password_digest: "$2a$04$XNGn/ofPBBXgJUB7f9dBduC14jUfJkT/2V6CH5Aoc53L7xtuMrTWa"
   full_name: James Bond
-  created_at: 2014-08-03 00:02:39.666021000 Z
-  updated_at: 2014-08-03 00:02:39.666021000 Z
+  created_at: 2014-08-03 20:53:45.501589000 Z
+  updated_at: 2014-08-03 20:53:45.501589000 Z
   follower_id: 
-  token: ChpnPjfgO9Pk6w
+  token: E4hFBcb12tbE_Q
+  admin: 
 dr_evil:
-  id: 8
+  id: 2
   email_address: dr@evil.com
-  password_digest: "$2a$10$53YqF8C0qxBq.RDrynDhfOj9vpnWUByUlymtQ1SbWHQhDvZEMn522"
+  password_digest: "$2a$04$/Hr7T3p4lK9YnHpsMwM0fOdddKilMoP0zlhAtIsYQYl3GtEcrkhS6"
   full_name: Dr Evil
-  created_at: 2014-08-03 00:02:39.740925000 Z
-  updated_at: 2014-08-03 00:02:39.740925000 Z
+  created_at: 2014-08-03 20:53:45.508784000 Z
+  updated_at: 2014-08-03 20:53:45.508784000 Z
   follower_id: 
-  token: _GaSyr_IxuUMaA
+  token: swXVCDy4ZneYfg
+  admin: 
 fat_bastard:
-  id: 9
+  id: 3
   email_address: baby_back_ribs@chilis
-  password_digest: "$2a$10$dyUsSVu.5nMXtJpvNJvgaeZW1gnos3LhVC9lEKzqcZRGCB/P0K/sa"
+  password_digest: "$2a$04$ASvnBEJxj87DnjjOmDzxLeRI7P5oYtCU28.ryrNG1OeyTWNP3GWa6"
   full_name: Fat Bastard
-  created_at: 2014-08-03 00:02:39.817697000 Z
-  updated_at: 2014-08-03 00:02:39.817697000 Z
+  created_at: 2014-08-03 20:53:45.512996000 Z
+  updated_at: 2014-08-03 20:53:45.512996000 Z
   follower_id: 
-  token: vQlpH6Gi1J8YmA
+  token: eO5J5uk1sX9Vpg
+  admin: 
+admin:
+  id: 4
+  email_address: mr@bigglesworth.com
+  password_digest: "$2a$04$wdFYB9FuD87XSdmTN3k09OAJ1QY.pAogISUZ.FoEqYDNBsWgidYoy"
+  full_name: Mr. Bigglesworth
+  created_at: 2014-08-03 20:53:45.517268000 Z
+  updated_at: 2014-08-03 20:53:45.517268000 Z
+  follower_id: 
+  token: yamuoihbtswyoQ
+  admin: true

@@ -79,3 +79,19 @@ Then /^user can see video reviews$/ do
   page.should have_content "This is the most best movie I've ever scene"
 end
 
+Then  /^non-admin cannot add videos$/ do
+  visit admin_video_path
+  expect(page).to have_content "Permission Denied"
+end
+
+Then /^admin can add videos$/ do
+  visit admin_video_path
+  expect(page).to have_content "Add a New Video"
+  fill_in "Title", with: "Dawn of Planet of the Apes"
+  fill_in "Description", with: "Mokeys and guns"
+  click_button "Add Video"
+
+  expect(page).to have_content "Dawn of Planet of the Apes"
+end
+
+

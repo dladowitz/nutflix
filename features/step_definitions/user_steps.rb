@@ -10,6 +10,18 @@ Given /^user login$/ do
   page.should have_content "Successfully logged in"
 end
 
+Given /^admin user login$/ do
+  admin = users(:admin)
+  visit signin_path
+
+  fill_in "Email Address", with: admin.email_address
+  fill_in "Password",      with: "asdfasdf"
+  click_button "Sign In"
+
+  URI.parse(current_url).path.should == videos_path
+  page.should have_content "Successfully logged in"
+end
+
 Then /^user signout$/ do
   visit home_path
   click_on "Sign Out"

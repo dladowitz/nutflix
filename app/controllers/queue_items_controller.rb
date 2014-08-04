@@ -1,4 +1,6 @@
 class QueueItemsController < ApplicationController
+  include Authenticate
+
   before_filter  :require_user
 
   def index
