@@ -32,6 +32,11 @@ Myflix::Application.routes.draw do
   get   "password_reset/:id",       to: "password_reset#edit",           as: :password_reset
   patch :password_reset,            to: "password_reset#update"
 
+  namespace :admin do
+    get  :videos,                   to: "videos#new", as: :video
+    post :videos,                   to: "videos#create"
+  end
+
   resources :videos,                 only: [:show, :index] do
     collection do
       get :search,                   to: "videos#search"

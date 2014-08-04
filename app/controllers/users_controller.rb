@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  include Authenticate
+
   before_filter :require_user, only: :show  #### TODO Replace with CanCan
   before_filter :load_user, only: :show #### TODO Replace with load_resource
 

@@ -10,6 +10,7 @@
 #  updated_at      :datetime
 #  follower_id     :integer
 #  token           :string(255)
+#  admin           :boolean
 #
 
 require "faker"
@@ -19,5 +20,9 @@ FactoryGirl.define do
     email_address { Faker::Internet.email }
     password      "asdfasdf"
     full_name     { Faker::Name.name }
+  end
+
+  factory :admin do
+    admin true
   end
 end

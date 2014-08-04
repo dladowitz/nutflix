@@ -10,6 +10,7 @@
 #  updated_at      :datetime
 #  follower_id     :integer
 #  token           :string(255)
+#  admin           :boolean
 #
 
 class User < ActiveRecord::Base

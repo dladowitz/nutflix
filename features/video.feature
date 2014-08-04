@@ -29,3 +29,10 @@ Feature: Video Pages
     And   user can review a video
     Then  user can see video reviews
 
+  Scenario: Admins can add videos
+    Given user login
+    Then  non-admin cannot add videos
+    And   user signout
+    Then  admin user login
+    Then  admin can add videos
+
