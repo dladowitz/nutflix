@@ -67,6 +67,13 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
+    carrierwave_backgrounder (0.4.1)
+      carrierwave (~> 0.5)
     celluloid (0.15.2)
       timers (~> 1.1.0)
     childprocess (0.5.3)
@@ -122,6 +129,30 @@ GEM
     fixture_builder (0.3.6)
       activerecord (>= 2)
       activesupport (>= 2)
+    fog (1.23.0)
+      fog-brightbox
+      fog-core (~> 1.23)
+      fog-json
+      fog-softlayer
+      ipaddress (~> 0.5)
+      nokogiri (~> 1.5, >= 1.5.11)
+    fog-brightbox (0.1.1)
+      fog-core (~> 1.22)
+      fog-json
+      inflecto
+    fog-core (1.23.0)
+      builder
+      excon (~> 0.38)
+      formatador (~> 0.2)
+      mime-types
+      net-scp (~> 1.1)
+      net-ssh (>= 2.1.3)
+    fog-json (1.0.0)
+      multi_json (~> 1.0)
+    fog-softlayer (0.3.13)
+      fog-core
+      fog-json
+    formatador (0.2.5)
     gherkin (2.12.2)
       multi_json (~> 1.3)
     grit (2.5.0)
@@ -142,6 +173,8 @@ GEM
     hike (1.2.3)
     hirb (0.7.2)
     i18n (0.6.11)
+    inflecto (0.0.2)
+    ipaddress (0.8.0)
     jazz_hands (0.5.2)
       awesome_print (~> 1.2)
       coolline (>= 0.4.2)
@@ -172,11 +205,16 @@ GEM
       railties (>= 3.0.0, < 5.0.0)
     method_source (0.8.2)
     mime-types (1.25.1)
+    mini_magick (3.8.0)
+      subexec (~> 0.2.1)
     mini_portile (0.6.0)
     minitest (5.4.0)
     multi_json (1.10.1)
     multi_test (0.1.1)
     multipart-post (2.0.0)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.9.1)
     netrc (0.7.7)
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
@@ -293,6 +331,7 @@ GEM
       activesupport (>= 3.0)
       sprockets (~> 2.8)
     sqlite3 (1.3.9)
+    subexec (0.2.3)
     temple (0.6.8)
     thin (1.6.2)
       daemons (>= 1.0.9)
@@ -333,18 +372,22 @@ DEPENDENCIES
   bootstrap_form
   capybara
   capybara-email!
+  carrierwave
+  carrierwave_backgrounder
   coffee-rails
   cucumber-rails
   database_cleaner (= 1.2.0)
   factory_girl_rails (~> 4.2.1)
   faker
   fixture_builder
+  fog
   haml-rails
   jazz_hands
   jquery-rails
   launchy
   letter_opener
   meta_request
+  mini_magick
   paratrooper
   pg
   quiet_assets

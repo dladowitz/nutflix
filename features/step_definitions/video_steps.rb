@@ -92,6 +92,8 @@ Then /^admin can add videos$/ do
   click_button "Add Video"
 
   expect(page).to have_content "Dawn of Planet of the Apes"
+
+  #### TODO need to find capybara test to choose a file
 end
 
 

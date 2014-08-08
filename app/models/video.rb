@@ -2,14 +2,16 @@
 #
 # Table name: videos
 #
-#  id              :integer          not null, primary key
-#  title           :string(255)
-#  description     :text
-#  small_cover_url :string(255)
-#  large_cover_url :string(255)
-#  created_at      :datetime
-#  updated_at      :datetime
-#  category_id     :integer
+#  id                     :integer          not null, primary key
+#  title                  :string(255)
+#  description            :text
+#  created_at             :datetime
+#  updated_at             :datetime
+#  category_id            :integer
+#  large_cover            :string(255)
+#  small_cover            :string(255)
+#  small_cover_processing :boolean          default(FALSE), not null
+#  large_cover_processing :boolean          default(FALSE), not null
 #
 
 class Video < ActiveRecord::Base
@@ -28,6 +30,13 @@ class Video < ActiveRecord::Base
   scope :dramas,     -> { where(category_id: 2) }
   scope :realities,  -> { where(category_id: 3) }
   scope :scifi,      -> { where(category_id: 5) }
+
+  # Carrierwave
+  mount_uploader :small_cover, VerticalPosterUploader
+  process_in_background :small_cover
+
+  mount_uploader :large_cover, HorizontalPosterUploader
+  process_in_background :large_cover
 
   # Class Methods
   def self.search_by_title(search_term)
