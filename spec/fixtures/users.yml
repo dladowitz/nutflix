@@ -15,42 +15,42 @@
 
 ---
 james_bond:
-  id: 1
+  id: 5
   email_address: james@007.com
-  password_digest: "$2a$04$XNGn/ofPBBXgJUB7f9dBduC14jUfJkT/2V6CH5Aoc53L7xtuMrTWa"
+  password_digest: "$2a$04$uTQbngtizBQjSjWWfTjlsOZW1nNl9umV1HpVyyWv4esXILnm0qGxW"
   full_name: James Bond
-  created_at: 2014-08-03 20:53:45.501589000 Z
-  updated_at: 2014-08-03 20:53:45.501589000 Z
+  created_at: 2014-08-08 04:24:25.694759000 Z
+  updated_at: 2014-08-08 04:24:25.694759000 Z
   follower_id: 
-  token: E4hFBcb12tbE_Q
+  token: pi_arq_ed6vxlg
   admin: 
 dr_evil:
-  id: 2
+  id: 6
   email_address: dr@evil.com
-  password_digest: "$2a$04$/Hr7T3p4lK9YnHpsMwM0fOdddKilMoP0zlhAtIsYQYl3GtEcrkhS6"
+  password_digest: "$2a$04$BTui5jUmNNM0lWutAbGGuukJnIf3HuJ9P8waYXJB4Rz0efb11ZUhq"
   full_name: Dr Evil
-  created_at: 2014-08-03 20:53:45.508784000 Z
-  updated_at: 2014-08-03 20:53:45.508784000 Z
+  created_at: 2014-08-08 04:24:25.699484000 Z
+  updated_at: 2014-08-08 04:24:25.699484000 Z
   follower_id: 
-  token: swXVCDy4ZneYfg
+  token: t-DX9LS5fX9RyQ
   admin: 
 fat_bastard:
-  id: 3
+  id: 7
   email_address: baby_back_ribs@chilis
-  password_digest: "$2a$04$ASvnBEJxj87DnjjOmDzxLeRI7P5oYtCU28.ryrNG1OeyTWNP3GWa6"
+  password_digest: "$2a$04$EofpzwPMNUFx6IKXAI/MAeYbZHUEyLhm3FoiNFGl.Gc42xDOYh8.i"
   full_name: Fat Bastard
-  created_at: 2014-08-03 20:53:45.512996000 Z
-  updated_at: 2014-08-03 20:53:45.512996000 Z
+  created_at: 2014-08-08 04:24:25.705105000 Z
+  updated_at: 2014-08-08 04:24:25.705105000 Z
   follower_id: 
-  token: eO5J5uk1sX9Vpg
+  token: RxUOJUkg7iCxrQ
   admin: 
 admin:
-  id: 4
+  id: 8
   email_address: mr@bigglesworth.com
-  password_digest: "$2a$04$wdFYB9FuD87XSdmTN3k09OAJ1QY.pAogISUZ.FoEqYDNBsWgidYoy"
+  password_digest: "$2a$04$HzydJw98j/LZ3Kq5a9vxl.z..2tIt.ExuopUr1oSCaygDfnz6w/8m"
   full_name: Mr. Bigglesworth
-  created_at: 2014-08-03 20:53:45.517268000 Z
-  updated_at: 2014-08-03 20:53:45.517268000 Z
+  created_at: 2014-08-08 04:24:25.709754000 Z
+  updated_at: 2014-08-08 04:24:25.709754000 Z
   follower_id: 
-  token: yamuoihbtswyoQ
+  token: J_F1KSyZTJ2ing
   admin: true

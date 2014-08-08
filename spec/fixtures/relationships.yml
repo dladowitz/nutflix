@@ -12,7 +12,7 @@
 ---
 relationships_001:
   id: 1
-  followed_user_id: 3
-  follower_id: 1
-  created_at: 2014-08-03 20:53:45.862267000 Z
-  updated_at: 2014-08-03 20:53:45.862267000 Z
+  followed_user_id: 7
+  follower_id: 5
+  created_at: 2014-08-08 04:24:26.056419000 Z
+  updated_at: 2014-08-08 04:24:26.056419000 Z

@@ -19,47 +19,21 @@ categories = Category.create([
                   { name: "Sci-Fi" },
                  ])
 
-videos =     Video.create([
-                  { title: "Family Guy",    description: "Peter does bad things",   category_id: 1 },
-                  { title: "Futurama",      description: "Fry does bad things",     category_id: 1 },
-                  { title: "Monk",          description: "Monk does bad things",    category_id: 1 },
-                  { title: "South Park",    description: "Cartman does bad things", category_id: 1 },
-                  { title: "South Park",    description: "Cartman does bad things", category_id: 1 },
-                  { title: "South Park",    description: "Cartman does bad things", category_id: 1 },
-                  { title: "South Park",    description: "Cartman does bad things", category_id: 1 },
+title_categorys = [["Family Guy",1], ["Futurama",1], ["Monk",1], ["South Park",1], ["South Park",1], ["South Park",1], ["South Park",1],
+                  ["Zodiac",2], ["Pulp Fiction",2], ["Flight",2], ["Donnie Brasco",2], ["Donnie Brasco",2], ["Donnie Brasco",2], ["Donnie Brasco",2],
+                  ["Real World",3], ["Survivor",3], ["Road Rules",3], ["Big Brother",3], ["Big Brother",3], ["Big Brother",3], ["Big Brother",3],
+                  ["SkyFall",4], ["Rambo",4], ["Blade Runner",4], ["Jack Reacher",4], ["Jack Reacher",4], ["Jack Reacher",4], ["Jack Reacher",4],
+                  ["Iron Man",5], ["Xmen",5], ["Star Trek",5], ["Avengers",5], ["Avengers",5], ["Avengers",5], ["Avengers",5]
+                ]
+small_posters = ["monk.jpg", "futurama.jpg", "family_guy.jpg", "south_park.jpg"]
 
-                  { title: "Zodiac",        description: "Murder",                  category_id: 2 },
-                  { title: "Pulp Fiction",  description: "Drugs",                   category_id: 2 },
-                  { title: "Flight",        description: "Drugs",                   category_id: 2 },
-                  { title: "Donnie Brasco", description: "Murder",                  category_id: 2 },
-                  { title: "Donnie Brasco", description: "Murder",                  category_id: 2 },
-                  { title: "Donnie Brasco", description: "Murder",                  category_id: 2 },
-                  { title: "Donnie Brasco", description: "Murder",                  category_id: 2 },
+title_categorys.each do |title_cat|
+  video = Video.new({ title: title_cat[0], description: "things happen, then it ends", category_id: title_cat[1], large_cover: File.open("public/tmp/monk_large.jpg"), small_cover: File.open("public/tmp/#{small_posters.sample}") })
+  video.process_large_cover_upload = true
+  video.process_small_cover_upload = true
+  video.save
+end
 
-                  { title: "Real World",    description: "Real stuff happens",      category_id: 3 },
-                  { title: "Survivor",      description: "People compete",          category_id: 3 },
-                  { title: "Road Rules",    description: "People drive around",     category_id: 3 },
-                  { title: "Big Brother",   description: "Cameras and stuff",       category_id: 3 },
-                  { title: "Big Brother",   description: "Cameras and stuff",       category_id: 3 },
-                  { title: "Big Brother",   description: "Cameras and stuff",       category_id: 3 },
-                  { title: "Big Brother",   description: "Cameras and stuff",       category_id: 3 },
-
-                  { title: "Skyfall",       description: "007",                     category_id: 4 },
-                  { title: "Rambo",         description: "Guns",                    category_id: 4 },
-                  { title: "Blade Runner",   description: "Replicants",             category_id: 4 },
-                  { title: "Jack Reacher",  description: "Punching",                category_id: 4 },
-                  { title: "Jack Reacher",  description: "Punching",                category_id: 4 },
-                  { title: "Jack Reacher",  description: "Punching",                category_id: 4 },
-                  { title: "Jack Reacher",  description: "Punching",                category_id: 4 },
-
-                  { title: "Iron Man",      description: "Flying",                  category_id: 5 },
-                  { title: "Xmen",          description: "Magnets",                 category_id: 5 },
-                  { title: "Star Trek",     description: "Time Travel",             category_id: 5 },
-                  { title: "Avengers",      description: "Save the world",          category_id: 5 },
-                  { title: "Avengers",      description: "Save the world",          category_id: 5 },
-                  { title: "Avengers",      description: "Save the world",          category_id: 5 },
-                  { title: "Avengers",      description: "Save the world",          category_id: 5 },
-                ])
 
 queue_items = QueueItem.create([
                   { user: User.first, video: Video.first,  queue_rank: 4 },
@@ -69,6 +43,4 @@ queue_items = QueueItem.create([
 
                   { user: User.second, video: Video.fifth,  queue_rank: 1 },
                   { user: User.second, video: Video.second, queue_rank: 2 },
-
-
                 ])

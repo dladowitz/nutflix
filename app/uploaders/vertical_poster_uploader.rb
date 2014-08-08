@@ -9,7 +9,7 @@ class VerticalPosterUploader < CarrierWave::Uploader::Base
 
   # Choose what kind of storage to use for this uploader:
   # storage :file
-  storage :fog
+  # storage :fog
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
@@ -19,23 +19,20 @@ class VerticalPosterUploader < CarrierWave::Uploader::Base
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   def default_url
-    # For Rails 3.1+ asset pipeline compatibility:
-    # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
-
-    "fallback/" + [version_name, "default.jpg"].compact.join('_')
+    "fallback/small_default.jpg"
   end
 
   # Process files as they are uploaded:
-  process :resize_to_fill => [200, 300]
+  process :resize_to_fill => [166, 236]
   #
   # def scale(width, height)
   #   # do something
   # end
 
   # Create different versions of your uploaded files:
-  version :small do
-    process :resize_to_fill => [166, 236]
-  end
+  # version :small do
+  #   process :resize_to_fill => [166, 236]
+  # end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
@@ -48,5 +45,4 @@ class VerticalPosterUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
-
 end
