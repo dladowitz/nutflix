@@ -16,3 +16,10 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore uploader images
+uploads/
+video/
+small_cover/
+/monk.jpg
+
