@@ -18,6 +18,6 @@
 /tmp
 
 # Ignore uploader images
-public/uploads/
+public/development/
 
 
