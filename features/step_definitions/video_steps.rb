@@ -90,10 +90,12 @@ Then /^admin can add videos$/ do
   visit admin_video_path
   expect(page).to have_content "Add a New Video"
   fill_in "Title", with: "Dawn of Planet of the Apes"
-  fill_in "Description", with: "Mokeys and guns"
+  fill_in "Description", with: "Monkeys and guns"
+  fill_in "Video URL", with: "https://nutflix.s3.amazonaws.com/video_files/enemy_cat.mp4"
   click_button "Add Video"
 
   expect(page).to have_content "Dawn of Planet of the Apes"
+  page.should have_selector "a[href='https://nutflix.s3.amazonaws.com/video_files/enemy_cat.mp4']"
 
   #### TODO need to find capybara test to choose a file
 end

@@ -1,162 +1,166 @@
-# == Schema Information
-#
-# Table name: videos
-#
-#  id                     :integer          not null, primary key
-#  title                  :string(255)
-#  description            :text
-#  created_at             :datetime
-#  updated_at             :datetime
-#  category_id            :integer
-#  large_cover            :string(255)
-#  small_cover            :string(255)
-#  small_cover_processing :boolean          default(FALSE), not null
-#  large_cover_processing :boolean          default(FALSE), not null
-#  small_cover_tmp        :string(255)
-#  large_cover_tmp        :string(255)
-#
-
 ---
 iron_man:
-  id: 12
+  id: 23
   title: Iron Man
   description: Five Vermont state troopers, avid pranksters with a knack for screwing
     up, try to save their jobs and out-do the local police department by solving a
     crime
-  created_at: 2014-08-08 23:16:39.227717000 Z
-  updated_at: 2014-08-09 06:16:39.248639000 Z
-  category_id: 12
+  created_at: 2014-08-09 11:45:37.201994000 Z
+  updated_at: 2014-08-09 18:45:37.226350000 Z
+  category_id: 17
   large_cover: 
   small_cover: 
   small_cover_processing: false
   large_cover_processing: false
+  small_cover_tmp: 
+  large_cover_tmp: 
 iron_man_2:
-  id: 13
+  id: 24
   title: Iron Man 2
   description: Five Vermont state troopers, avid pranksters with a knack for screwing
     up, try to save their jobs and out-do the local police department by solving a
     crime
-  created_at: 2014-08-09 00:16:39.250653000 Z
-  updated_at: 2014-08-09 06:16:39.251679000 Z
-  category_id: 12
+  created_at: 2014-08-09 12:45:37.228427000 Z
+  updated_at: 2014-08-09 18:45:37.229396000 Z
+  category_id: 17
   large_cover: 
   small_cover: 
   small_cover_processing: false
   large_cover_processing: false
+  small_cover_tmp: 
+  large_cover_tmp: 
 iron_man_3:
-  id: 14
+  id: 25
   title: Iron Man 3
   description: Five Vermont state troopers, avid pranksters with a knack for screwing
     up, try to save their jobs and out-do the local police department by solving a
     crime
-  created_at: 2014-08-09 01:16:39.253303000 Z
-  updated_at: 2014-08-09 06:16:39.254220000 Z
-  category_id: 12
+  created_at: 2014-08-09 13:45:37.231266000 Z
+  updated_at: 2014-08-09 18:45:37.232217000 Z
+  category_id: 17
   large_cover: 
   small_cover: 
   small_cover_processing: false
   large_cover_processing: false
+  small_cover_tmp: 
+  large_cover_tmp: 
 iron_man_4:
-  id: 15
+  id: 26
   title: Iron Man 4
   description: Five Vermont state troopers, avid pranksters with a knack for screwing
     up, try to save their jobs and out-do the local police department by solving a
     crime
-  created_at: 2014-08-09 02:16:39.255730000 Z
-  updated_at: 2014-08-09 06:16:39.256524000 Z
-  category_id: 12
+  created_at: 2014-08-09 14:45:37.233989000 Z
+  updated_at: 2014-08-09 18:45:37.234916000 Z
+  category_id: 17
   large_cover: 
   small_cover: 
   small_cover_processing: false
   large_cover_processing: false
+  small_cover_tmp: 
+  large_cover_tmp: 
 iron_man_5:
-  id: 16
+  id: 27
   title: Iron Man 5
   description: Five Vermont state troopers, avid pranksters with a knack for screwing
     up, try to save their jobs and out-do the local police department by solving a
     crime
-  created_at: 2014-08-09 03:16:39.258494000 Z
-  updated_at: 2014-08-09 06:16:39.259605000 Z
-  category_id: 12
+  created_at: 2014-08-09 15:45:37.236832000 Z
+  updated_at: 2014-08-09 18:45:37.237789000 Z
+  category_id: 17
   large_cover: 
   small_cover: 
   small_cover_processing: false
   large_cover_processing: false
+  small_cover_tmp: 
+  large_cover_tmp: 
 iron_man_6:
-  id: 17
+  id: 28
   title: Iron Man 6
   description: Five Vermont state troopers, avid pranksters with a knack for screwing
     up, try to save their jobs and out-do the local police department by solving a
     crime
-  created_at: 2014-08-09 04:16:39.261517000 Z
-  updated_at: 2014-08-09 06:16:39.262488000 Z
-  category_id: 12
+  created_at: 2014-08-09 16:45:37.239763000 Z
+  updated_at: 2014-08-09 18:45:37.240688000 Z
+  category_id: 17
   large_cover: 
   small_cover: 
   small_cover_processing: false
   large_cover_processing: false
+  small_cover_tmp: 
+  large_cover_tmp: 
 iron_man_7:
-  id: 18
+  id: 29
   title: Iron Man 7
   description: Five Vermont state troopers, avid pranksters with a knack for screwing
     up, try to save their jobs and out-do the local police department by solving a
     crime
-  created_at: 2014-08-09 05:16:39.264184000 Z
-  updated_at: 2014-08-09 06:16:39.265125000 Z
-  category_id: 12
+  created_at: 2014-08-09 17:45:37.242312000 Z
+  updated_at: 2014-08-09 18:45:37.243177000 Z
+  category_id: 17
   large_cover: 
   small_cover: 
   small_cover_processing: false
   large_cover_processing: false
+  small_cover_tmp: 
+  large_cover_tmp: 
 thor:
-  id: 19
+  id: 30
   title: Thor
   description: Five Vermont state troopers, avid pranksters with a knack for screwing
     up, try to save their jobs and out-do the local police department by solving a
     crime
-  created_at: 2014-08-08 22:16:39.266846000 Z
-  updated_at: 2014-08-09 06:16:39.267656000 Z
-  category_id: 12
+  created_at: 2014-08-09 10:45:37.244711000 Z
+  updated_at: 2014-08-09 18:45:37.246251000 Z
+  category_id: 17
   large_cover: 
   small_cover: 
   small_cover_processing: false
   large_cover_processing: false
+  small_cover_tmp: 
+  large_cover_tmp: 
 thor_2:
-  id: 20
+  id: 31
   title: Thor_2
   description: Five Vermont state troopers, avid pranksters with a knack for screwing
     up, try to save their jobs and out-do the local police department by solving a
     crime
-  created_at: 2014-08-08 21:16:39.269395000 Z
-  updated_at: 2014-08-09 06:16:39.270322000 Z
-  category_id: 12
+  created_at: 2014-08-09 09:45:37.249715000 Z
+  updated_at: 2014-08-09 18:45:37.250800000 Z
+  category_id: 17
   large_cover: 
   small_cover: 
   small_cover_processing: false
   large_cover_processing: false
+  small_cover_tmp: 
+  large_cover_tmp: 
 star_trek:
-  id: 21
+  id: 32
   title: Star Trek
   description: Five Vermont state troopers, avid pranksters with a knack for screwing
     up, try to save their jobs and out-do the local police department by solving a
     crime
-  created_at: 2014-08-09 06:16:39.272953000 Z
-  updated_at: 2014-08-09 06:16:39.272953000 Z
-  category_id: 13
+  created_at: 2014-08-09 18:45:37.253542000 Z
+  updated_at: 2014-08-09 18:45:37.253542000 Z
+  category_id: 18
   large_cover: 
   small_cover: 
   small_cover_processing: false
   large_cover_processing: false
+  small_cover_tmp: 
+  large_cover_tmp: 
 flight:
-  id: 22
+  id: 33
   title: Flight
   description: Five Vermont state troopers, avid pranksters with a knack for screwing
     up, try to save their jobs and out-do the local police department by solving a
     crime
-  created_at: 2014-08-09 06:16:39.275619000 Z
-  updated_at: 2014-08-09 06:16:39.275619000 Z
-  category_id: 14
+  created_at: 2014-08-09 18:45:37.256038000 Z
+  updated_at: 2014-08-09 18:45:37.256038000 Z
+  category_id: 19
   large_cover: 
   small_cover: 
   small_cover_processing: false
   large_cover_processing: false
+  small_cover_tmp: 
+  large_cover_tmp: 
