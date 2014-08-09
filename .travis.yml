@@ -23,14 +23,14 @@ services:
 
 
 # something something keys not there
-deploy:
-  provider: heroku
-  api_key:
-    secure: Tj3Pf/LolRmu6rtWAJ+qAWfYmlu323IxbuV4rC66p8dvdbqvG9pvPHAl/CnMWFESKcZhdxVuw5wp72+wTxFpB2XyxDUTYC1XayEdO8faAhjt/2ahONfjxkFRGQ0+x+qC9vYTvLRw6Matf9W9iSoDd2f2k46TXSx4fJ5O65LJWqw=
-  app: nutflix-staging
-  on:
-    repo: dladowitz/nutflix
-  run: "rake db:migrate"
+#deploy:
+#  provider: heroku
+#  api_key:
+#    secure: Tj3Pf/LolRmu6rtWAJ+qAWfYmlu323IxbuV4rC66p8dvdbqvG9pvPHAl/CnMWFESKcZhdxVuw5wp72+wTxFpB2XyxDUTYC1XayEdO8faAhjt/2ahONfjxkFRGQ0+x+qC9vYTvLRw6Matf9W9iSoDd2f2k46TXSx4fJ5O65LJWqw=
+#  app: nutflix-staging
+#  on:
+#    repo: dladowitz/nutflix
+#  run: "rake db:migrate"
 
 
 #AWS keys
