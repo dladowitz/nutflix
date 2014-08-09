@@ -22,19 +22,23 @@ services:
 - redis-server
 
 
-#deploy:
-#  provider: heroku
-#  api_key:
-#    secure: Tj3Pf/LolRmu6rtWAJ+qAWfYmlu323IxbuV4rC66p8dvdbqvG9pvPHAl/CnMWFESKcZhdxVuw5wp72+wTxFpB2XyxDUTYC1XayEdO8faAhjt/2ahONfjxkFRGQ0+x+qC9vYTvLRw6Matf9W9iSoDd2f2k46TXSx4fJ5O65LJWqw=
-#  app: nutflix-staging
-#  on:
-#    repo: dladowitz/nutflix
+deploy:
+  provider: heroku
+  api_key:
+    secure: Tj3Pf/LolRmu6rtWAJ+qAWfYmlu323IxbuV4rC66p8dvdbqvG9pvPHAl/CnMWFESKcZhdxVuw5wp72+wTxFpB2XyxDUTYC1XayEdO8faAhjt/2ahONfjxkFRGQ0+x+qC9vYTvLRw6Matf9W9iSoDd2f2k46TXSx4fJ5O65LJWqw=
+  app: nutflix-staging
+  on:
+    repo: dladowitz/nutflix
+  env:
+    secure: KOw78GHnEgc6NclVWslcAYGiGwAXXiUfysigpimCsJPNZ7SVdIsIs6GbHpstFXtNMrKY9WG9ii4a/LFC84bbl3u2ZvIujPRVaKTThyGM1Se+IC6LZQXsof0KuYzPX37J1ObByRCuCZ+0DOSYymSortHbMGtdtg6HnzIijQf3XEc=
+
 
 #AWS keys
 env:
   secure: KOw78GHnEgc6NclVWslcAYGiGwAXXiUfysigpimCsJPNZ7SVdIsIs6GbHpstFXtNMrKY9WG9ii4a/LFC84bbl3u2ZvIujPRVaKTThyGM1Se+IC6LZQXsof0KuYzPX37J1ObByRCuCZ+0DOSYymSortHbMGtdtg6HnzIijQf3XEc=
 
 #after_success:
+#deploy to staging since autodeploy has an issue with missing keys
 #ci_success branch on github
 
 #after_failure:
