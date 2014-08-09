@@ -17,3 +17,9 @@ deploy:
   app: nutflix-staging
   on:
     repo: dladowitz/nutflix
+
+aws:
+  access_key_id:
+    secure: dTZdUKhMVMfoB7CNx2gIru3TLI6l1MTT4tM/DuZEHizKg7Q0yWYrLRRbBRMuQiwTnBPJ2x+iqyY6G48DG78F0udkJtgZObXVCm4wpi4xkr8Ug6R523tHYtNdbNfWJ4YM+RyZURo4gvCs95Wbjrkpg54nkzd9YIrDpxxM2+Bg08Y=
+  secret_access_key:
+    secure: csyqYSZaxh0wW4wi9msn/8Hsoy0m9e72IXXBmyRfhJRSYfw+Pj1Qy5OJGWJbkLEB8Wm/MOnthzIMP9D8Ssjr89XFIan1NuTHDzTcu8yAnV3CiyE4SaK+xuT5pEJenv3nziNLHDGri6myiq8vUqauXAd8LHQvAYs95m3NBPDb21k=
