@@ -13,17 +13,19 @@ Then /^they can see each category section$/ do
 end
 
 And /^they can see the six most recent videos in each category$/ do
-  page.should have_css(".action img[src$='tmp/iron_man_2.jpg']")
-  page.should have_css(".action img[src$='tmp/iron_man_3.jpg']")
-  page.should have_css(".action img[src$='tmp/iron_man_4.jpg']")
-  page.should have_css(".action img[src$='tmp/iron_man_5.jpg']")
-  page.should have_css(".action img[src$='tmp/iron_man_6.jpg']")
-  page.should have_css(".action img[src$='tmp/iron_man_7.jpg']")
+  within(".action") do
+    page.should have_css("img[alt='Iron Man 2']")
+    page.should have_css("img[alt='Iron Man 3']")
+    page.should have_css("img[alt='Iron Man 4']")
+    page.should have_css("img[alt='Iron Man 5']")
+    page.should have_css("img[alt='Iron Man 6']")
+    page.should have_css("img[alt='Iron Man 7']")
 
-  page.should_not have_css(".comedy img[src$='tmp/iron_man.jpg']")
+    page.should_not have_css("img[alt='Iron Man']")
+  end
 
-  page.should have_css(".drama img[src$='tmp/flight.jpg']")
-  page.should have_css(".scifi img[src$='tmp/star_trek.jpg']")
+  page.should have_css(".drama img[alt='Flight']")
+  page.should have_css(".scifi img[alt='Star Trek']")
 
 end
 
@@ -36,10 +38,10 @@ Then /^they see videos matching their search term$/ do
   uri = URI.parse(current_url)
   uri.path.should == search_videos_path
 
-  page.should have_css("img[src$='tmp/thor.jpg']")
-  page.should have_css("img[src$='tmp/thor_2.jpg']")
+  page.should have_css("img[alt='Thor']")
+  page.should have_css("img[alt='Thor_2']")
 
-  page.should_not have_css("img[src$='tmp/flight.jpg']")
+  page.should_not have_css("img[alt=Flight]")
 end
 
 And /^a user clicks on a category link$/ do
@@ -47,16 +49,16 @@ And /^a user clicks on a category link$/ do
 end
 
 Then /^they should see only videos from that category$/ do
-  page.should have_css("img[src$='tmp/iron_man.jpg']")
-  page.should have_css("img[src$='tmp/iron_man_2.jpg']")
-  page.should have_css("img[src$='tmp/iron_man_3.jpg']")
-  page.should have_css("img[src$='tmp/iron_man_4.jpg']")
-  page.should have_css("img[src$='tmp/iron_man_5.jpg']")
-  page.should have_css("img[src$='tmp/iron_man_6.jpg']")
-  page.should have_css("img[src$='tmp/iron_man_7.jpg']")
+  page.should have_css("img[alt='Iron Man']")
+  page.should have_css("img[alt='Iron Man 2']")
+  page.should have_css("img[alt='Iron Man 3']")
+  page.should have_css("img[alt='Iron Man 4']")
+  page.should have_css("img[alt='Iron Man 5']")
+  page.should have_css("img[alt='Iron Man 6']")
+  page.should have_css("img[alt='Iron Man 7']")
 
-  page.should_not have_css("img[src$='tmp/flight.jpg']")
-  page.should_not have_css("img[src$='tmp/star_trek.jpg']")
+  page.should_not have_css("img[alt='Flight']")
+  page.should_not have_css("img[alt='Star Trek']")
 end
 
 And /^user can review a video$/ do

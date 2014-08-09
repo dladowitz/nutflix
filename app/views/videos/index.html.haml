@@ -9,7 +9,5 @@
             - if video.small_cover_processing
               #small_cover_processing
                 = image_tag "fallback/small_cover_processing.jpg"
-              -#-elsif Rails.env.development?
-              -#  = image_tag video.small_cover.current_path
             - else
-              = image_tag video.small_cover.url
+              = image_tag video.small_cover.url, alt: "#{video.title}"
