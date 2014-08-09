@@ -22,6 +22,7 @@ services:
 - redis-server
 
 
+# something something keys not there
 deploy:
   provider: heroku
   api_key:
@@ -30,8 +31,6 @@ deploy:
   on:
     repo: dladowitz/nutflix
   run: "rake db:migrate"
-  env:
-    secure: KOw78GHnEgc6NclVWslcAYGiGwAXXiUfysigpimCsJPNZ7SVdIsIs6GbHpstFXtNMrKY9WG9ii4a/LFC84bbl3u2ZvIujPRVaKTThyGM1Se+IC6LZQXsof0KuYzPX37J1ObByRCuCZ+0DOSYymSortHbMGtdtg6HnzIijQf3XEc=
 
 
 #AWS keys
