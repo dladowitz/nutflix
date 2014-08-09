@@ -13,8 +13,9 @@
             = f.text_field :title, class: "span3"
             = f.select :category_id, options_for_select(Category.all.map{|category| [category.name, category.id]} )
             = f.text_area :description, class: "span6", rows: 8
-            = f.file_field :small_cover
-            = f.file_field :large_cover
+            = f.file_field :small_cover, label: "Small Vertical Image"
+            = f.file_field :large_cover, label: "Large Horizontal Image"
+            = f.text_field :video_url, label: "Video URL"
 
             %fieldset.actions.form-group
               = f.submit "Add Video", class: "btn btn-default"

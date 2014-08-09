@@ -1,18 +1,7 @@
-# == Schema Information
-#
-# Table name: relationships
-#
-#  id               :integer          not null, primary key
-#  followed_user_id :integer
-#  follower_id      :integer
-#  created_at       :datetime
-#  updated_at       :datetime
-#
-
 ---
 relationships_001:
-  id: 2
-  followed_user_id: 11
-  follower_id: 9
-  created_at: 2014-08-09 06:16:39.557284000 Z
-  updated_at: 2014-08-09 06:16:39.557284000 Z
+  id: 3
+  followed_user_id: 15
+  follower_id: 13
+  created_at: 2014-08-09 18:45:37.559412000 Z
+  updated_at: 2014-08-09 18:45:37.559412000 Z

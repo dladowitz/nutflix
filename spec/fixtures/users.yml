@@ -1,56 +1,41 @@
-# == Schema Information
-#
-# Table name: users
-#
-#  id              :integer          not null, primary key
-#  email_address   :string(255)
-#  password_digest :string(255)
-#  full_name       :string(255)
-#  created_at      :datetime
-#  updated_at      :datetime
-#  follower_id     :integer
-#  token           :string(255)
-#  admin           :boolean
-#
-
 ---
 james_bond:
-  id: 9
+  id: 13
   email_address: james@007.com
-  password_digest: "$2a$04$AzifMyMRWsoqfkj8pFxqxuGNzIIfWi4zbVXTqb5hsb6lPp57ru8hm"
+  password_digest: "$2a$04$nBiYho8clelJ8hp6yU630OBkZfLUTN6sMx7ThQ45GydYYEqGCuO3G"
   full_name: James Bond
-  created_at: 2014-08-09 06:16:39.212527000 Z
-  updated_at: 2014-08-09 06:16:39.212527000 Z
+  created_at: 2014-08-09 18:45:37.182432000 Z
+  updated_at: 2014-08-09 18:45:37.182432000 Z
   follower_id: 
-  token: HGhH0CylvL_Vjw
+  token: "-Hsf06Yf4W0BxA"
   admin: 
 dr_evil:
-  id: 10
+  id: 14
   email_address: dr@evil.com
-  password_digest: "$2a$04$N113vjSB4s70GxZI7NEvruUkaF/VLajEhAhXnpiUtPgi78BBn1cdK"
+  password_digest: "$2a$04$uvp.PD4AWpYkRiPOIw1XhOjT0ZPpjfR1u6/vbXFW4MnN.HvJbGCju"
   full_name: Dr Evil
-  created_at: 2014-08-09 06:16:39.217119000 Z
-  updated_at: 2014-08-09 06:16:39.217119000 Z
+  created_at: 2014-08-09 18:45:37.190455000 Z
+  updated_at: 2014-08-09 18:45:37.190455000 Z
   follower_id: 
-  token: ubaiRzttamtbiQ
+  token: l9lOsXHL7siyTA
   admin: 
 fat_bastard:
-  id: 11
+  id: 15
   email_address: baby_back_ribs@chilis
-  password_digest: "$2a$04$QsdR1mwrZjVYedpyXZ53NOnpJE3Vxj3mkV8rPuUZXRO96T1D8LZaO"
+  password_digest: "$2a$04$.pJPv/ZywsUWL8C8hm7WmeyYKXlEEU0bmtzvPzCHZ14hliK8/kJmS"
   full_name: Fat Bastard
-  created_at: 2014-08-09 06:16:39.221221000 Z
-  updated_at: 2014-08-09 06:16:39.221221000 Z
+  created_at: 2014-08-09 18:45:37.195664000 Z
+  updated_at: 2014-08-09 18:45:37.195664000 Z
   follower_id: 
-  token: v6QryCEiO0kTDQ
+  token: pMao69_rTRPFwQ
   admin: 
 admin:
-  id: 12
+  id: 16
   email_address: mr@bigglesworth.com
-  password_digest: "$2a$04$zOHEr0stD5BA1HP/FpWVQuEyo.FU3M3iTV0lrT53llq7KkSz7Vo8m"
+  password_digest: "$2a$04$n3JKGTZ4AW6hnHnGYQ6pJeCLTW6vtPCjqzgzJuBJrCgZD/Mo9jhQS"
   full_name: Mr. Bigglesworth
-  created_at: 2014-08-09 06:16:39.225874000 Z
-  updated_at: 2014-08-09 06:16:39.225874000 Z
+  created_at: 2014-08-09 18:45:37.200101000 Z
+  updated_at: 2014-08-09 18:45:37.200101000 Z
   follower_id: 
-  token: 6qJzJfYpTTX8Pw
+  token: xH8C0bdmcgRszQ
   admin: true

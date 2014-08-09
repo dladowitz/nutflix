@@ -36,13 +36,20 @@ describe Admin::VideosController do
   end
 
   describe "POST #create" do
-    subject { post :create, video: {title: "Oceans 11", category_id: 2, description: "casino games"} }
+    let(:s3_url) {" https://s3-us-west-1.amazonaws.com/nutflix/video_files/enemy_cat.mp4" }
+    subject { post :create, video: {title: "Oceans 11", category_id: 2, description: "casino games", video_url: s3_url} }
 
     context "with an admin user" do
       before { login_user users(:admin) }
 
       it "creates a new video in the database" do
         expect { subject }.to change{Video.count}.by 1
+      end
+
+      it "sets the video url correctly" do
+        subject
+        video = Video.find_by_title "Oceans 11"
+        expect(video.video_url).to eq s3_url
       end
 
       it "redirects to the video page" do

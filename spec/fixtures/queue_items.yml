@@ -1,48 +1,36 @@
-# == Schema Information
-#
-# Table name: queue_items
-#
-#  id         :integer          not null, primary key
-#  queue_rank :integer
-#  video_id   :integer
-#  user_id    :integer
-#  created_at :datetime
-#  updated_at :datetime
-#
-
 ---
 james_bonds_first_qi:
-  id: 6
+  id: 11
   queue_rank: 1
-  video_id: 12
-  user_id: 9
-  created_at: 2014-08-09 06:16:39.537858000 Z
-  updated_at: 2014-08-09 06:16:39.537858000 Z
+  video_id: 23
+  user_id: 13
+  created_at: 2014-08-09 18:45:37.540048000 Z
+  updated_at: 2014-08-09 18:45:37.540048000 Z
 james_bonds_second_qi:
-  id: 7
+  id: 12
   queue_rank: 2
-  video_id: 19
-  user_id: 9
-  created_at: 2014-08-09 06:16:39.541248000 Z
-  updated_at: 2014-08-09 06:16:39.541248000 Z
+  video_id: 30
+  user_id: 13
+  created_at: 2014-08-09 18:45:37.543447000 Z
+  updated_at: 2014-08-09 18:45:37.543447000 Z
 james_bonds_third_qi:
-  id: 8
+  id: 13
   queue_rank: 3
-  video_id: 13
-  user_id: 9
-  created_at: 2014-08-09 06:16:39.544525000 Z
-  updated_at: 2014-08-09 06:16:39.544525000 Z
+  video_id: 24
+  user_id: 13
+  created_at: 2014-08-09 18:45:37.546892000 Z
+  updated_at: 2014-08-09 18:45:37.546892000 Z
 james_bonds_fourth_qi:
-  id: 9
+  id: 14
   queue_rank: 4
-  video_id: 14
-  user_id: 9
-  created_at: 2014-08-09 06:16:39.547669000 Z
-  updated_at: 2014-08-09 06:16:39.547669000 Z
+  video_id: 25
+  user_id: 13
+  created_at: 2014-08-09 18:45:37.549923000 Z
+  updated_at: 2014-08-09 18:45:37.549923000 Z
 dr_evils_first_qi:
-  id: 10
+  id: 15
   queue_rank: 1
-  video_id: 12
-  user_id: 10
-  created_at: 2014-08-09 06:16:39.550927000 Z
-  updated_at: 2014-08-09 06:16:39.550927000 Z
+  video_id: 23
+  user_id: 14
+  created_at: 2014-08-09 18:45:37.553188000 Z
+  updated_at: 2014-08-09 18:45:37.553188000 Z

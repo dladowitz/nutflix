@@ -1,36 +1,26 @@
-# == Schema Information
-#
-# Table name: categories
-#
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#
-
 ---
 comedy:
-  id: 11
+  id: 16
   name: Comedy
-  created_at: 2014-08-09 06:16:39.180280000 Z
-  updated_at: 2014-08-09 06:16:39.180280000 Z
+  created_at: 2014-08-09 18:45:37.146485000 Z
+  updated_at: 2014-08-09 18:45:37.146485000 Z
 action:
-  id: 12
+  id: 17
   name: Action
-  created_at: 2014-08-09 06:16:39.188099000 Z
-  updated_at: 2014-08-09 06:16:39.188099000 Z
+  created_at: 2014-08-09 18:45:37.154171000 Z
+  updated_at: 2014-08-09 18:45:37.154171000 Z
 sci_fi:
-  id: 13
+  id: 18
   name: SciFi
-  created_at: 2014-08-09 06:16:39.190734000 Z
-  updated_at: 2014-08-09 06:16:39.190734000 Z
+  created_at: 2014-08-09 18:45:37.157434000 Z
+  updated_at: 2014-08-09 18:45:37.157434000 Z
 drama:
-  id: 14
+  id: 19
   name: Drama
-  created_at: 2014-08-09 06:16:39.193337000 Z
-  updated_at: 2014-08-09 06:16:39.193337000 Z
+  created_at: 2014-08-09 18:45:37.160674000 Z
+  updated_at: 2014-08-09 18:45:37.160674000 Z
 reality:
-  id: 15
+  id: 20
   name: Reality
-  created_at: 2014-08-09 06:16:39.196471000 Z
-  updated_at: 2014-08-09 06:16:39.196471000 Z
+  created_at: 2014-08-09 18:45:37.163436000 Z
+  updated_at: 2014-08-09 18:45:37.163436000 Z
