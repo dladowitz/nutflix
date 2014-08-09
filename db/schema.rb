@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140807055843) do
+ActiveRecord::Schema.define(version: 20140809061044) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(version: 20140807055843) do
     t.string   "small_cover"
     t.boolean  "small_cover_processing", default: false, null: false
     t.boolean  "large_cover_processing", default: false, null: false
+    t.string   "small_cover_tmp"
+    t.string   "large_cover_tmp"
   end
 
 end

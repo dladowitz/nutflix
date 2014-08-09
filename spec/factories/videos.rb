@@ -12,6 +12,8 @@
 #  small_cover            :string(255)
 #  small_cover_processing :boolean          default(FALSE), not null
 #  large_cover_processing :boolean          default(FALSE), not null
+#  small_cover_tmp        :string(255)
+#  large_cover_tmp        :string(255)
 #
 
 FactoryGirl.define do
