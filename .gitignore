@@ -19,5 +19,6 @@
 
 # Ignore uploader images
 public/development/
+public/uploads/
 
 

@@ -12,6 +12,8 @@
 #  small_cover            :string(255)
 #  small_cover_processing :boolean          default(FALSE), not null
 #  large_cover_processing :boolean          default(FALSE), not null
+#  small_cover_tmp        :string(255)
+#  large_cover_tmp        :string(255)
 #
 
 class Video < ActiveRecord::Base
@@ -33,10 +35,12 @@ class Video < ActiveRecord::Base
 
   # Carrierwave
   mount_uploader :small_cover, VerticalPosterUploader
-  process_in_background :small_cover
+  # Store_in_background may not work on heroku. See Docs
+  store_in_background :small_cover
 
   mount_uploader :large_cover, HorizontalPosterUploader
-  process_in_background :large_cover
+  # Store_in_background may not work on heroku. See Docs
+  store_in_background :large_cover
 
   # Class Methods
   def self.search_by_title(search_term)
