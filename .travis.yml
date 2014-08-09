@@ -14,7 +14,5 @@ deploy:
   on:
     repo: dladowitz/nutflix
 env:
-  aws_access_key_id:
-    secure: dTZdUKhMVMfoB7CNx2gIru3TLI6l1MTT4tM/DuZEHizKg7Q0yWYrLRRbBRMuQiwTnBPJ2x+iqyY6G48DG78F0udkJtgZObXVCm4wpi4xkr8Ug6R523tHYtNdbNfWJ4YM+RyZURo4gvCs95Wbjrkpg54nkzd9YIrDpxxM2+Bg08Y=
-  aws_secret_access_key:
-    secure: TWL2+yIGXoQyryuVxYr024rm4/hLEL+y1EIWInh3S2S1Xo+oszb8x6AHtF7HKEaEwuYhChEo+7xZ3hd1oduo3IP88cdEenQFV3xjmUHOTyO/WHvuIbvf3MDq25DfifB//m/r4l6wxWz6Jgm/O0NntZ8v0cnw63Y2lQwbzNP5JSc=
+  secure: dTZdUKhMVMfoB7CNx2gIru3TLI6l1MTT4tM/DuZEHizKg7Q0yWYrLRRbBRMuQiwTnBPJ2x+iqyY6G48DG78F0udkJtgZObXVCm4wpi4xkr8Ug6R523tHYtNdbNfWJ4YM+RyZURo4gvCs95Wbjrkpg54nkzd9YIrDpxxM2+Bg08Y=
+  secure: TWL2+yIGXoQyryuVxYr024rm4/hLEL+y1EIWInh3S2S1Xo+oszb8x6AHtF7HKEaEwuYhChEo+7xZ3hd1oduo3IP88cdEenQFV3xjmUHOTyO/WHvuIbvf3MDq25DfifB//m/r4l6wxWz6Jgm/O0NntZ8v0cnw63Y2lQwbzNP5JSc=
