@@ -19,6 +19,9 @@ class UsersController < ApplicationController
 
       create_relationship(invitation_token) if invitation_token.present?
 
+      #### TOOD Customer and Charge creation are being done in workers
+      # meaning a user account it always created and not had a payment verified.
+      # maybe should bring this out of workers and process inline
       create_stripe_customer if params[:stripeToken]
 
       flash[:success] = "You have successfully created an account"
