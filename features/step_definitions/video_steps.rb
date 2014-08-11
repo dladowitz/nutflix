@@ -90,14 +90,18 @@ Then /^admin can add videos$/ do
   visit admin_video_path
   expect(page).to have_content "Add a New Video"
   fill_in "Title", with: "Dawn of Planet of the Apes"
+  select "Action", from: "Category"
   fill_in "Description", with: "Monkeys and guns"
+  attach_file "Small Vertical Image", "spec/support/uploads/monk.jpg"
+  attach_file "Large Horizontal Image", "spec/support/uploads/monk_large.jpg"
+
   fill_in "Video URL", with: "https://nutflix.s3.amazonaws.com/video_files/enemy_cat.mp4"
   click_button "Add Video"
-
   expect(page).to have_content "Dawn of Planet of the Apes"
-  page.should have_selector "a[href='https://nutflix.s3.amazonaws.com/video_files/enemy_cat.mp4']"
+  expect(page).to have_selector "img[src^='/test/video/large_cover/']"   # starts with
+  expect(page).to have_selector "img[src$='/monk_large.jpg']"            # ends with
 
-  #### TODO need to find capybara test to choose a file
+  expect(page).to have_selector "a[href='https://nutflix.s3.amazonaws.com/video_files/enemy_cat.mp4']"
 end
 
 

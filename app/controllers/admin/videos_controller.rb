@@ -7,7 +7,14 @@ class Admin::VideosController < ApplicationController
   end
 
   def create
-    @video = Video.create(video_params)
+    @video = Video.new(video_params)
+
+    if Rails.env.test?
+      @video.process_large_cover_upload = true
+      @video.process_small_cover_upload = true
+    end
+
+    @video.save
     redirect_to @video
   end
 

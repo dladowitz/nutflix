@@ -16,10 +16,10 @@ class UsersController < ApplicationController
 
     if @user.save
       UserMailer.delay.welcome_email(@user)
-      if invitation_token.present?
-        invitation = find_invitation(invitation_token)
-        create_relationship(invitation, @user)
-      end
+
+      create_relationship(invitation_token) if invitation_token.present?
+
+      create_stripe_customer if params[:stripeToken]
 
       flash[:success] = "You have successfully created an account"
       redirect_to signin_path
@@ -30,19 +30,20 @@ class UsersController < ApplicationController
 
   def show
     load_user
-
   end
 
   private
 
-  def user_params
-    params.require(:user).permit(:email_address, :password, :full_name, :invitation_token)
+  def create_relationship(invitation_token)
+    invitation = find_invitation(invitation_token)
+    inviter = invitation.inviter
+
+    Relationship.create(follower: @user, followed_user: inviter)
+    Relationship.create(follower: inviter, followed_user: @user)
   end
 
-  def load_user
-    @user = User.find(params[:id])
-    @reviews = @user.reviews
-    @queue_items = @user.queue_items
+  def create_stripe_customer
+    StripeCustomerCreationWorker.perform_async(params[:stripeToken], @user.id)
   end
 
   def find_invitation(token)
@@ -53,12 +54,22 @@ class UsersController < ApplicationController
       render :new
     end
 
-    invitation
+    return invitation
   end
 
-  def create_relationship(invitation, new_user)
-    inviter = invitation.inviter
-    Relationship.create(follower: new_user, followed_user: inviter)
-    Relationship.create(follower: inviter, followed_user: new_user)
+  def load_user
+    @user = User.find(params[:id])
+    @reviews = @user.reviews
+    @queue_items = @user.queue_items
+  end
+
+  def camel_to_underscore_params(camel_params)
+    underscore_params = {}
+    camel_params.each{|key, value|  underscore_params[key.underscore.to_sym] = value}
+    underscore_params
+  end
+
+  def user_params
+    params.require(:user).permit(:email_address, :password, :full_name, :invitation_token)
   end
 end

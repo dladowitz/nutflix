@@ -32,11 +32,13 @@ feature "Invitations" do
   end
 
   def register
-    find_field("user_email_address").value.should eq "mini@me.com"
-    fill_in "user_password",   with: "asdfasdf"
-    fill_in "user_full_name",  with: "Mini Me"
+    within("#free") do
+      find_field("user_email_address").value.should eq "mini@me.com"
+      fill_in "user_password",   with: "asdfasdf"
+      fill_in "user_full_name",  with: "Mini Me"
 
-    click_button "Sign Up"
+      click_button "Sign Up for Free Account"
+    end
     expect(page).to have_content "You have successfully created an account"
 
     #### Not sure why user is not logged in at this point
