@@ -2,15 +2,16 @@
 #
 # Table name: users
 #
-#  id              :integer          not null, primary key
-#  email_address   :string(255)
-#  password_digest :string(255)
-#  full_name       :string(255)
-#  created_at      :datetime
-#  updated_at      :datetime
-#  follower_id     :integer
-#  token           :string(255)
-#  admin           :boolean
+#  id                 :integer          not null, primary key
+#  email_address      :string(255)
+#  password_digest    :string(255)
+#  full_name          :string(255)
+#  created_at         :datetime
+#  updated_at         :datetime
+#  follower_id        :integer
+#  token              :string(255)
+#  admin              :boolean
+#  stripe_customer_id :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -25,6 +26,7 @@ class User < ActiveRecord::Base
   has_many :queue_items, -> { order "queue_rank ASC" }
   has_many :reviews,     -> { order "updated_at DESC" }
   has_many :invitations, foreign_key: :inviter_id
+  has_many :charges
 
   has_many :follower_relationships, class_name: "Relationship", foreign_key: :followed_user_id
   has_many :followers,              through:    :follower_relationships,     source: :follower

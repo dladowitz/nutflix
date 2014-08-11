@@ -2,15 +2,16 @@
 #
 # Table name: users
 #
-#  id              :integer          not null, primary key
-#  email_address   :string(255)
-#  password_digest :string(255)
-#  full_name       :string(255)
-#  created_at      :datetime
-#  updated_at      :datetime
-#  follower_id     :integer
-#  token           :string(255)
-#  admin           :boolean
+#  id                 :integer          not null, primary key
+#  email_address      :string(255)
+#  password_digest    :string(255)
+#  full_name          :string(255)
+#  created_at         :datetime
+#  updated_at         :datetime
+#  follower_id        :integer
+#  token              :string(255)
+#  admin              :boolean
+#  stripe_customer_id :string(255)
 #
 
 require "faker"

@@ -18,9 +18,18 @@ describe UsersController do
     end
   end
 
+  #### TODO this test is actually calling stripe. Meaning its super slow and network dendent. Need to address
   describe "POST 'create'" do
     context "with valid input for all fields" do
-      subject { post :create, user: {email_address: "tony@stark_labs.com", password: "the_mandarin", full_name: "Tony Stark" } }
+      subject do
+        Stripe.api_key = ENV["STRIPE_SECRET_KEY"]
+        token = Stripe::Token.create( :card => { :number => "4242424242424242", :exp_month => 8, :exp_year => 2015, :cvc => "314" } )
+        post :create, stripeToken: token.id,
+                              stripeTokenType: token.type,
+                              stripeEmail: "test@test.com",
+                              user: {email_address: "tony@stark_labs.com", password: "the_mandarin", full_name: "Tony Stark" }
+      end
+
       before  { subject }
       after   { ActionMailer::Base.deliveries.clear }
 
@@ -34,6 +43,14 @@ describe UsersController do
 
       it "creates a user in the database" do
         expect(assigns(:user)).to eq User.find_by_email_address("tony@stark_labs.com")
+      end
+
+      it "sets a stripe_customer_id on the user" do
+        expect(assigns(:user).reload.stripe_customer_id).to be_present
+      end
+
+      it "creates a charge on the user" do
+        expect(assigns(:user).reload.charges.count).to eq 1
       end
 
       describe "Welcome Emails" do
@@ -106,9 +123,6 @@ describe UsersController do
         queue_items = user_2.queue_items
         expect(assigns(:queue_items).count).to eq queue_items.count
       end
-
-
     end
-
   end
 end

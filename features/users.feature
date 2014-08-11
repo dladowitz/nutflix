@@ -1,10 +1,20 @@
 Feature: Users
   Users can create accounts and log in
 
-  Scenario: User can create an account
+  Scenario:  User can choose between a free and premium account
     Given a user visits the home_path
     And   they click on the signup link
-    Then  they can create an account
+    Then  they can choose the free account link
+
+  Scenario: User can create a free account
+    Given a user visits the home_path
+    And   they click on the signup link
+    Then  they can create a free account
+
+  Scenario: User can create a paid account
+    Given a user visits the home_path
+    And   they click on the signup link
+    Then  they can create a paid account
 
   Scenario: User can log in
     Given user login

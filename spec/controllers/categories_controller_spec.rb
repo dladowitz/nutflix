@@ -4,10 +4,10 @@ describe CategoriesController do
   describe "GET 'show'" do
     subject { get :show, id: action.id }
 
-    let!(:action)     {categories(:action)}
-    let!(:iron_man)   {videos(:iron_man)}
-    let!(:iron_man_2) {videos(:iron_man_2)}
-    let!(:star_trek)  {videos(:star_trek)}
+    let!(:action)     { categories(:action) }
+    let!(:iron_man)   { videos(:iron_man) }
+    let!(:iron_man_2) { videos(:iron_man_2) }
+    let!(:star_trek)  { videos(:star_trek) }
 
     before { subject }
 
