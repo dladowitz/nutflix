@@ -2,13 +2,11 @@
   = javascript_include_tag "https://js.stripe.com/v2/"
   = javascript_include_tag "payment"
   = javascript_include_tag "register"
+
   :javascript
-    Stripe.setPublishableKey("pk_07T3vzpNsDZ1R1f6EXJUiQKC0u0qK")
+    Stripe.setPublishableKey("#{ENV['STRIPE_PUBLISHABLE_KEY']}")
 
 %section.register.container
-
-
-
   .row#premium
     .col-sm-7.col-sm-offset-1
       #signup-free-subscription.btn.btn-success
