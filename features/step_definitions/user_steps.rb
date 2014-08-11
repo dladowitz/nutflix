@@ -38,19 +38,40 @@ And /^they click on the signup link$/ do
   click_link "Sign Up Now!"
 end
 
-Then /^they can create an account$/ do
+Then /^they can create a free account$/ do
   uri = URI.parse(current_url)
   uri.path.should == register_path
 
-  fill_in "user_email_address",   with: "tony@stark_labs.com"
-  fill_in "user_password",        with: "the_mandarin"
-  fill_in "user_full_name",       with: "Tony Stark"
-  click_button "Sign Up"
+  within("#free") do
+    fill_in "user_email_address",   with: "tony@stark_labs.com"
+    fill_in "user_password",        with: "the_mandarin"
+    fill_in "user_full_name",       with: "Tony Stark"
+    click_button "Sign Up for Free Account"
+  end
 
   uri = URI.parse(current_url)
   uri.path.should == signin_path
   page.should have_content "You have successfully created an account"
+end
 
+Then /^they can create a paid account$/ do
+  uri = URI.parse(current_url)
+  uri.path.should == register_path
+
+  within("#premium") do
+    fill_in "user_email_address", with: "pepper@stark_labs.com"
+    fill_in "user_password",      with: "beach house"
+    fill_in "user_full_name",     with: "Pepper Potts"
+    fill_in "card-number",        with: "4242 4242 4242 4242"
+    fill_in "security-code",      with: "123"
+    select "January",             from: "expiry-month"
+    select "2017",                from: "expiry-year"
+    click_button "Sign Up for Premium Account"
+  end
+
+  uri = URI.parse(current_url)
+  uri.path.should == signin_path
+  page.should have_content "You have successfully created an account"
 end
 
 And /^they click on the signin link$/ do
@@ -70,5 +91,13 @@ Then /^they can see content$/ do
 
   page.should have_content user.full_name
   page.should have_content "Videos"
+end
+
+Then /^they can choose the free account link$/ do
+  # This test isn't really checking anything. Always passes as long as element are in the html
+  find("#signup-free-subscription").visible?
+  find("#signup-free-subscription").click
+  find("#signup-premium-subscription").visible?
+  find("#signup-premium-subscription").click
 end
 

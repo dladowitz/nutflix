@@ -1,41 +1,45 @@
 ---
 james_bond:
-  id: 13
+  id: 9
   email_address: james@007.com
-  password_digest: "$2a$04$nBiYho8clelJ8hp6yU630OBkZfLUTN6sMx7ThQ45GydYYEqGCuO3G"
+  password_digest: "$2a$04$hY0OCKL0BYIKD9EXhwsdFeckegvc3XF8grfPAHO/65YpbCtiXszWW"
   full_name: James Bond
-  created_at: 2014-08-09 18:45:37.182432000 Z
-  updated_at: 2014-08-09 18:45:37.182432000 Z
+  created_at: 2014-08-10 18:49:32.978757000 Z
+  updated_at: 2014-08-10 18:49:32.978757000 Z
   follower_id: 
-  token: "-Hsf06Yf4W0BxA"
+  token: ttGxN9_Af3bRzg
   admin: 
+  stripe_customer_id: 
 dr_evil:
-  id: 14
+  id: 10
   email_address: dr@evil.com
-  password_digest: "$2a$04$uvp.PD4AWpYkRiPOIw1XhOjT0ZPpjfR1u6/vbXFW4MnN.HvJbGCju"
+  password_digest: "$2a$04$w0SOgv6UlkIp9R9rKPUKV.gZS1OCNzju637Y0DQkfiAfxqu6vcH0y"
   full_name: Dr Evil
-  created_at: 2014-08-09 18:45:37.190455000 Z
-  updated_at: 2014-08-09 18:45:37.190455000 Z
+  created_at: 2014-08-10 18:49:32.983488000 Z
+  updated_at: 2014-08-10 18:49:32.983488000 Z
   follower_id: 
-  token: l9lOsXHL7siyTA
+  token: BDlzzIS8YrQDAQ
   admin: 
+  stripe_customer_id: 
 fat_bastard:
-  id: 15
+  id: 11
   email_address: baby_back_ribs@chilis
-  password_digest: "$2a$04$.pJPv/ZywsUWL8C8hm7WmeyYKXlEEU0bmtzvPzCHZ14hliK8/kJmS"
+  password_digest: "$2a$04$m7rwJ6j7xJgaYJm0ZKpAtOZCLgO1pGdYqLvBR6bQz719aAC1EYoG2"
   full_name: Fat Bastard
-  created_at: 2014-08-09 18:45:37.195664000 Z
-  updated_at: 2014-08-09 18:45:37.195664000 Z
+  created_at: 2014-08-10 18:49:32.987666000 Z
+  updated_at: 2014-08-10 18:49:32.987666000 Z
   follower_id: 
-  token: pMao69_rTRPFwQ
+  token: pvrv2Xn0MPsXFw
   admin: 
+  stripe_customer_id: 
 admin:
-  id: 16
+  id: 12
   email_address: mr@bigglesworth.com
-  password_digest: "$2a$04$n3JKGTZ4AW6hnHnGYQ6pJeCLTW6vtPCjqzgzJuBJrCgZD/Mo9jhQS"
+  password_digest: "$2a$04$Dzql38brj1HnRoaNnfeovOLZ149qsH.XwdE85LEkIoeJQypAWA0KK"
   full_name: Mr. Bigglesworth
-  created_at: 2014-08-09 18:45:37.200101000 Z
-  updated_at: 2014-08-09 18:45:37.200101000 Z
+  created_at: 2014-08-10 18:49:32.992233000 Z
+  updated_at: 2014-08-10 18:49:32.992233000 Z
   follower_id: 
-  token: xH8C0bdmcgRszQ
+  token: ep51om0GPJD9Nw
   admin: true
+  stripe_customer_id: 

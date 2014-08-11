@@ -17,6 +17,7 @@ gem "rails", "4.1.1"
 gem "sidekiq"
 gem "sinatra", require: false
 gem "slim"
+gem "stripe", :git => "https://github.com/stripe/stripe-ruby"
 gem "uglifier"
 gem "unicorn"
 
@@ -32,6 +33,7 @@ group :development do
 end
 
 group :development, :test do
+  gem "dotenv-rails"
   gem "factory_girl_rails", "~> 4.2.1"
   gem "faker"
   gem "fixture_builder"
