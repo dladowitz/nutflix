@@ -6,6 +6,8 @@
 
 # Ignore environment variable files
 .env
+/.env
+
 
 # Ignore bundler config
 /.bundle
