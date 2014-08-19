@@ -4,13 +4,44 @@ module StripeWrapper
   end
 
   class Customer
+    attr_reader :response, :status
 
-    # customer = Stripe::Customer.create(
-    #   :card => token,
-    # )
+    def initialize(response, status)
+      @status = status
+      @response = response
+    end
+
+    def self.create(token)
+      StripeWrapper.set_api_key
+
+      begin
+        response = Stripe::Customer.create(:card => token)
+        new(response, :success)
+      rescue => error
+        new(error, :failure)
+      end
+    end
+
+    def id
+      response.id
+    end
+
+    def successful?
+      status == :success
+    end
+
+    def status_message
+      if response.try(:id)
+        "Customer created with id of #{response.id}"
+      else
+        response.message
+      end
+    end
   end
 
   class Token
+    attr_reader :response, :status
+
     def initialize(response, status)
       @status = status
       @response = response
@@ -28,7 +59,24 @@ module StripeWrapper
     end
 
     def successful?
-      true
+      status == :success
+    end
+
+    def id
+      if successful?
+        response.id
+      else
+        status_message
+      end
+    end
+
+    def status_message
+      if response.try(:id)
+        "Token is #{response.id}"
+      else
+        response.message
+      end
+
     end
   end
 
@@ -48,7 +96,6 @@ module StripeWrapper
       rescue Stripe::CardError => error
         new(error, :failure)
       end
-
     end
 
     def successful?

@@ -5,7 +5,7 @@ require 'capybara/email/rspec'
 require 'rspec/rails'
 require 'capybara/rails'
 require 'sidekiq/testing'
-Sidekiq::***REMOVED***.inline!
+Sidekiq::Testing.inline!
 
 
 # require 'fixture_builder' -- automatically included
