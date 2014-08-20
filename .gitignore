@@ -8,6 +8,12 @@
 .env
 /.env
 
+# Ignore VCR cassettes
+/spec/cassettes
+
+# Ignore VCR fixtures
+/spec/fixtures
+
 # Ignore bundler config
 /.bundle
 
