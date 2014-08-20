@@ -10,7 +10,7 @@ class StripeCustomerCreationWorker
     user = User.find user_id
 
     unless Rails.env.test?
-      customer = Stripe::Customer.create(
+      customer = StripeWrapper::Customer.create(
         :card => token,
       )
     else

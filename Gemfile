@@ -57,6 +57,8 @@ group :test do
   gem "rake"          #for travis ci
   gem "selenium-webdriver", require: false
   gem "shoulda-matchers"
+  gem "vcr"
+  gem "webmock"
 end
 
 group :production do

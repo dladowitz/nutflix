@@ -8,7 +8,7 @@ class ChargeWorker
     customer_id = User.find(user_id).stripe_customer_id
 
     unless Rails.env.test?
-      charge = Stripe::Charge.create(
+      charge = StripeWrapper::Charge.create(
         :amount => amount,
         :currency => "usd",
         :customer => customer_id,

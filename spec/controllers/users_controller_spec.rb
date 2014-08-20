@@ -18,7 +18,7 @@ describe UsersController do
     end
   end
 
-  #### TODO this test is actually calling stripe. Meaning its super slow and network dendent. Need to address
+  #### TODO this test is actually calling stripe. Meaning its super slow and network dependent. Need to address
   describe "POST 'create'" do
     context "with valid input for all fields" do
       subject do
@@ -33,37 +33,37 @@ describe UsersController do
       before  { subject }
       after   { ActionMailer::Base.deliveries.clear }
 
-      it "returns http 302 redirect" do
+      it "returns http 302 redirect", :vcr => STRIPE_RECORD_MODE do
         expect(response.status).to eq 302
       end
 
-      it "redirects to the signin page" do
+      it "redirects to the signin page", :vcr => STRIPE_RECORD_MODE do
         expect(response).to redirect_to signin_path
       end
 
-      it "creates a user in the database" do
+      it "creates a user in the database", :vcr => STRIPE_RECORD_MODE do
         expect(assigns(:user)).to eq User.find_by_email_address("tony@stark_labs.com")
       end
 
-      it "sets a stripe_customer_id on the user" do
+      it "sets a stripe_customer_id on the user", :vcr => STRIPE_RECORD_MODE do
         expect(assigns(:user).reload.stripe_customer_id).to be_present
       end
 
-      it "creates a charge on the user" do
+      it "creates a charge on the user", :vcr => STRIPE_RECORD_MODE do
         expect(assigns(:user).reload.charges.count).to eq 1
       end
 
       describe "Welcome Emails" do
-        it "sends an email on user creation" do
+        it "sends an email on user creation", :vcr => STRIPE_RECORD_MODE do
           expect(ActionMailer::Base.deliveries).to_not be_empty
         end
 
-        it "send the the correct user" do
+        it "send the the correct user", :vcr => STRIPE_RECORD_MODE do
           email = ActionMailer::Base.deliveries.last
           expect(email.to).to eq ["tony@stark_labs.com"]
         end
 
-        it "has the correct content in the body" do
+        it "has the correct content in the body", :vcr => STRIPE_RECORD_MODE do
           email = ActionMailer::Base.deliveries.last
           expect(email.body).to include("Welcome Tony Stark")
         end
