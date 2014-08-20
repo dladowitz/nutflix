@@ -20,6 +20,12 @@ Myflix::Application.configure do
     :port => 5000
   }
 
-
   config.active_support.deprecation = :stderr
+
+  # Do full stripe network tests once a week
+  if Date.today.strftime("%a") == "Mon"
+    STRIPE_RECORD_MODE = { record: :all }
+  else
+    STRIPE_RECORD_MODE = { record: :once }
+  end
 end

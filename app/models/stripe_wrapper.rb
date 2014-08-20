@@ -17,7 +17,7 @@ module StripeWrapper
       begin
         response = Stripe::Customer.create(:card => token)
         new(response, :success)
-      rescue => error
+      rescue Stripe::CardError, Stripe::InvalidRequestError => error
         new(error, :failure)
       end
     end
@@ -88,12 +88,17 @@ module StripeWrapper
       @status =  status
     end
 
-    def self.create(token, amount)
+    # def self.create(token, amount)
+    def self.create(options)
       StripeWrapper::set_api_key
       begin
-        response = Stripe::Charge.create(:amount => amount, :currency => "usd", :card => token)
+        response = Stripe::Charge.create(amount: options[:amount],
+                                         currency: "usd",
+                                         card: options[:token],
+                                         customer: options[:customer_id])
+
         new(response, :success)
-      rescue Stripe::CardError => error
+      rescue Stripe::CardError, Stripe::InvalidRequestError => error
         new(error, :failure)
       end
     end
