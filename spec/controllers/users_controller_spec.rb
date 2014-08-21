@@ -18,78 +18,161 @@ describe UsersController do
     end
   end
 
-  #### TODO this test is actually calling stripe. Meaning its super slow and network dependent. Need to address
   describe "POST 'create'" do
-    context "with valid input for all fields" do
-      subject do
-        Stripe.api_key = ENV["STRIPE_SECRET_KEY"]
-        token = Stripe::Token.create( :card => { :number => "4242424242424242", :exp_month => 8, :exp_year => 2015, :cvc => "314" } )
-        post :create, stripeToken: token.id,
-                              stripeTokenType: token.type,
-                              stripeEmail: "test@test.com",
-                              user: {email_address: "tony@stark_labs.com", password: "the_mandarin", full_name: "Tony Stark" }
-      end
+    context "for a paid account" do
+      context "with valid input for all fields" do
+        subject { post :create, stripeToken: "fake_token", user: { email_address: "tony@stark.com", password: "mandarin", full_name: "Tony Stark"} }
 
-      before  { subject }
-      after   { ActionMailer::Base.deliveries.clear }
+        let!(:success_response) { double("stripe response", successful?: true, status_message: "Card charged 100 cents" ) }
+        before { StripeWrapper::Charge.stub(:create).and_return(success_response) }
 
-      it "returns http 302 redirect", :vcr => STRIPE_RECORD_MODE do
-        expect(response.status).to eq 302
-      end
+        after { ActionMailer::Base.deliveries.clear }
 
-      it "redirects to the signin page", :vcr => STRIPE_RECORD_MODE do
-        expect(response).to redirect_to signin_path
-      end
+        it "creates a user" do
+          expect { subject }.to change{User.count}.by 1
+        end
 
-      it "creates a user in the database", :vcr => STRIPE_RECORD_MODE do
-        expect(assigns(:user)).to eq User.find_by_email_address("tony@stark_labs.com")
-      end
+        it "redirects to the sign-in page" do
+          expect(subject).to redirect_to signin_path
+        end
 
-      it "sets a stripe_customer_id on the user", :vcr => STRIPE_RECORD_MODE do
-        expect(assigns(:user).reload.stripe_customer_id).to be_present
-      end
-
-      it "creates a charge on the user", :vcr => STRIPE_RECORD_MODE do
-        expect(assigns(:user).reload.charges.count).to eq 1
-      end
-
-      describe "Welcome Emails" do
-        it "sends an email on user creation", :vcr => STRIPE_RECORD_MODE do
+        it "sends a welcome email" do
+          subject
           expect(ActionMailer::Base.deliveries).to_not be_empty
         end
 
-        it "send the the correct user", :vcr => STRIPE_RECORD_MODE do
+        it "sends to the correct user" do
+          subject
           email = ActionMailer::Base.deliveries.last
-          expect(email.to).to eq ["tony@stark_labs.com"]
+          expect(email.to).to eq ["tony@stark.com"]
         end
 
-        it "has the correct content in the body", :vcr => STRIPE_RECORD_MODE do
+        it "has the correct content in the body" do
+          subject
           email = ActionMailer::Base.deliveries.last
           expect(email.body).to include("Welcome Tony Stark")
+        end
+
+        it "calls StripeWrapper::Charge" do
+          StripeWrapper::Charge.should_receive(:create).with(token: "fake_token", amount: 2000)
+          subject
+        end
+      end
+
+      context "with invalid card number" do
+        subject { post :create, stripeToken: "fake_token", user: { email_address: "tony@stark.com", password: "mandarin", full_name: "Tony Stark"} }
+
+        let!(:failure_response) { double("stripe response", successful?: false, status_message: "Your card was declined." ) }
+        before { StripeWrapper::Charge.stub(:create).and_return(failure_response) }
+        after  { ActionMailer::Base.deliveries.clear }
+
+        it "does NOT create a new user in the db" do
+          expect { subject }.not_to change{User.count}
+        end
+
+        it "renders the new template" do
+          expect(subject).to render_template :new
+        end
+
+        it "calls StripeWrapper::Charge" do
+          StripeWrapper::Charge.should_receive(:create).with(token: "fake_token", amount: 2000)
+          subject
+        end
+
+        it "does NOT send a welcome email" do
+          subject
+          expect(ActionMailer::Base.deliveries).to be_empty
+        end
+      end
+
+      context "with expired card" do
+        #### Pretty sure you can't submit an expired card via stripe's JS library. Meaning it'll never post to the rails server.
+      end
+
+      context "with invalid user info" do
+        let!(:success_response) { double("stripe response", successful?: true, status_message: "Card charged 100 cents" ) }
+        before { StripeWrapper::Charge.stub(:create).and_return(success_response) }
+
+        after { ActionMailer::Base.deliveries.clear }
+
+        context "with missing email" do
+          subject { post :create, stripeToken: "fake_token", user: { email_address: nil, password: "mandarin", full_name: "Tony Stark"} }
+
+          it "does NOT create a user" do
+            expect { subject }.to_not change{User.count}
+          end
+
+          it "does Not call StripeWrapper:Charge" do
+            StripeWrapper::Charge.should_not_receive(:create)
+            subject
+          end
+
+          it "does NOT send a welcome email" do
+            subject
+            expect(ActionMailer::Base.deliveries).to be_empty
+          end
+        end
+
+        context "with missing password" do
+          subject { post :create, stripeToken: "fake_token", user: { email_address: "tony@stark.com", password: nil, full_name: "Tony Stark"} }
+
+          it "does NOT create a user" do
+            expect { subject }.to_not change{User.count}
+          end
+
+          it "does Not call StripeWrapper:Charge" do
+            StripeWrapper::Charge.should_not_receive(:create)
+            subject
+          end
+
+          it "does NOT send a welcome email" do
+            subject
+            expect(ActionMailer::Base.deliveries).to be_empty
+          end
+        end
+
+        context "with missing full name" do
+          subject { post :create, stripeToken: "fake_token", user: { email_address: "tony@stark.com", password: "mandarin", full_name: nil} }
+
+          it "does NOT create a user" do
+            expect { subject }.to_not change{User.count}
+          end
+
+          it "does Not call StripeWrapper:Charge" do
+            StripeWrapper::Charge.should_not_receive(:create)
+            subject
+          end
+
+          it "does NOT send a welcome email" do
+            subject
+            expect(ActionMailer::Base.deliveries).to be_empty
+          end
         end
       end
     end
 
-    context "with invalid inputs" do
-      subject { post :create, user: { email_address: nil, password: nil, full_name: nil } }
-      after   { ActionMailer::Base.deliveries.clear }
+    context "for a free account" do
+      context "with invalid inputs" do
+        subject { post :create, user: { email_address: nil, password: nil, full_name: nil } }
+        after   { ActionMailer::Base.deliveries.clear }
 
-      it "renders the new template" do
-        expect(subject).to render_template :new
-      end
+        it "renders the new template" do
+          expect(subject).to render_template :new
+        end
 
-      it "sets @user" do
-        subject
-        expect(assigns(:user)).to be_instance_of(User)
-      end
+        it "sets @user" do
+          subject
+          expect(assigns(:user)).to be_instance_of(User)
+        end
 
-      it "does not create a record in the database" do
-        expect { subject }.to_not change{User.count}
-      end
+        it "does not create a record in the database" do
+          expect { subject }.to_not change{User.count}
+        end
 
-      it "does not sent out an email" do
-        subject
-        expect(ActionMailer::Base.deliveries).to be_empty
+        it "does not sent out an email" do
+          subject
+          expect(ActionMailer::Base.deliveries).to be_empty
+        end
       end
     end
   end

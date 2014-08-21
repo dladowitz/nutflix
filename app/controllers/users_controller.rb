@@ -12,22 +12,35 @@ class UsersController < ApplicationController
 
   def create
     invitation_token = user_params[:invitation_token]
+
     @user = User.new(user_params.slice(:email_address, :password, :full_name))
 
-    if @user.save
-      UserMailer.delay.welcome_email(@user)
+    ActiveRecord::Base.transaction do
+      if @user.save
 
-      create_relationship(invitation_token) if invitation_token.present?
+        # move this to a method
+        response = StripeWrapper::Charge.create(token: params[:stripeToken], amount: 2000)
+        unless response.successful?
+          flash[:error] = "You're card did not go through, perhaps it's stolen?"
+          begin
+            #### This should rollback the user creation, but it's not working
+            raise "Stripe Failed"
+          rescue Exception => e
+            binding.pry
 
-      #### TOOD Customer and Charge creation are being done in workers
-      # meaning a user account it always created and not had a payment verified.
-      # maybe should bring this out of workers and process inline
-      create_stripe_customer if params[:stripeToken]
+            render :new and return
+          end
+        end
 
-      flash[:success] = "You have successfully created an account"
-      redirect_to signin_path
-    else
-      render :new
+        UserMailer.delay.welcome_email(@user)
+
+        create_relationship(invitation_token) if invitation_token.present?
+
+        flash[:success] = "You have successfully created an account"
+        redirect_to signin_path
+      else
+        render :new
+      end
     end
   end
 

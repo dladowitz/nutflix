@@ -89,6 +89,7 @@ module StripeWrapper
     end
 
     def self.create(options)
+      binding.pry
       StripeWrapper::set_api_key
       begin
         response = Stripe::Charge.create(amount: options[:amount],

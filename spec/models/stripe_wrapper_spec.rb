@@ -1,5 +1,11 @@
 require "spec_helper"
 
+describe StripeWrapper, "#set_api_key" do
+  it "returns the secret key", :vcr => STRIPE_RECORD_MODE do
+    expect(StripeWrapper.set_api_key).to eq ENV["STRIPE_SECRET_KEY"]
+  end
+end
+
 describe StripeWrapper::Customer, "#create" do
   let(:token)  { StripeWrapper::Token.create({ number: "4242424242424242", exp_month: 8, exp_year: 2015, cvc: "314" }).id }
   subject { StripeWrapper::Customer.create(token) }
@@ -40,12 +46,6 @@ describe StripeWrapper::Customer, "#create" do
     it "returns a message", :vcr => STRIPE_RECORD_MODE do
       expect(subject.status_message).to match "Your card's expiration year is invalid"
     end
-  end
-end
-
-describe StripeWrapper, "#set_api_key" do
-  it "returns the secret key", :vcr => STRIPE_RECORD_MODE do
-    expect(StripeWrapper.set_api_key).to eq ENV["STRIPE_SECRET_KEY"]
   end
 end
 
