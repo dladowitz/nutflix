@@ -15,32 +15,26 @@ class UsersController < ApplicationController
 
     @user = User.new(user_params.slice(:email_address, :password, :full_name))
 
-    ActiveRecord::Base.transaction do
-      if @user.save
-
-        # move this to a method
+    if @user.valid?
+      #### Cant move this to a method as it needs to return on failure
+      if params[:stripeToken]
         response = StripeWrapper::Charge.create(token: params[:stripeToken], amount: 2000)
         unless response.successful?
-          flash[:error] = "You're card did not go through, perhaps it's stolen?"
-          begin
-            #### This should rollback the user creation, but it's not working
-            raise "Stripe Failed"
-          rescue Exception => e
-            binding.pry
-
-            render :new and return
-          end
+          flash[:danger] = "You're card did not go through, perhaps it's stolen?"
+          render :new and return
         end
-
-        UserMailer.delay.welcome_email(@user)
-
-        create_relationship(invitation_token) if invitation_token.present?
-
-        flash[:success] = "You have successfully created an account"
-        redirect_to signin_path
-      else
-        render :new
       end
+
+      @user.save
+      UserMailer.delay.welcome_email(@user)
+
+      create_relationship(invitation_token) if invitation_token.present?
+
+      flash[:success] = "You have successfully created an account"
+      redirect_to signin_path
+    else
+      flash[:danger] = "Missing Personal Info"
+      render :new
     end
   end
 

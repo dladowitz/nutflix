@@ -26,7 +26,7 @@ describe UsersController do
         let!(:success_response) { double("stripe response", successful?: true, status_message: "Card charged 100 cents" ) }
         before { StripeWrapper::Charge.stub(:create).and_return(success_response) }
 
-        after { ActionMailer::Base.deliveries.clear }
+        before { ActionMailer::Base.deliveries.clear }
 
         it "creates a user" do
           expect { subject }.to change{User.count}.by 1
@@ -64,7 +64,7 @@ describe UsersController do
 
         let!(:failure_response) { double("stripe response", successful?: false, status_message: "Your card was declined." ) }
         before { StripeWrapper::Charge.stub(:create).and_return(failure_response) }
-        after  { ActionMailer::Base.deliveries.clear }
+        before  { ActionMailer::Base.deliveries.clear }
 
         it "does NOT create a new user in the db" do
           expect { subject }.not_to change{User.count}
@@ -93,7 +93,7 @@ describe UsersController do
         let!(:success_response) { double("stripe response", successful?: true, status_message: "Card charged 100 cents" ) }
         before { StripeWrapper::Charge.stub(:create).and_return(success_response) }
 
-        after { ActionMailer::Base.deliveries.clear }
+        before { ActionMailer::Base.deliveries.clear }
 
         context "with missing email" do
           subject { post :create, stripeToken: "fake_token", user: { email_address: nil, password: "mandarin", full_name: "Tony Stark"} }
@@ -110,6 +110,11 @@ describe UsersController do
           it "does NOT send a welcome email" do
             subject
             expect(ActionMailer::Base.deliveries).to be_empty
+          end
+
+          it "sets the flash error message" do
+            subject
+            expect(flash[:danger]).to eq "Missing Personal Info"
           end
         end
 
@@ -154,7 +159,7 @@ describe UsersController do
     context "for a free account" do
       context "with invalid inputs" do
         subject { post :create, user: { email_address: nil, password: nil, full_name: nil } }
-        after   { ActionMailer::Base.deliveries.clear }
+        before   { ActionMailer::Base.deliveries.clear }
 
         it "renders the new template" do
           expect(subject).to render_template :new
