@@ -10,6 +10,7 @@
 
 # Ignore VCR cassettes
 /spec/cassettes
+/features/cassettes
 
 # Ignore VCR fixtures
 /spec/fixtures

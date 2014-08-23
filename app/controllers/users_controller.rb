@@ -14,13 +14,12 @@ class UsersController < ApplicationController
     invitation_token = user_params[:invitation_token]
 
     @user = User.new(user_params.slice(:email_address, :password, :full_name))
-
     if @user.valid?
       #### Cant move this to a method as it needs to return on failure
       if params[:stripeToken]
         response = StripeWrapper::Charge.create(token: params[:stripeToken], amount: 2000)
         unless response.successful?
-          flash[:danger] = "You're card did not go through, perhaps it's stolen?"
+          flash[:danger] = response.status_message
           render :new and return
         end
       end
