@@ -8,6 +8,7 @@ describe JavascriptTestsController, "GET #show" do
   end
 
   it "returns success" do
-    expect(subject.response).to eq 200
+    subject
+    expect(response.code).to eq "200"
   end
 end

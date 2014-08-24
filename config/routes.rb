@@ -25,6 +25,7 @@ Myflix::Application.routes.draw do
   resources :categories,           only: [:show]
   resources :queue_items,          only: [:create, :destroy]
   resources :relationships,        only: [:index, :create, :destroy]
+  resource  :javascript_tests,     only: :show
 
   get   :password_reset_requests,  to: "password_reset_requests#new",    as: :password_reset_request
   post  :password_reset_requests,  to: "password_reset_requests#create", as: :password_reset_requests
@@ -43,5 +44,4 @@ Myflix::Application.routes.draw do
       post :search,                  to: "videos#search"
     end
   end
-
 end
