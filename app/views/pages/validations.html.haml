@@ -1,0 +1,31 @@
+= javascript_include_tag "validations"
+
+%table
+  %tr
+    %td
+      First Name
+    %td
+      %input{type:"text", id:"first", onchange:"validFirst()"}
+    %td
+      %span{id:"firstError"}
+  %tr
+    %td
+      Last Name
+    %td
+      %input{type:"text", id:"last", onchange:"validLast()"}
+    %td
+      %span{id:"lastError"}
+  %tr
+    %td
+      Email
+    %td
+      %input{type:"text", id:"email", onchange:"validEmail()"}
+    %td
+      %span{id:"emailError"}
+  %tr
+    %td
+      Phone
+    %td
+      %input{type:"text", id:"phone", onchange:"validPhone()"}
+    %td
+      %span{id:"PhoneError"}
