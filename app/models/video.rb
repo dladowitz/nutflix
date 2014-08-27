@@ -57,4 +57,8 @@ class Video < ActiveRecord::Base
       "No Reviews Yet"
     end
   end
+
+  def decorate
+    VideoDecorator.new(self)
+  end
 end
