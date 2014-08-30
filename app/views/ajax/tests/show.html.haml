@@ -1,0 +1,41 @@
+:javascript
+  var xmlhttp;
+
+  function getQuote(){
+    console.log("getting quote");
+
+    //$.get("/ajax/tests/",function(data,status){
+    //  alert("Data: " + data + "\nStatus: " + status);
+    //});
+
+    //$.ajax({url:"/ajax/tests/", success:(callback(data))});
+    //
+    //$.ajax(url: "/ajax/tests").done (html) ->
+    //  $(".ajaxed").append html
+
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = callback;
+
+    var url = "/ajax/tests/phrases";
+      xmlhttp.open("GET", url, true);
+      //xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xmlhttp.send()
+  }
+
+  function callback(){
+    console.log(xmlhttp.responseText);
+    if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+      $(".ajaxed").html(xmlhttp.responseText);
+    }
+  }
+
+-#%span.original{style:"border:1px solid black; padding:5px"}
+-#  = @phrases.sample
+
+.ajaxed{style:"background:skyblue; min-height:30px; width:200px; margin-bottom:20px"}
+  Replace Me
+
+%input{type: "button", value: "Get Quote", onclick: "getQuote()", class: "btn btn-primary"}
+-#= link_to "get thing", "/ajax/tests", remote: true
+
+
