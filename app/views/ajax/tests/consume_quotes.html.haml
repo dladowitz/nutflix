@@ -1,0 +1,28 @@
+:javascript
+  $(document).ready(
+    function(){
+      $("#find-button").click(
+        function(){
+          var number = $("#quote-num").val();
+          $.ajax({
+            url: "/ajax/tests/quotes?quote_num=" + number,
+            success: function(result){
+              $("#result").html(result);
+            },
+            error: function(error){
+              $("#result").html(error);
+            }
+          });
+        }
+      );
+    }
+  );
+
+%h1 Ajax Request usin Jquery
+
+
+
+%label{for:"quote-num"}Quote Number
+%input{type:"text", id:"quote-num"}
+%input{type:"button", value:"find", class:"btn btn-danger", id:"find-button"}
+#result{style:"height:30px; width:200px; background:skyblue"}

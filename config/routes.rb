@@ -41,6 +41,11 @@ Myflix::Application.routes.draw do
   namespace :ajax do
     get  "tests/phrases",          to: "tests#phrases"
     get  "tests/show",             to: "tests#show"
+    get  "tests/videos",           to: "tests#videos"
+    post "tests/videos",           to: "tests#videos"
+    get  "tests/consume_videos",   to: "tests#consume_videos"
+    get  "tests/quotes",           to: "tests#quotes"
+    get  "tests/consume_quotes",   to: "tests#consume_quotes"
   end
 
   resources :videos,               only: [:show, :index] do

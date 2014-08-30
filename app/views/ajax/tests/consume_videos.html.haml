@@ -1,0 +1,31 @@
+:javascript
+  var xmlhttp;
+
+  function getVideos(){
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = displayVideos;
+
+    var videoId = $("#video-id").val()
+    var url = "/ajax/tests/videos?video_id=" + videoId;
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+  }
+
+  function displayVideos(){
+    if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+      console.log(xmlhttp.responseText);
+      $(".videos").html(xmlhttp.responseText);
+    }
+  }
+
+
+%input{type:"text", id:"video-id"}
+
+.videos{style:"height:30px; width:200px; background:skyblue"}
+%input{type:"button", onclick:"getVideos()", value:"Get Videos", class:"btn btn-info"}
+
+
+-#= form_tag "/ajax/tests/videos", remote: true do
+-#  = label_tag :video_id
+-#  = text_field_tag :video_id
+-#  = submit_tag :find
